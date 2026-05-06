@@ -32,15 +32,23 @@ document.querySelector('#app').innerHTML = `
     </header>
 
     <!-- Hero -->
-    <section class="max-w-7xl mx-auto px-6 py-24">
+<section class="relative overflow-hidden">
 
-      <div class="max-w-3xl">
+  <!-- Background glow -->
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 blur-3xl rounded-full"></div>
 
-        <p class="text-orange-500 font-semibold mb-4">
+  <div class="max-w-7xl mx-auto px-6 py-28 relative z-10">
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left -->
+      <div>
+
+        <p class="text-orange-500 font-semibold mb-5 tracking-widest">
           IN SÁNG TẠO
         </p>
 
-        <h2 class="text-5xl md:text-7xl font-bold leading-tight mb-8">
+        <h2 class="text-5xl md:text-7xl font-black leading-tight mb-8">
           Thiết kế,
           <br>
           In ấn &
@@ -48,26 +56,92 @@ document.querySelector('#app').innerHTML = `
           Quảng cáo
         </h2>
 
-        <p class="text-gray-400 text-lg leading-relaxed mb-10">
-          Giải pháp thiết kế, in ấn và thi công quảng cáo chuyên nghiệp
-          cho doanh nghiệp, cửa hàng và cơ quan tại Trà Vinh và khu vực lân cận.
+        <p class="text-gray-400 text-xl leading-relaxed mb-10 max-w-2xl">
+          Giải pháp thiết kế, in ấn và thi công quảng cáo
+          chuyên nghiệp cho doanh nghiệp, cửa hàng
+          và cơ quan tại Trà Vinh và khu vực lân cận.
         </p>
 
         <div class="flex flex-wrap gap-4">
 
-          <button class="bg-orange-500 hover:bg-orange-600 transition px-8 py-4 rounded-xl font-semibold">
+          <button class="bg-orange-500 hover:bg-orange-600 transition px-8 py-4 rounded-xl font-semibold text-lg">
             Xem sản phẩm
           </button>
 
-          <button class="border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-semibold">
+          <button class="border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-semibold text-lg">
             Liên hệ tư vấn
           </button>
 
         </div>
 
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-16">
+
+          <div>
+            <h3 class="text-3xl font-bold text-orange-500 mb-2">
+              10+
+            </h3>
+
+            <p class="text-gray-400 text-sm">
+              Năm kinh nghiệm
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-3xl font-bold text-orange-500 mb-2">
+              1000+
+            </h3>
+
+            <p class="text-gray-400 text-sm">
+              Công trình
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-3xl font-bold text-orange-500 mb-2">
+              500m²
+            </h3>
+
+            <p class="text-gray-400 text-sm">
+              Xưởng sản xuất
+            </p>
+          </div>
+
+        </div>
+
       </div>
 
-    </section>
+      <!-- Right -->
+      <div>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl">
+
+          <div class="aspect-[4/5] bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+
+            <div class="text-center">
+
+              <div class="text-orange-500 text-7xl mb-6">
+                IST
+              </div>
+
+              <p class="text-gray-400">
+                Hình ảnh công trình / xưởng sản xuất
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+    
 
     <!-- Năng lực -->
     <section class="border-t border-gray-900">
@@ -153,8 +227,14 @@ document.querySelector('#app').innerHTML = `
 
         <div class="grid md:grid-cols-3 gap-6">
 
-          <div class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition">
-            <div class="h-56 bg-zinc-800"></div>
+          <div class="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition duration-300 hover:-translate-y-2">
+            <div class="h-56 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+
+               <p class="text-orange-500 text-3xl font-bold opacity-30 group-hover:opacity-100 transition">
+                 IST
+                </p>
+
+            </div>
 
             <div class="p-8">
               <h4 class="text-2xl font-bold mb-4">
@@ -168,8 +248,14 @@ document.querySelector('#app').innerHTML = `
             </div>
           </div>
 
-          <div class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition">
-            <div class="h-56 bg-zinc-800"></div>
+          <div class="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition duration-300 hover:-translate-y-2">
+            <div class="h-56 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+
+              <p class="text-orange-500 text-3xl font-bold opacity-30 group-hover:opacity-100 transition">
+                 IST
+             </p>
+
+            </div>
 
             <div class="p-8">
               <h4 class="text-2xl font-bold mb-4">
@@ -183,8 +269,14 @@ document.querySelector('#app').innerHTML = `
             </div>
           </div>
 
-          <div class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition">
-            <div class="h-56 bg-zinc-800"></div>
+          <div class="group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition duration-300 hover:-translate-y-2">
+            <div class="h-56 bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+
+              <p class="text-orange-500 text-3xl font-bold opacity-30 group-hover:opacity-100 transition">
+                IST
+              </p>
+
+              </div>
 
             <div class="p-8">
               <h4 class="text-2xl font-bold mb-4">
