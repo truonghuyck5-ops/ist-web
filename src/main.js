@@ -30,6 +30,9 @@ document.querySelector('#app').innerHTML = `
         </div>
 
         <nav class="hidden md:flex gap-8 text-sm">
+         <button class="md:hidden text-3xl">
+           ☰
+          </button>
           <a href="#" class="hover:text-orange-500 transition">Trang chủ</a>
           <a href="#" class="hover:text-orange-500 transition">Sản phẩm</a>
           <a href="#" class="hover:text-orange-500 transition">Công trình</a>
