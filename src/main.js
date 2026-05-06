@@ -7,14 +7,26 @@ document.querySelector('#app').innerHTML = `
     <header class="border-b border-gray-800 sticky top-0 bg-black/90 backdrop-blur z-50">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-        <div>
-          <h1 class="text-2xl font-bold text-orange-500">
-            IST
-          </h1>
+        <div class="flex items-center gap-4">
 
-          <p class="text-sm text-gray-400">
-            Thiết kế - In ấn - Quảng cáo
-          </p>
+          <img
+            src="/images/logo-ist.png"
+            alt="IST Logo"
+            class="w-14 h-14 object-contain"
+          >
+
+          <div>
+
+            <h1 class="text-2xl font-bold text-orange-500">
+              IST
+            </h1>
+
+            <p class="text-sm text-gray-400">
+              Thiết kế - In ấn - Quảng cáo
+            </p>
+
+          </div>
+
         </div>
 
         <nav class="hidden md:flex gap-8 text-sm">
@@ -296,10 +308,118 @@ document.querySelector('#app').innerHTML = `
 
     </section>
 
-    <!-- CTA -->
+      <!-- Công trình -->
+
     <section class="border-t border-gray-900">
 
-      <div class="max-w-5xl mx-auto px-6 py-24 text-center">
+      <div class="max-w-7xl mx-auto px-6 py-24">
+
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+
+          <div>
+            <p class="text-orange-500 font-semibold mb-3">
+              CÔNG TRÌNH THỰC TẾ
+            </p>
+
+            <h3 class="text-4xl font-bold leading-tight">
+              Năng lực thực tế
+              <br>
+              từ xưởng sản xuất IST
+            </h3>
+          </div>
+
+          <p class="text-gray-400 max-w-xl leading-relaxed">
+            Các công trình bảng hiệu, in ấn và thi công
+            được thực hiện trực tiếp bởi đội ngũ IST.
+          </p>
+
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+
+          <!-- Item -->
+          <div class="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900">
+
+            <div class="aspect-[4/5] bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center overflow-hidden">
+
+              <p class="text-orange-500 text-4xl font-black opacity-20 group-hover:scale-125 transition duration-500">
+                BẢNG HIỆU
+              </p>
+
+            </div>
+
+            <div class="p-6">
+              <h4 class="text-2xl font-bold mb-3">
+                Thi công bảng hiệu
+              </h4>
+
+              <p class="text-gray-400">
+                Mặt dựng alu, hộp đèn,
+                chữ nổi và bảng hiệu quảng cáo.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Item -->
+          <div class="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900">
+
+            <div class="aspect-[4/5] bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center overflow-hidden">
+
+              <p class="text-orange-500 text-4xl font-black opacity-20 group-hover:scale-125 transition duration-500">
+                TEM NHÃN
+              </p>
+
+            </div>
+
+            <div class="p-6">
+              <h4 class="text-2xl font-bold mb-3">
+                In tem nhãn
+              </h4>
+
+              <p class="text-gray-400">
+                Tem sản phẩm, sticker,
+                decal và nhãn thương hiệu.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Item -->
+          <div class="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900">
+
+            <div class="aspect-[4/5] bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center overflow-hidden">
+
+              <p class="text-orange-500 text-4xl font-black opacity-20 group-hover:scale-125 transition duration-500">
+                XƯỞNG IST
+              </p>
+
+            </div>
+
+            <div class="p-6">
+              <h4 class="text-2xl font-bold mb-3">
+                Xưởng sản xuất
+              </h4>
+
+              <p class="text-gray-400">
+                Chủ động máy móc và nhân sự
+                để sản xuất nhanh và ổn định.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="border-t border-gray-900 relative overflow-hidden">
+
+      <div class="absolute inset-0 bg-orange-500/5 blur-3xl"></div>
+      <div class="max-w-5xl mx-auto px-6 py-24 text-center relative z-10">
 
         <p class="text-orange-500 font-semibold mb-4">
           LIÊN HỆ IST
@@ -333,28 +453,76 @@ document.querySelector('#app').innerHTML = `
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-900">
+    <footer class="border-t border-gray-900 bg-zinc-950">
 
-      <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-8">
+      <div class="max-w-7xl mx-auto px-6 py-16">
 
-        <div>
-          <h4 class="text-2xl font-bold text-orange-500 mb-3">
-            IST
-          </h4>
+        <div class="grid md:grid-cols-4 gap-10">
 
-          <p class="text-gray-400 leading-relaxed">
-            Thiết kế - In ấn - Quảng cáo
-            <br>
-            Trà Vinh
-          </p>
+          <!-- Brand -->
+          <div class="md:col-span-2">
+
+            <h4 class="text-3xl font-bold text-orange-500 mb-4">
+              IST
+            </h4>
+
+            <p class="text-gray-400 leading-relaxed max-w-md">
+              Công ty thiết kế, in ấn và quảng cáo
+              chuyên cung cấp giải pháp truyền thông
+              và nhận diện thương hiệu cho doanh nghiệp.
+            </p>
+
+          </div>
+
+          <!-- Menu -->
+          <div>
+
+            <h5 class="font-bold mb-5">
+              Dịch vụ
+            </h5>
+
+            <div class="space-y-3 text-gray-400">
+
+              <p>Tem nhãn</p>
+              <p>Bảng hiệu</p>
+              <p>In túi xốp</p>
+              <p>Thi công quảng cáo</p>
+
+            </div>
+
+          </div>
+
+          <!-- Contact -->
+          <div>
+
+            <h5 class="font-bold mb-5">
+              Liên hệ
+            </h5>
+
+            <div class="space-y-3 text-gray-400 leading-relaxed">
+
+              <p>
+                93 Trần Thành Đại
+                <br>
+                TT. Cầu Ngang
+              </p>
+
+              <p>
+                0974 31 32 30
+              </p>
+
+              <p>
+                insangtao.net
+              </p>
+
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="text-gray-400 text-sm leading-relaxed">
-          93 Trần Thành Đại, TT. Cầu Ngang
-          <br>
-          0974 31 32 30
-          <br>
-          insangtao.net
+        <div class="border-t border-zinc-800 mt-14 pt-8 text-gray-500 text-sm">
+          © 2026 IST - In Sáng Tạo
         </div>
 
       </div>
