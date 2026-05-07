@@ -32,6 +32,7 @@ export function TemNhanGallery() {
                   alt="Tem nhãn"
                   loading="lazy"
                   data-lightbox
+                  decoding="async"
                   class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                 />
 

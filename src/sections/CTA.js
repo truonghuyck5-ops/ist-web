@@ -1,5 +1,6 @@
 import { Button } from '../components/Button'
 import { SectionTitle } from '../components/SectionTitle'
+import { trackEvent } from '../utils/tracking'
 
 export function CTA() {
   return `
@@ -24,12 +25,14 @@ export function CTA() {
 
                 ${Button({
                     text: 'Gọi ngay',
-                    variant: 'primary'
+                    variant: 'primary',
+                    onClick: () => trackEvent('click_call', { location: 'cta_section' })
                 })}
 
                 ${Button({
                     text: 'Chat Zalo',
-                    variant: 'outline'
+                    variant: 'outline',
+                    onClick: () => trackEvent('click_zalo', { location: 'cta_section' })
                 })}
 
             </div>

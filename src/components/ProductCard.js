@@ -15,6 +15,7 @@ export function ProductCard({
           src="${image}"
           alt="${title}"
           loading="lazy"
+          decoding="async"
           class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
         />
       </div>
