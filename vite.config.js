@@ -9,6 +9,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         temNhan: resolve(__dirname, 'tem-nhan.html'),
+        bangHieu: resolve(__dirname, 'bang-hieu.html'),
+        comboMoQuan: resolve(__dirname, 'combo-mo-quan.html'),
       },
     },
   },

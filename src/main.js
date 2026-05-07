@@ -12,6 +12,8 @@ import { Gallery } from './sections/Gallery'
 import { CTA } from './sections/CTA'
 import { Footer } from './sections/Footer'
 
+import { initLightbox } from './components/Lightbox'
+
 
 document.querySelector('#app').innerHTML = `
   <div class="bg-black text-white">
@@ -44,3 +46,4 @@ document.querySelector('#app').innerHTML = `
 `
 
     initFadeIn()
+    initLightbox()

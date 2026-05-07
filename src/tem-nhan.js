@@ -17,6 +17,9 @@ import { TemNhanBenefits } from './sections/TemNhanBenefits'
 import { TemNhanGallery } from './sections/TemNhanGallery'
 import { TemNhanCalculator } from './sections/TemNhanCalculator'
 
+import { TemNhanFAQ } from './sections/TemNhanFAQ'
+import { initLightbox } from './components/Lightbox'
+
 
 document.querySelector('#app').innerHTML = `
   <div class="bg-black text-white">
@@ -36,6 +39,9 @@ document.querySelector('#app').innerHTML = `
     <!-- Tính Giá -->
     ${TemNhanCalculator()}
 
+    <!-- Tem nhãn FAQ -->
+    ${TemNhanFAQ()}
+
     <!-- CTA -->
     ${CTA()}
 
@@ -49,3 +55,4 @@ document.querySelector('#app').innerHTML = `
 `
 
     initFadeIn()
+    initLightbox()

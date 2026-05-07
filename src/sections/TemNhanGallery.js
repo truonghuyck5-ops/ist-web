@@ -30,6 +30,8 @@ export function TemNhanGallery() {
                 <img
                   src="${item.image}"
                   alt="Tem nhãn"
+                  loading="lazy"
+                  data-lightbox
                   class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                 />
 

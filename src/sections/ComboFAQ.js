@@ -1,0 +1,75 @@
+ export function ComboFAQ() {
+  const faqs = [
+    {
+      question: 'Combo mở quán gồm những gì?',
+      answer:
+        'Tùy nhu cầu, combo có thể gồm bảng hiệu, menu, tem nhãn, voucher, thẻ tích điểm, decal kính, standee, banner khai trương và các vật phẩm nhận diện cơ bản.'
+    },
+    {
+      question: 'IST có thiết kế đồng bộ cho toàn bộ combo không?',
+      answer:
+        'Có. IST có thể thiết kế theo logo, màu sắc, phong cách quán để các hạng mục nhìn thống nhất và chuyên nghiệp hơn.'
+    },
+    {
+      question: 'Tôi chưa có logo thì có làm combo được không?',
+      answer:
+        'Được. IST có thể hỗ trợ thiết kế nhận diện cơ bản hoặc tư vấn phương án đơn giản để quán có thể khai trương nhanh.'
+    },
+    {
+      question: 'Thời gian làm combo mở quán mất bao lâu?',
+      answer:
+        'Tùy số lượng hạng mục và mức độ phức tạp. Các combo cơ bản có thể triển khai nhanh, còn combo có bảng hiệu, decal và nhiều vật phẩm sẽ cần lịch sản xuất cụ thể.'
+    },
+    {
+      question: 'Combo có thể tùy chỉnh theo ngân sách không?',
+      answer:
+        'Có. IST có thể thêm, bớt hoặc thay đổi vật liệu từng hạng mục để phù hợp ngân sách và mục tiêu khai trương của từng cửa hàng.'
+    },
+    {
+      question: 'IST có thi công tận nơi không?',
+      answer:
+        'Có. Với các hạng mục như bảng hiệu, decal kính, standee hoặc trang trí mặt tiền, IST có thể hỗ trợ thi công theo lịch đã thống nhất.'
+    }
+  ]
+
+  return `
+    <section class="border-t border-zinc-900 fade-in">
+
+      <div class="max-w-5xl mx-auto px-6 py-24">
+
+        <div class="text-center mb-16">
+
+          <p class="text-orange-500 font-semibold mb-4 tracking-wide">
+            CÂU HỎI THƯỜNG GẶP
+          </p>
+
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+            Những điều cần biết
+            trước khi làm combo mở quán
+          </h2>
+
+        </div>
+
+        <div class="space-y-5">
+
+          ${faqs.map((faq) => `
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-orange-500 transition">
+
+              <h3 class="text-xl font-bold mb-3">
+                ${faq.question}
+              </h3>
+
+              <p class="text-gray-400 leading-relaxed">
+                ${faq.answer}
+              </p>
+
+            </div>
+          `).join('')}
+
+        </div>
+
+      </div>
+
+    </section>
+  `
+}

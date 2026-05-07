@@ -12,6 +12,8 @@ export function GalleryCard({
         <img
           src="${image}"
           alt="${title}"
+          loading="lazy"
+          data-lightbox
           class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
         />
 
