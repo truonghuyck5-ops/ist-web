@@ -12,6 +12,11 @@ import { Gallery } from './sections/Gallery'
 import { CTA } from './sections/CTA'
 import { Footer } from './sections/Footer'
 
+import { TemNhanHero } from './sections/TemNhanHero'
+import { TemNhanBenefits } from './sections/TemNhanBenefits'
+import { TemNhanGallery } from './sections/TemNhanGallery'
+import { TemNhanCalculator } from './sections/TemNhanCalculator'
+
 
 document.querySelector('#app').innerHTML = `
   <div class="bg-black text-white">
@@ -20,16 +25,16 @@ document.querySelector('#app').innerHTML = `
     ${Navbar()}
 
     <!-- Hero -->
-    ${Hero()}
+    ${TemNhanHero()}
 
-    <!-- Năng lực -->
-    ${Capabilities()}
+    <!-- Benefits -->
+    ${TemNhanBenefits()}
 
-    <!-- Sản phẩm -->
-    ${Products()}
+    <!-- Gallery -->
+    ${TemNhanGallery()}
 
-    <!-- Công trình -->
-    ${Gallery()}  
+    <!-- Tính Giá -->
+    ${TemNhanCalculator()}
 
     <!-- CTA -->
     ${CTA()}
