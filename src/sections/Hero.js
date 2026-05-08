@@ -36,11 +36,31 @@ export function Hero() {
 
                 ${Button({
                     text: 'Xem sản phẩm',
+
+                    href: '#products',
+
+                    onclick: `
+                        trackEvent('click_cta', {
+                        page: 'home',
+                        button: 'xem_san_pham'
+                        })
+                    `,
+
                     variant: 'primary'
                 })}
 
                 ${Button({
                     text: 'Liên hệ tư vấn',
+
+                    href: '#contact',
+
+                    onclick: `
+                        trackEvent('click_cta', {
+                        page: 'home',
+                        button: 'lien_he_tu_van'
+                        })
+                    `,
+
                     variant: 'outline'
                 })}
 

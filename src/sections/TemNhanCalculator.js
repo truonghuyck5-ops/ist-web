@@ -1,5 +1,6 @@
-
+import { trackEvent } from '../utils/tracking'
 import { calculateQuote }
+
 from '../utils/temNhanCalculatorLogic'
 
 export function TemNhanCalculator() {
@@ -101,6 +102,11 @@ export function TemNhanCalculator() {
   if (calculateBtn) {
 
     calculateBtn.addEventListener('click', () => {
+
+      trackEvent('calculate_quote', {
+        page: 'tem_nhan',
+        tool: 'tem_nhan_calculator'
+      })
 
       const formData =
         getFormData()
@@ -259,7 +265,7 @@ export function TemNhanCalculator() {
 }, 0)
 
   return `
-    <section class="border-t border-zinc-900 fade-in">
+    <section id="tem-nhan-calculator" class="border-t border-zinc-900 fade-in">
 
       <div class="max-w-5xl mx-auto px-6 py-24">
 

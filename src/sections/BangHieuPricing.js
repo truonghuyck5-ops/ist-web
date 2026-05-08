@@ -65,8 +65,18 @@ export function BangHieuPricing() {
 
               ${Button({
                 text: 'Tư vấn phương án',
+
+                href: '#contact',
+
+                onclick: `
+                    trackEvent('click_pricing', {
+                    page: 'bang_hieu',
+                    product: '${item.title}'
+                    })
+                `,
+
                 variant: item.featured ? 'primary' : 'outline'
-              })}
+                })}
 
             </div>
           `).join('')}

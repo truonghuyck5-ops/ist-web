@@ -23,13 +23,32 @@ export function ComboMoQuanHero() {
             </p>
 
             <div class="flex flex-wrap gap-4">
-              <a href="#contact" class="bg-orange-500 hover:bg-orange-600 transition px-8 py-4 rounded-xl font-semibold text-lg">
+              <a
+                href="#contact"
+                onclick="
+                    trackEvent('click_cta', {
+                    page: 'combo_mo_quan',
+                    button: 'tu_van_combo'
+                    })
+                "
+                class="bg-orange-500 hover:bg-orange-600 transition px-8 py-4 rounded-xl font-semibold text-lg"
+                >
                 Tư vấn combo
-              </a>
+                </a>
 
-              <a href="#combo-items" class="border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-semibold text-lg">
+              <a
+                href="#combo-items"
+                onclick="
+                    trackEvent('click_cta', {
+                    page: 'combo_mo_quan',
+                    button: 'xem_hang_muc'
+                    })
+                "
+                class="border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-semibold text-lg"
+                >
                 Xem hạng mục
-              </a>
+                </a>
+              
             </div>
           </div>
 

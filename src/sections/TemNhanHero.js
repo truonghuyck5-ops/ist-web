@@ -35,11 +35,31 @@ export function TemNhanHero() {
 
               ${Button({
                 text: 'Nhận báo giá',
+
+                href: '#contact',
+
+                onclick: `
+                  trackEvent('click_cta', {
+                    page: 'tem_nhan',
+                    button: 'nhan_bao_gia'
+                  })
+                `,
+
                 variant: 'primary'
               })}
 
               ${Button({
                 text: 'Xem mẫu thực tế',
+
+                href: '#tem-nhan-gallery',
+
+                onclick: `
+                  trackEvent('click_cta', {
+                    page: 'tem_nhan',
+                    button: 'xem_mau_thuc_te'
+                  })
+                `,
+
                 variant: 'outline'
               })}
 

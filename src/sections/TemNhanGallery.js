@@ -3,7 +3,7 @@ import { temNhanGallery } from '../data/temNhanGallery'
 export function TemNhanGallery() {
 
   return `
-    <section class="border-t border-zinc-900 fade-in">
+    <section id="tem-nhan-gallery" class="border-t border-zinc-900 fade-in">
 
       <div class="max-w-7xl mx-auto px-6 py-24">
 

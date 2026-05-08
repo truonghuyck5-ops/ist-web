@@ -65,8 +65,18 @@ export function ComboPackages() {
 
               ${Button({
                 text: 'Tư vấn combo',
+
+                href: '#contact',
+
+                onclick: `
+                    trackEvent('click_package', {
+                    page: 'combo_mo_quan',
+                    package: '${item.title}'
+                    })
+                `,
+
                 variant: item.featured ? 'primary' : 'outline'
-              })}
+            })}
 
             </div>
           `).join('')}

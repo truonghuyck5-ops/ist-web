@@ -46,19 +46,50 @@ export function Navbar() {
         <!-- Desktop Menu -->
         <nav class="hidden md:flex gap-8 text-sm">
 
-          <a href="#hero" class="hover:text-orange-500 transition">
+          <a href="#hero"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'trang_chu',
+                type: 'desktop'
+              })
+            "          
+
+          class="hover:text-orange-500 transition">
             Trang chủ
           </a>
 
-          <a href="#products" class="hover:text-orange-500 transition">
+          <a
+            href="#products"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'san_pham',
+                type: 'desktop'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
             Sản phẩm
           </a>
 
-          <a href="#projects" class="hover:text-orange-500 transition">
+          <a href="#projects"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'cong_trinh',
+                type: 'desktop'
+              })
+            "
+          class="hover:text-orange-500 transition">
             Công trình
           </a>
 
-          <a href="#contact" class="hover:text-orange-500 transition">
+          <a href="#contact"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'lien_he',
+                type: 'desktop'
+              })
+            "
+            class="hover:text-orange-500 transition">
             Liên hệ
           </a>
 
@@ -67,9 +98,20 @@ export function Navbar() {
         <!-- Right -->
         <div class="flex items-center gap-4">
 
-          <button class="hidden md:block bg-orange-500 hover:bg-orange-600 transition px-5 py-2 rounded-lg font-medium">
+          <a
+            href="#contact"
+
+            onclick="
+              trackEvent('click_cta', {
+                page: 'global',
+                button: 'bao_gia_nhanh_navbar'
+              })
+            "
+
+            class="hidden md:block bg-orange-500 hover:bg-orange-600 transition px-5 py-2 rounded-lg font-medium"
+          >
             Báo giá nhanh
-          </button>
+          </a>
 
           <!-- Mobile Button -->
           <button
@@ -91,25 +133,68 @@ export function Navbar() {
 
         <div class="px-6 py-6 flex flex-col gap-5 text-lg">
 
-          <a href="#hero" class="hover:text-orange-500 transition">
+          <a href="#hero"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'trang_chu',
+                type: 'mobile'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
             Trang chủ
           </a>
 
-          <a href="#products" class="hover:text-orange-500 transition">
+          <a href="#products"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'san_pham',
+                type: 'mobile'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
             Sản phẩm
           </a>
 
-          <a href="#projects" class="hover:text-orange-500 transition">
+          <a href="#projects"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'cong_trinh',
+                type: 'mobile'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
             Công trình
           </a>
 
-          <a href="#contact" class="hover:text-orange-500 transition">
+          <a href="#contact"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'lien_he',
+                type: 'mobile'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
             Liên hệ
           </a>
 
-          <button class="bg-orange-500 hover:bg-orange-600 transition px-5 py-3 rounded-xl font-medium mt-2">
+          <a
+            href="#contact"
+
+            onclick="
+              trackEvent('click_cta', {
+                page: 'global',
+                button: 'bao_gia_nhanh_navbar_mobile'
+              })
+            "
+
+            class="bg-orange-500 hover:bg-orange-600 transition px-5 py-3 rounded-xl font-medium mt-2 text-center"
+          >
             Báo giá nhanh
-          </button>
+          </a>
 
         </div>
 

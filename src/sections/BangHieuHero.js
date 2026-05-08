@@ -23,13 +23,32 @@ export function BangHieuHero() {
             </p>
 
             <div class="flex flex-wrap gap-4">
-              <a href="#contact" class="bg-orange-500 hover:bg-orange-600 transition px-8 py-4 rounded-xl font-semibold text-lg">
+              <a
+                href="#contact"
+                onclick="
+                    trackEvent('click_cta', {
+                    page: 'bang_hieu',
+                    button: 'nhan_tu_van'
+                    })
+                "
+                class="bg-orange-500 hover:bg-orange-600 transition px-8 py-4 rounded-xl font-semibold text-lg"
+                >
                 Nhận tư vấn
-              </a>
+                </a>
 
-              <a href="#bang-hieu-types" class="border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-semibold text-lg">
+              <a
+                href="#bang-hieu-types"
+                onclick="
+                    trackEvent('click_cta', {
+                    page: 'bang_hieu',
+                    button: 'xem_hang_muc'
+                    })
+                "
+                class="border border-gray-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-semibold text-lg"
+                >
                 Xem hạng mục
-              </a>
+                </a>
+
             </div>
           </div>
 
