@@ -4,46 +4,46 @@ import { initFadeIn } from './animation'
 
 import { Navbar } from './components/Navbar'
 import { FloatingContact } from './components/FloatingContact'
+import { initLightbox } from './components/Lightbox'
 
 import { Hero } from './sections/Hero'
-import { Products } from './sections/Products'
+import { AboutIST } from './sections/AboutIST'
 import { Capabilities } from './sections/Capabilities'
+import { ProductionCapacity } from './sections/ProductionCapacity'
+import { Products } from './sections/Products'
 import { Gallery } from './sections/Gallery'
 import { CTA } from './sections/CTA'
 import { Footer } from './sections/Footer'
+import { FeaturedProjects } from './sections/FeaturedProjects'
 
-import { initLightbox } from './components/Lightbox'
-
+import { initCounterAnimation } from './components/CounterAnimation'
 
 document.querySelector('#app').innerHTML = `
   <div class="bg-black text-white">
 
-    <!-- Navbar -->
     ${Navbar()}
 
-    <!-- Hero -->
     ${Hero()}
 
-    <!-- Năng lực -->
+    ${AboutIST()}
+
     ${Capabilities()}
 
-    <!-- Sản phẩm -->
+    ${ProductionCapacity()}
+
     ${Products()}
 
-    <!-- Công trình -->
-    ${Gallery()}  
+    ${FeaturedProjects()}
 
-    <!-- CTA -->
     ${CTA()}
 
-    <!-- Footer -->
     ${Footer()}
 
-    <!-- Liên hệ -->
     ${FloatingContact()}
 
   </div>
 `
 
-    initFadeIn()
-    initLightbox()
+initFadeIn()
+initLightbox()
+initCounterAnimation()

@@ -1,11 +1,12 @@
 import { trackEvent } from '../utils/tracking'
+
 export function FloatingContact() {
   return `
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
 
       <!-- Zalo -->
       <a
-        href="https://zalo.me/0345928484"
+        href="https://zalo.me/0974313230"
         target="_blank"
         onclick="
           trackEvent('click_zalo', {
@@ -19,7 +20,7 @@ export function FloatingContact() {
 
       <!-- Phone -->
       <a
-        href="tel:0345928484"
+        href="tel:0974313230"
         onclick="
           trackEvent('click_phone', {
             location: 'floating_contact'

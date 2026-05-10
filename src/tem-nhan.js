@@ -1,24 +1,17 @@
 import './style.css'
 
 import { initFadeIn } from './animation'
-
 import { Navbar } from './components/Navbar'
 import { FloatingContact } from './components/FloatingContact'
-
-import { Hero } from './sections/Hero'
-import { Products } from './sections/Products'
-import { Capabilities } from './sections/Capabilities'
-import { Gallery } from './sections/Gallery'
-import { CTA } from './sections/CTA'
 import { Footer } from './sections/Footer'
+import { initLightbox } from './components/Lightbox'
 
 import { TemNhanHero } from './sections/TemNhanHero'
 import { TemNhanBenefits } from './sections/TemNhanBenefits'
 import { TemNhanGallery } from './sections/TemNhanGallery'
 import { TemNhanCalculator } from './sections/TemNhanCalculator'
-
 import { TemNhanFAQ } from './sections/TemNhanFAQ'
-import { initLightbox } from './components/Lightbox'
+import { TemNhanTypes } from './sections/TemNhanTypes'
 
 
 document.querySelector('#app').innerHTML = `
@@ -33,17 +26,16 @@ document.querySelector('#app').innerHTML = `
     <!-- Benefits -->
     ${TemNhanBenefits()}
 
+    ${TemNhanTypes()}
+
     <!-- Gallery -->
     ${TemNhanGallery()}
-
-    <!-- Tính Giá -->
-    ${TemNhanCalculator()}
 
     <!-- Tem nhãn FAQ -->
     ${TemNhanFAQ()}
 
-    <!-- CTA -->
-    ${CTA()}
+    <!-- Tính Giá -->
+    ${TemNhanCalculator()}
 
     <!-- Footer -->
     ${Footer()}

@@ -21,7 +21,16 @@ export function Navbar() {
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         <!-- Logo -->
-        <div class="flex items-center gap-4">
+        <a
+          href="/"
+          onclick="
+            trackEvent('click_nav', {
+              menu: 'logo_home',
+              type: 'desktop'
+            })
+          "
+          class="flex items-center gap-4"
+        >
 
           <img
             src="/images/logo-ist.png"
@@ -32,7 +41,7 @@ export function Navbar() {
           <div>
 
             <h1 class="text-2xl font-bold text-orange-500">
-              IST
+              IN SÁNG TẠO
             </h1>
 
             <p class="text-sm text-gray-400">
@@ -41,25 +50,39 @@ export function Navbar() {
 
           </div>
 
-        </div>
+        </a>
 
         <!-- Desktop Menu -->
         <nav class="hidden md:flex gap-8 text-sm">
 
-          <a href="#hero"
+          <a
+            href="/"
             onclick="
               trackEvent('click_nav', {
                 menu: 'trang_chu',
                 type: 'desktop'
               })
-            "          
-
-          class="hover:text-orange-500 transition">
+            "
+            class="hover:text-orange-500 transition"
+          >
             Trang chủ
           </a>
 
           <a
-            href="#products"
+            href="/#capabilities"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'nang_luc',
+                type: 'desktop'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
+            Năng lực
+          </a>
+
+          <a
+            href="/#products"
             onclick="
               trackEvent('click_nav', {
                 menu: 'san_pham',
@@ -71,25 +94,42 @@ export function Navbar() {
             Sản phẩm
           </a>
 
-          <a href="#projects"
+          <a
+            href="/#projects"
             onclick="
               trackEvent('click_nav', {
                 menu: 'cong_trinh',
                 type: 'desktop'
               })
             "
-          class="hover:text-orange-500 transition">
+            class="hover:text-orange-500 transition"
+          >
             Công trình
           </a>
 
-          <a href="#contact"
+          <a
+            href="/blog/"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'blog',
+                type: 'desktop'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
+            Blog
+          </a>
+
+          <a
+            href="#contact"
             onclick="
               trackEvent('click_nav', {
                 menu: 'lien_he',
                 type: 'desktop'
               })
             "
-            class="hover:text-orange-500 transition">
+            class="hover:text-orange-500 transition"
+          >
             Liên hệ
           </a>
 
@@ -133,7 +173,8 @@ export function Navbar() {
 
         <div class="px-6 py-6 flex flex-col gap-5 text-lg">
 
-          <a href="#hero"
+          <a
+            href="/"
             onclick="
               trackEvent('click_nav', {
                 menu: 'trang_chu',
@@ -145,7 +186,21 @@ export function Navbar() {
             Trang chủ
           </a>
 
-          <a href="#products"
+          <a
+            href="/#capabilities"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'nang_luc',
+                type: 'mobile'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
+            Năng lực
+          </a>
+
+          <a
+            href="/#products"
             onclick="
               trackEvent('click_nav', {
                 menu: 'san_pham',
@@ -157,7 +212,8 @@ export function Navbar() {
             Sản phẩm
           </a>
 
-          <a href="#projects"
+          <a
+            href="/#projects"
             onclick="
               trackEvent('click_nav', {
                 menu: 'cong_trinh',
@@ -169,7 +225,21 @@ export function Navbar() {
             Công trình
           </a>
 
-          <a href="#contact"
+          <a
+            href="/blog/"
+            onclick="
+              trackEvent('click_nav', {
+                menu: 'blog',
+                type: 'mobile'
+              })
+            "
+            class="hover:text-orange-500 transition"
+          >
+            Blog
+          </a>
+
+          <a
+            href="#contact"
             onclick="
               trackEvent('click_nav', {
                 menu: 'lien_he',

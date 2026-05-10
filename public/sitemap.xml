@@ -21,4 +21,19 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+  <loc>https://insangtao.net/blog/gia-bang-hieu-alu.html</loc>
+  <priority>0.7</priority>
+  </url>
+
+  <url>
+  <loc>https://insangtao.net/blog/</loc>
+  <priority>0.8</priority>
+  </url>
+
+  <url>
+  <loc>https://insangtao.net/blog/in-tem-nhan-so-luong-it.html</loc>
+  <priority>0.7</priority>
+  </url>
+
 </urlset>
