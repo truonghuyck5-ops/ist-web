@@ -40,3 +40,101 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+/* Fix html2canvas không hỗ trợ màu oklch() của Tailwind v4 */
+#quote-popup-card.capture-safe,
+#quote-popup-card.capture-safe * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background-image: none !important;
+  outline-color: transparent !important;
+  caret-color: #0f172a !important;
+  text-decoration-color: currentColor !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Khung chính */
+#quote-popup-card.capture-safe {
+  background-color: #f4f4f5 !important;
+  color: #0f172a !important;
+}
+
+/* Nền */
+#quote-popup-card.capture-safe .bg-white {
+  background-color: #ffffff !important;
+}
+
+#quote-popup-card.capture-safe .bg-zinc-100 {
+  background-color: #f4f4f5 !important;
+}
+
+#quote-popup-card.capture-safe .bg-zinc-50 {
+  background-color: #fafafa !important;
+}
+
+#quote-popup-card.capture-safe .bg-slate-50 {
+  background-color: #f8fafc !important;
+}
+
+#quote-popup-card.capture-safe .bg-orange-50 {
+  background-color: #fff7ed !important;
+}
+
+#quote-popup-card.capture-safe .bg-slate-900 {
+  background-color: #0f172a !important;
+}
+
+#quote-popup-card.capture-safe .bg-orange-500 {
+  background-color: #ff6600 !important;
+}
+
+#quote-popup-card.capture-safe .bg-emerald-600 {
+  background-color: #059669 !important;
+}
+
+/* Chữ */
+#quote-popup-card.capture-safe .text-slate-900,
+#quote-popup-card.capture-safe .text-slate-800,
+#quote-popup-card.capture-safe .text-slate-700 {
+  color: #0f172a !important;
+}
+
+#quote-popup-card.capture-safe .text-slate-500 {
+  color: #64748b !important;
+}
+
+#quote-popup-card.capture-safe .text-white {
+  color: #ffffff !important;
+}
+
+#quote-popup-card.capture-safe .text-orange-600,
+#quote-popup-card.capture-safe .text-orange-700 {
+  color: #ea580c !important;
+}
+
+#quote-popup-card.capture-safe .text-emerald-600,
+#quote-popup-card.capture-safe .text-emerald-700 {
+  color: #047857 !important;
+}
+
+/* Border */
+#quote-popup-card.capture-safe .border-slate-200,
+#quote-popup-card.capture-safe .border-slate-300 {
+  border-color: #cbd5e1 !important;
+}
+
+#quote-popup-card.capture-safe .border-orange-200,
+#quote-popup-card.capture-safe .border-orange-300,
+#quote-popup-card.capture-safe .border-orange-500 {
+  border-color: #fb923c !important;
+}
+
+#quote-popup-card.capture-safe .border-emerald-300 {
+  border-color: #6ee7b7 !important;
+}
+
+/* Dòng đang chọn */
+#quote-popup-card.capture-safe .bg-orange-50 {
+  background-color: #fff7ed !important;
+}

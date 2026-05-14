@@ -280,33 +280,102 @@ export function TemNhanCalculator() {
       }
 
       async function generatePopupCanvas() {
-        return await html2canvas(popupCard, {
-          backgroundColor: '#f4f4f5',
-          scale: 2,
-          useCORS: true,
+        if (!popupCard) {
+          throw new Error('Không tìm thấy #quote-popup-card')
+        }
+
+        popupCard.classList.add('capture-safe')
+
+        await new Promise((resolve) => {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(resolve)
+          })
         })
+
+        try {
+          return await html2canvas(popupCard, {
+            backgroundColor: '#f4f4f5',
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+
+            onclone: (clonedDocument) => {
+              const clonedCard =
+                clonedDocument.querySelector('#quote-popup-card')
+
+              if (clonedCard) {
+                clonedCard.classList.add('capture-safe')
+              }
+            },
+          })
+        } finally {
+          popupCard.classList.remove('capture-safe')
+        }
+      }
+
+      async function generatePopupBlob() {
+        const canvas = await generatePopupCanvas()
+
+        return await new Promise((resolve, reject) => {
+          canvas.toBlob((blob) => {
+            if (!blob) {
+              reject(new Error('Không thể tạo blob từ canvas'))
+              return
+            }
+
+            resolve(blob)
+          }, 'image/png')
+        })
+      }
+
+      async function savePopupAsImage() {
+        try {
+          const blob = await generatePopupBlob()
+
+          const imageUrl = URL.createObjectURL(blob)
+
+          const link = document.createElement('a')
+          link.href = imageUrl
+          link.download = `bao-gia-tem-nhan-ist-${Date.now()}.png`
+
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+
+          setTimeout(() => {
+            URL.revokeObjectURL(imageUrl)
+          }, 1000)
+
+          saveImageBtn.textContent = 'Đã lưu ✓'
+
+          setTimeout(() => {
+            saveImageBtn.textContent = 'Lưu ảnh'
+          }, 1800)
+
+          trackEvent('save_quote_image', {
+            page: 'tem_nhan',
+            tool: 'tem_nhan_calculator'
+          })
+        } catch (error) {
+          console.error('Save image failed:', error)
+
+          alert('Không thể lưu ảnh. Vui lòng kiểm tra console để xem lỗi chi tiết.')
+        }
       }
 
       async function copyPopupAsImage() {
         try {
-          const canvas = await generatePopupCanvas()
-
-          const blob = await new Promise((resolve) => {
-            canvas.toBlob((blob) => {
-              resolve(blob)
-            }, 'image/png')
-          })
-
-          if (!blob) {
-            alert('Không thể tạo ảnh báo giá.')
-            return
-          }
+          const blob = await generatePopupBlob()
 
           if (
             !navigator.clipboard ||
             !window.ClipboardItem
           ) {
-            alert('Trình duyệt hiện tại chưa hỗ trợ copy ảnh. Bạn vui lòng bấm "Lưu ảnh" để tải ảnh báo giá.')
+            alert('Trình duyệt chưa hỗ trợ copy ảnh. Hệ thống sẽ chuyển sang lưu ảnh.')
+            await savePopupAsImage()
             return
           }
 
@@ -329,31 +398,8 @@ export function TemNhanCalculator() {
         } catch (error) {
           console.error('Copy image failed:', error)
 
-          alert('Trình duyệt đang chặn copy ảnh. Bạn vui lòng bấm "Lưu ảnh" để tải ảnh báo giá.')
-        }
-      }
-
-      async function savePopupAsImage() {
-        try {
-          const canvas = await generatePopupCanvas()
-          const imageUrl = canvas.toDataURL('image/png')
-
-          const link = document.createElement('a')
-          link.href = imageUrl
-          link.download = `bao-gia-tem-nhan-ist-${Date.now()}.png`
-
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link)
-
-          trackEvent('save_quote_image', {
-            page: 'tem_nhan',
-            tool: 'tem_nhan_calculator'
-          })
-        } catch (error) {
-          console.error('Save image failed:', error)
-
-          alert('Không thể lưu ảnh. Vui lòng thử lại.')
+          alert('Trình duyệt đang chặn copy ảnh. Hệ thống sẽ chuyển sang lưu ảnh.')
+          await savePopupAsImage()
         }
       }
 
@@ -709,6 +755,7 @@ export function TemNhanCalculator() {
                     <img
                       src="/images/logo-ist.png"
                       alt="Logo IST"
+                      crossorigin="anonymous"
                       class="h-12 w-auto shrink-0 object-contain md:h-14"
                     />
 
