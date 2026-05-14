@@ -1,300 +1,457 @@
+import html2canvas from 'html2canvas'
 import { trackEvent } from '../utils/tracking'
 import { calculateQuote } from '../utils/temNhanCalculatorLogic'
+import { temNhanPricingConfig as config } from '../data/temNhanPricingConfig'
 
 export function TemNhanCalculator() {
 
   setTimeout(() => {
 
-  // ELEMENTS
-  const calculateBtn =
-    document.querySelector('#calculate-btn')
+      const form =
+        document.querySelector('#tem-nhan-calculator-form')
 
-  const referencePriceBtn =
-    document.querySelector('#reference-price-btn')
+      const exportQuoteBtn =
+        document.querySelector('#export-quote-btn')
 
-  const popup =
-    document.querySelector('#quote-popup')
+      const resetQuoteBtn =
+        document.querySelector('#reset-quote-btn')
 
-  const closePopup =
-    document.querySelector('#close-popup')
+      const popup =
+        document.querySelector('#quote-popup')
 
-  const closePopupBottom =
-    document.querySelector('#close-popup-bottom')
+      const popupCard =
+        document.querySelector('#quote-popup-card')
 
-  const copyQuoteBtn = document.querySelector('#copy-quote-btn')
-    let latestQuoteText = ''
+      const popupOverlay =
+        document.querySelector('#popup-overlay')
 
+      const closePopupBottom =
+        document.querySelector('#close-popup-bottom')
 
-  // GET FORM DATA
-  function getFormData() {
-  return {
-    width: Number(document.querySelector('#width').value),
-    height: Number(document.querySelector('#height').value),
-    quantity: Number(document.querySelector('#quantity').value),
-    decalType: document.querySelector('#decal-type').value,
-    shape: 'round',
-    lamination: document.querySelector('#lamination').value,
-    customerType: 'regular',
-  }
-}
+      const copyImageBtn =
+        document.querySelector('#copy-image-btn')
 
-function getDecalLabel(value) {
-  const labels = {
-    paper: 'Decal giấy',
-    plastic: 'Decal nhựa',
-    'clear-plastic': 'Decal nhựa trong',
-  }
+      const saveImageBtn =
+        document.querySelector('#save-image-btn')
 
-  return labels[value] || value
-}
+      const quoteWarning =
+        document.querySelector('#quote-warning')
 
-function getLaminationLabel(value) {
-  const labels = {
-    none: 'Không cán màng',
-    glossy: 'Màng bóng',
-    matte: 'Màng mờ',
-  }
+      let latestQuoteText = ''
 
-  return labels[value] || value
-}
-
-  // UPDATE RESULT UI
-  function updateResult(result) {
-    const formData = getFormData()
-
-    document
-      .querySelector('#quote-result')
-      .classList.remove('hidden')
-
-    document
-      .querySelector('#quote-size')
-      .textContent = `${formData.width} x ${formData.height} mm`
-
-    document
-      .querySelector('#quote-decal')
-      .textContent = getDecalLabel(formData.decalType)
-
-    document
-      .querySelector('#quote-lamination')
-      .textContent = getLaminationLabel(formData.lamination)
-
-    document
-      .querySelector('#quote-quantity')
-      .textContent = `${formData.quantity.toLocaleString('vi-VN')} tem`
-
-    document
-      .querySelector('#quote-unit')
-      .textContent = result.unitPrice
-
-    document
-      .querySelector('#quote-total')
-      .textContent = result.totalPrice
-
-    latestQuoteText = `
-  BÁO GIÁ TEM NHÃN THAM KHẢO - IST
-  Kích thước tem: ${formData.width} x ${formData.height} mm
-  Loại decal: ${getDecalLabel(formData.decalType)}
-  Cán màng: ${getLaminationLabel(formData.lamination)}
-  Số lượng: ${formData.quantity.toLocaleString('vi-VN')} tem
-  Đơn giá 1 tem: ${result.unitPrice}
-  Tổng tiền: ${result.totalPrice}
-  `.trim()
-  }
-
-  // CALCULATE BUTTON
-  if (calculateBtn) {
-
-    calculateBtn.addEventListener('click', () => {
-
-      trackEvent('calculate_quote', {
-        page: 'tem_nhan',
-        tool: 'tem_nhan_calculator'
-      })
-
-      const formData = getFormData()
-
-      if (
-        formData.width < 20 ||
-        formData.width > 300 ||
-        formData.height < 20 ||
-        formData.height > 300
-      ) {
-        alert('Kích thước không nhỏ hơn 2cm, không lớn hơn 30cm. Kích thước đặc biệt vui lòng liên hệ IST để được tư vấn.').innerHTML = ''
-        return
+      function getFormData() {
+        return {
+          width: Number(document.querySelector('#width').value),
+          height: Number(document.querySelector('#height').value),
+          quantity: Number(document.querySelector('#quantity').value),
+          decalType: document.querySelector('#decal-type').value,
+          lamination: document.querySelector('#lamination').value,
+        }
       }
 
-      const result = calculateQuote(formData)
+      function generateQuoteCode() {
+        const now = new Date()
 
-      if (!result) {
+        const year = now.getFullYear()
+        const month = String(now.getMonth() + 1).padStart(2, '0')
+        const day = String(now.getDate()).padStart(2, '0')
 
-        alert('Vui lòng nhập đầy đủ thông tin')
+        const randomNumber =
+          String(Math.floor(Math.random() * 900) + 100)
 
-        return
-
+        return `IST-TEM-${year}${month}${day}-${randomNumber}`
       }
 
-      updateResult(result)
-
-    })
-
-  }
-
- // REFERENCE PRICE BUTTON
-    if (referencePriceBtn) {
-      referencePriceBtn.addEventListener('click', () => {
-      const formData = getFormData()
-
-      if (
-        formData.width < 20 ||
-        formData.width > 300 ||
-        formData.height < 20 ||
-        formData.height > 300
-      ) {
-        alert('Kích thước không nhỏ hơn 2cm, không lớn hơn 30cm. Kích thước đặc biệt vui lòng liên hệ IST để được tư vấn.').innerHTML = ''
-        return
+      function getDecalLabel(value) {
+        return config.materials[value]?.label || value
       }
 
-      const result = calculateQuote(formData)
+      function getLaminationLabel(value) {
+        return config.laminationFees[value]?.label || value
+      }
+
+      function isFormEmpty(formData) {
+        return (
+          !formData.width &&
+          !formData.height &&
+          !formData.quantity
+        )
+      }
+
+      function validateFormData(formData, silent = true) {
+        if (
+          !formData.width ||
+          !formData.height ||
+          !formData.quantity
+        ) {
+          if (!silent) {
+            alert('Vui lòng nhập đầy đủ kích thước và số lượng tem')
+          }
+
+          return false
+        }
+
+        if (
+          formData.width < config.minSize ||
+          formData.width > config.maxSize ||
+          formData.height < config.minSize ||
+          formData.height > config.maxSize
+        ) {
+          if (!silent) {
+            alert(`Kích thước tem phải từ ${config.minSize}mm đến ${config.maxSize}mm`)
+          }
+
+          return false
+        }
+
+        return true
+      }
+
+      function resetResult() {
+        function resetResult() {
+          document.querySelector('#quote-unit').textContent = '-'
+          document.querySelector('#quote-total').textContent = '-'
+
+          latestQuoteText = ''
+
+          quoteWarning.textContent =
+            'Nhập thông tin bên trái, giá sẽ tự động cập nhật tại đây.'
+
+          quoteWarning.classList.remove('text-orange-500')
+          quoteWarning.classList.add('text-gray-500')
+        }
+      }
+
+      function updateResult(result, formData) {
+        document.querySelector('#quote-unit').textContent =
+          result.unitPrice
+
+        document.querySelector('#quote-total').textContent =
+          result.totalPrice
+
+        latestQuoteText = `
+      BÁO GIÁ TEM NHÃN THAM KHẢO - IST
+      Kích thước tem: ${formData.width} x ${formData.height} mm
+      Loại decal: ${getDecalLabel(formData.decalType)}
+      Cán màng: ${getLaminationLabel(formData.lamination)}
+      Số lượng: ${formData.quantity.toLocaleString('vi-VN')} tem
+      Đơn giá 1 tem: ${result.unitPrice}
+      Tổng tiền: ${result.totalPrice}
+      `.trim()
+
+        quoteWarning.textContent =
+          'Giá đã được tự động cập nhật theo thông tin bạn vừa nhập.'
+
+        quoteWarning.classList.remove('text-gray-500')
+        quoteWarning.classList.add('text-orange-500')
+      }
+
+      function updateQuoteLive() {
+        const formData = getFormData()
+
+        if (isFormEmpty(formData)) {
+          resetResult()
+          return
+        }
+
+        if (!validateFormData(formData, true)) {
+          resetResult()
+
+          quoteWarning.textContent =
+            `Kích thước tem hợp lệ từ ${config.minSize}mm đến ${config.maxSize}mm. Vui lòng kiểm tra lại.`
+
+          quoteWarning.classList.remove('text-gray-500')
+          quoteWarning.classList.add('text-orange-500')
+
+          return
+        }
+
+        const result = calculateQuote(formData)
 
         if (!result) {
-          alert('Vui lòng nhập đầy đủ thông tin')
+          resetResult()
+          return
+        }
+
+        updateResult(result, formData)
+      }
+
+      function openReferencePopup() {
+        const formData = getFormData()
+
+        if (!validateFormData(formData, false)) {
+          return
+        }
+
+        const result = calculateQuote(formData)
+
+        if (!result) {
+          alert('Không thể tính giá với thông tin hiện tại')
           return
         }
 
         popup.classList.remove('hidden')
         popup.classList.add('flex')
 
-        // SUMMARY
-        const summary = document.querySelector('#popup-summary')
+        const now = new Date()
+        const formattedDate =
+          now.toLocaleDateString('vi-VN')
 
-          summary.innerHTML = `
-            <div class="bg-black border border-zinc-800 rounded-2xl p-5">
-              <p class="text-gray-400 mb-2">
-                Kích thước
-              </p>
+        document.querySelector('#popup-date').textContent =
+          formattedDate
 
-              <h4 class="text-xl md:text-2xl font-bold">
-                ${formData.width} x ${formData.height} mm
-              </h4>
-            </div>
+        document.querySelector('#popup-quote-code').textContent =
+          generateQuoteCode()
 
-            <div class="bg-black border border-zinc-800 rounded-2xl p-5">
-              <p class="text-gray-400 mb-2">
-                Loại decal
-              </p>
+        document.querySelector('#popup-order-size').textContent =
+          `${formData.width} x ${formData.height} mm`
 
-              <h4 class="text-xl md:text-2xl font-bold">
-                ${getDecalLabel(formData.decalType)}
-              </h4>
-            </div>
+        document.querySelector('#popup-order-material').textContent =
+          getDecalLabel(formData.decalType)
 
-            <div class="bg-black border border-zinc-800 rounded-2xl p-5">
-              <p class="text-gray-400 mb-2">
-                Cán màng
-              </p>
+        document.querySelector('#popup-order-lamination').textContent =
+          getLaminationLabel(formData.lamination)
 
-              <h4 class="text-xl md:text-2xl font-bold">
-                ${getLaminationLabel(formData.lamination)}
-              </h4>
-            </div>
-          `
+        document.querySelector('#popup-order-quantity').textContent =
+          `${formData.quantity.toLocaleString('vi-VN')} tem`
 
-        // TABLE
-        const table = document.querySelector('#reference-table-body')
+        document.querySelector('#popup-unit-price').textContent =
+          result.unitPrice
+
+        document.querySelector('#popup-total-price').textContent =
+          result.totalPrice
+
+        const table =
+          document.querySelector('#reference-table-body')
+
         table.innerHTML = ''
 
-        const quantities = [
-          100,
-          200,
-          500,
-          1000,
-          2000,
-          3000,
-          5000
-        ]
+        const quantitiesSet = new Set([
+          ...config.referenceQuantities,
+          formData.quantity,
+        ])
+
+        const quantities =
+          Array
+            .from(quantitiesSet)
+            .sort((a, b) => a - b)
 
         quantities.forEach((q) => {
-          const tempResult = calculateQuote({
-            ...formData,
-            quantity: q
-          })
+          const tempResult =
+            calculateQuote({
+              ...formData,
+              quantity: q
+            })
+
+          const isActive =
+            q === formData.quantity
 
           table.innerHTML += `
-            <tr class="hover:bg-zinc-800/50 transition">
-              <td class="p-4 font-semibold">
-                ${q.toLocaleString()} tem
-              </td>
+            <div class="
+              grid grid-cols-[1.05fr_0.8fr_1.15fr] items-center rounded-xl border px-3 py-2.5 text-[12px] md:grid-cols-3 md:px-4 md:text-sm
+              ${isActive
+                ? 'border-orange-500 bg-orange-50 shadow-sm'
+                : 'border-slate-200 bg-slate-50'}
+            ">
+              <div class="font-bold leading-tight ${isActive ? 'text-orange-700' : 'text-slate-700'}">
+                ${isActive ? '▶ ' : ''}${q.toLocaleString('vi-VN')} tem
+              </div>
 
-              <td class="p-4 text-orange-500 font-bold">
+              <div class="text-center font-black leading-tight ${isActive ? 'text-orange-600' : 'text-slate-900'}">
                 ${tempResult.unitPrice}
-              </td>
+              </div>
 
-              <td class="p-4 font-bold">
+              <div class="text-right font-bold leading-tight ${isActive ? 'text-orange-600' : 'text-slate-700'}">
                 ${tempResult.totalPrice}
-              </td>
-            </tr>
+              </div>
+            </div>
           `
         })
 
-        trackEvent('view_reference_price', {
+        trackEvent('export_quote', {
+          page: 'tem_nhan',
+          tool: 'tem_nhan_calculator'
+        })
+      }
+      
+      function hidePopup() {
+        popup.classList.add('hidden')
+        popup.classList.remove('flex')
+      }
+
+      async function generatePopupCanvas() {
+        return await html2canvas(popupCard, {
+          backgroundColor: '#f4f4f5',
+          scale: 2,
+          useCORS: true,
+        })
+      }
+
+      async function copyPopupAsImage() {
+        try {
+          const canvas = await generatePopupCanvas()
+
+          const blob = await new Promise((resolve) => {
+            canvas.toBlob((blob) => {
+              resolve(blob)
+            }, 'image/png')
+          })
+
+          if (!blob) {
+            alert('Không thể tạo ảnh báo giá.')
+            return
+          }
+
+          if (
+            !navigator.clipboard ||
+            !window.ClipboardItem
+          ) {
+            alert('Trình duyệt hiện tại chưa hỗ trợ copy ảnh. Bạn vui lòng bấm "Lưu ảnh" để tải ảnh báo giá.')
+            return
+          }
+
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'image/png': blob,
+            }),
+          ])
+
+          copyImageBtn.textContent = 'Đã copy ✓'
+
+          setTimeout(() => {
+            copyImageBtn.textContent = 'Copy ảnh'
+          }, 1800)
+
+          trackEvent('copy_quote_image', {
+            page: 'tem_nhan',
+            tool: 'tem_nhan_calculator'
+          })
+        } catch (error) {
+          console.error('Copy image failed:', error)
+
+          alert('Trình duyệt đang chặn copy ảnh. Bạn vui lòng bấm "Lưu ảnh" để tải ảnh báo giá.')
+        }
+      }
+
+      async function savePopupAsImage() {
+        try {
+          const canvas = await generatePopupCanvas()
+          const imageUrl = canvas.toDataURL('image/png')
+
+          const link = document.createElement('a')
+          link.href = imageUrl
+          link.download = `bao-gia-tem-nhan-ist-${Date.now()}.png`
+
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+
+          trackEvent('save_quote_image', {
+            page: 'tem_nhan',
+            tool: 'tem_nhan_calculator'
+          })
+        } catch (error) {
+          console.error('Save image failed:', error)
+
+          alert('Không thể lưu ảnh. Vui lòng thử lại.')
+        }
+      }
+
+      form
+        ?.querySelectorAll('input, select')
+        .forEach((field) => {
+          field.addEventListener('input', updateQuoteLive)
+          field.addEventListener('change', updateQuoteLive)
+        })
+
+      exportQuoteBtn?.addEventListener('click', () => {
+        const formData = getFormData()
+
+        if (!validateFormData(formData, false)) {
+          return
+        }
+
+        updateQuoteLive()
+        openReferencePopup()
+      })
+
+      resetQuoteBtn?.addEventListener('click', () => {
+        document.querySelector('#width').value = ''
+        document.querySelector('#height').value = ''
+        document.querySelector('#quantity').value = ''
+
+        document.querySelector('#decal-type').value = 'paper'
+        document.querySelector('#lamination').value = 'none'
+
+        resetResult()
+
+        document.querySelector('#width').focus()
+
+        trackEvent('reset_quote', {
           page: 'tem_nhan',
           tool: 'tem_nhan_calculator'
         })
       })
-    }
 
-    // COPY QUOTE BUTTON
-copyQuoteBtn?.addEventListener('click', async () => {
-  if (!latestQuoteText) {
-    alert('Vui lòng tính giá trước khi sao chép')
-    return
-  }
 
-  try {
-    await navigator.clipboard.writeText(latestQuoteText)
+      closePopupBottom?.addEventListener('click', hidePopup)
 
-    copyQuoteBtn.textContent = 'Đã sao chép ✓'
+      popup?.addEventListener('click', (e) => {
+        if (e.target === popup) {
+          hidePopup()
+        }
+      })
 
-    setTimeout(() => {
-      copyQuoteBtn.textContent = 'Sao chép báo giá'
-    }, 1800)
+      form
+        ?.querySelectorAll('input, select')
+        .forEach((field) => {
+          field.addEventListener('input', updateQuoteLive)
+          field.addEventListener('change', updateQuoteLive)
+        })
 
-    trackEvent('copy_quote', {
-      page: 'tem_nhan',
-      tool: 'tem_nhan_calculator'
-    })
-  } catch (error) {
-    alert('Không thể sao chép tự động. Bạn vui lòng chụp màn hình hoặc thử lại.')
-  }
-})
+      exportQuoteBtn?.addEventListener('click', () => {
+        const formData = getFormData()
 
-  // CLOSE POPUP
-  function hidePopup() {
+        if (!validateFormData(formData, false)) {
+          return
+        }
 
-    popup.classList.add('hidden')
-    popup.classList.remove('flex')
+        updateQuoteLive()
+        openReferencePopup()
 
-  }
+        trackEvent('export_quote', {
+          page: 'tem_nhan',
+          tool: 'tem_nhan_calculator'
+        })
+      })
 
-  closePopup?.addEventListener(
-    'click',
-    hidePopup
-  )
+      resetQuoteBtn?.addEventListener('click', () => {
+        document.querySelector('#width').value = ''
+        document.querySelector('#height').value = ''
+        document.querySelector('#quantity').value = ''
 
-  closePopupBottom?.addEventListener(
-    'click',
-    hidePopup
-  )
+        document.querySelector('#decal-type').value = 'paper'
+        document.querySelector('#lamination').value = 'none'
 
-  popup?.addEventListener('click', (e) => {
+        resetResult()
 
-    if (e.target === popup) {
+        document.querySelector('#width').focus()
 
-      hidePopup()
+        trackEvent('reset_quote', {
+          page: 'tem_nhan',
+          tool: 'tem_nhan_calculator'
+        })
+      })
 
-    }
+      copyImageBtn?.addEventListener('click', copyPopupAsImage)
 
-  })
+      saveImageBtn?.addEventListener('click', savePopupAsImage)
+
+      closePopupBottom?.addEventListener('click', hidePopup)
+
+      popupOverlay?.addEventListener('click', hidePopup)
+
+      resetResult()
 
 }, 0)
 
@@ -334,342 +491,449 @@ copyQuoteBtn?.addEventListener('click', async () => {
 
       </div>
 
-        <!-- Form -->
-        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 md:p-10">
+      <!-- Calculator Box -->
+      <div
+        id="tem-nhan-calculator-form"
+        class="bg-zinc-900 border border-zinc-800 rounded-3xl p-5 md:p-8"
+      >
 
-          <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6 lg:gap-8 items-start">
 
-            <div>
-              <label class="block text-sm text-gray-400 mb-3">
-                Chiều ngang tem (mm)
-              </label>
+          <!-- Left: Form -->
+          <div>
 
-              <input
-                id="width"
-                type="number"
-                min="20"
-                max="300"
-                class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
-                placeholder="Ví dụ: 50"
-              />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-3">
+                  Chiều ngang tem (mm)
+                </label>
+
+                <input
+                  id="width"
+                  type="number"
+                  min="20"
+                  max="300"
+                  class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+                  placeholder="Ví dụ: 50"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-3">
+                  Chiều cao tem (mm)
+                </label>
+
+                <input
+                  id="height"
+                  type="number"
+                  min="20"
+                  max="300"
+                  class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+                  placeholder="Ví dụ: 50"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-3">
+                  Loại decal
+                </label>
+
+                <select
+                  id="decal-type"
+                  class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+                >
+                  <option value="paper">
+                    Decal giấy
+                  </option>
+
+                  <option value="plastic">
+                    Decal nhựa
+                  </option>
+
+                  <option value="clear-plastic">
+                    Decal nhựa trong
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-3">
+                  Cán màng
+                </label>
+
+                <select
+                  id="lamination"
+                  class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+                >
+                  <option value="none">
+                    Không cán màng
+                  </option>
+
+                  <option value="glossy">
+                    Màng bóng
+                  </option>
+
+                  <option value="matte">
+                    Màng mờ
+                  </option>
+                </select>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-sm text-gray-400 mb-3">
+                  Số lượng tem
+                </label>
+
+                <input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+                  placeholder="Ví dụ: 1000"
+                />
+              </div>
+
             </div>
 
-            <div>
-              <label class="block text-sm text-gray-400 mb-3">
-                Chiều cao tem (mm)
-              </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-              <input
-                id="height"
-                type="number"
-                min="20"
-                max="300"
-                class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
-                placeholder="Ví dụ: 80"
-              />
-
-            </div>
-
-            <div>
-              <label class="block text-sm text-gray-400 mb-3">
-                Loại decal
-              </label>
-
-              <select
-                id="decal-type"
-                class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+              <button
+                id="export-quote-btn"
+                type="button"
+                class="bg-orange-500 hover:bg-orange-600 transition rounded-xl py-4 md:py-5 text-base md:text-lg font-bold"
               >
-                <option value="paper">
-                  Decal giấy
-                </option>
+                Xuất báo giá
+              </button>
 
-                <option value="plastic">
-                  Decal nhựa
-                </option>
-
-                <option value="clear-plastic">
-                  Decal nhựa trong
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-sm text-gray-400 mb-3">
-                Cán màng
-              </label>
-
-              <select
-                id="lamination"
-                class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
+              <button
+                id="reset-quote-btn"
+                type="button"
+                class="border border-zinc-700 text-white hover:border-orange-500 hover:text-orange-500 transition rounded-xl py-4 md:py-5 text-base md:text-lg font-bold"
               >
-                <option value="none">
-                  Không cán màng
-                </option>
+                Làm mới
+              </button>
 
-                <option value="glossy">
-                  Màng bóng
-                </option>
-
-                <option value="matte">
-                  Màng mờ
-                </option>
-              </select>
             </div>
 
-            <div class="md:col-span-2">
-              <label class="block text-sm text-gray-400 mb-3">
-                Số lượng tem
-              </label>
-
-              <input
-                id="quantity"
-                type="number"
-                min="1"
-                class="w-full bg-black border border-zinc-700 rounded-xl px-5 py-4 text-white focus:border-orange-500 outline-none"
-                placeholder="Ví dụ: 1000"
-              />
-            </div>
+            <p class="mt-4 text-sm text-gray-500 leading-relaxed">
+              Kích thước hợp lệ từ 20mm đến 300mm. Giá chỉ mang tính tham khảo.
+            </p>
 
           </div>
 
-          <div class="grid gap-4">
-
-            <button
-              id="calculate-btn"
-              class="bg-orange-500 hover:bg-orange-600 transition rounded-xl py-5 text-lg font-bold"
-            >
-              Tính giá tham khảo
-            </button>
-
-          </div>
-
-          <!-- Result -->
+          <!-- Right: Result -->
           <div
             id="quote-result"
-            class="hidden mt-10 bg-black rounded-2xl p-8 border border-zinc-800"
+            class="bg-black rounded-3xl p-5 md:p-8 border border-zinc-800 lg:sticky lg:top-28"
           >
 
-            <div class="mb-8">
+            <div class="mb-6">
               <p class="text-orange-500 font-semibold mb-3 tracking-widest uppercase">
                 KẾT QUẢ BÁO GIÁ
               </p>
 
-              <h3 class="text-2xl md:text-3xl font-black">
-                Thông tin báo giá tem nhãn
+              <h3 class="text-2xl md:text-3xl font-black leading-tight">
+                Giá tem nhãn tham khảo
               </h3>
 
-              <p class="mt-3 text-gray-500 text-sm leading-relaxed">
-                Vui lòng kiểm tra lại thông tin bên dưới trước khi nhắn Zalo đặt tem.
+              <p
+                id="quote-warning"
+                class="mt-3 text-sm text-gray-500 leading-relaxed"
+              >
+                Nhập thông tin bên trái, giá sẽ tự động cập nhật tại đây.
               </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-4 mb-8">
+            <div class="grid grid-cols-1 gap-5">
 
-              <div class="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-                <p class="text-gray-500 text-sm mb-2">
-                  Kích thước tem
-                </p>
-
-                <p
-                  id="quote-size"
-                  class="text-white text-lg font-bold"
-                >
-                  -
-                </p>
-              </div>
-
-              <div class="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-                <p class="text-gray-500 text-sm mb-2">
-                  Loại decal
-                </p>
-
-                <p
-                  id="quote-decal"
-                  class="text-white text-lg font-bold"
-                >
-                  -
-                </p>
-              </div>
-
-              <div class="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-                <p class="text-gray-500 text-sm mb-2">
-                  Cán màng
-                </p>
-
-                <p
-                  id="quote-lamination"
-                  class="text-white text-lg font-bold"
-                >
-                  -
-                </p>
-              </div>
-
-              <div class="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-                <p class="text-gray-500 text-sm mb-2">
-                  Số lượng
-                </p>
-
-                <p
-                  id="quote-quantity"
-                  class="text-white text-lg font-bold"
-                >
-                  -
-                </p>
-              </div>
-
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-5">
-
-              <div class="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6">
+              <div class="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 min-w-0">
                 <p class="text-orange-300 mb-3">
                   Đơn giá 1 tem
                 </p>
 
                 <p
                   id="quote-unit"
-                  class="text-orange-500 text-3xl md:text-4xl font-black"
+                  class="text-orange-500 text-3xl md:text-4xl font-black break-words leading-tight"
                 >
-                  0đ
+                  -
                 </p>
               </div>
 
-              <div class="rounded-2xl border border-zinc-700 bg-zinc-950 p-6">
+              <div class="rounded-2xl border border-zinc-700 bg-zinc-950 p-6 min-w-0">
                 <p class="text-gray-400 mb-3">
                   Tổng tiền
                 </p>
 
                 <p
                   id="quote-total"
-                  class="text-white text-3xl md:text-4xl font-black"
+                  class="text-white text-3xl md:text-4xl font-black break-words leading-tight"
                 >
-                  0đ
+                  -
                 </p>
               </div>
 
             </div>
 
-            <div class="mt-8 grid md:grid-cols-3 gap-4">
-
-              <a
-                href="https://zalo.me/0974313230"
-                target="_blank"
-                onclick="
-                  trackEvent('click_contact', {
-                    page: 'tem_nhan',
-                    button: 'zalo_from_calculator'
-                  })
-                "
-                class="flex items-center justify-center rounded-xl bg-orange-500 px-5 py-4 font-bold text-white hover:bg-orange-600 transition"
-              >
-                Nhắn Zalo đặt tem
-              </a>
-
-              <button
-                id="copy-quote-btn"
-                class="rounded-xl border border-zinc-700 px-5 py-4 font-bold text-white hover:border-orange-500 hover:text-orange-500 transition"
-              >
-                Sao chép báo giá
-              </button>
-
-              <button
-                id="reference-price-btn"
-                class="rounded-xl border border-zinc-700 px-5 py-4 font-bold text-white hover:border-orange-500 hover:text-orange-500 transition"
-              >
-                Xem giá theo số lượng
-              </button>
-
-            </div>
-
-            <p class="mt-4 text-sm text-gray-500 leading-relaxed">
-              Giá chỉ mang tính tham khảo. Giá thực tế có thể thay đổi theo file thiết kế, chất liệu, kiểu bế, cán màng và tiến độ cần giao.
+            <p class="mt-5 text-sm text-gray-500 leading-relaxed">
+              Giá thực tế có thể thay đổi theo file thiết kế, kiểu bế, chất liệu, cán màng và tiến độ cần giao.
             </p>
 
           </div>
 
+        </div>
 
-    <!-- Popup -->
-        <div
-        id="quote-popup"
-        class="fixed inset-0 bg-black/70 backdrop-blur hidden items-center justify-center z-[999]"
-        >
+      </div>
 
-        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-[95%] max-w-4xl max-h-[90vh] overflow-y-auto p-8 relative">
-
-            <!-- Close -->
-            <button
-            id="close-popup"
-            class="absolute top-5 right-5 text-3xl text-gray-400 hover:text-orange-500 transition"
-            >
-            ×
-            </button>
-
-            <!-- Title -->
-            <div class="mb-10">
-
-            <p class="text-orange-500 font-semibold mb-3 tracking-wide">
-                BÁO GIÁ TEM NHÃN
-            </p>
-
-            <h3 class="text-4xl font-black leading-tight">
-                Báo giá tham khảo
-            </h3>
-
-            </div>
-
-            <!-- Quote Info -->
+          <!-- Popup -->
+          <div
+            id="quote-popup"
+            class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/75 p-4"
+          >
             <div
-              id="popup-summary"
-              class="grid md:grid-cols-3 gap-4 mb-10"
+              id="popup-overlay"
+              class="absolute inset-0"
             ></div>
 
-            <!-- Reference Table -->
-            <div class="overflow-x-auto">
-
-            <table class="w-full border border-zinc-800 rounded-2xl overflow-hidden">
-
-                <thead class="bg-orange-500 text-white">
-
-                <tr>
-
-                    <th class="p-4 text-left">
-                    Số lượng
-                    </th>
-
-                    <th class="p-4 text-left">
-                    Giá / tem
-                    </th>
-
-                    <th class="p-4 text-left">
-                    Tổng tiền
-                    </th>
-
-                </tr>
-
-                </thead>
-
-                <tbody
-                id="reference-table-body"
-                class="divide-y divide-zinc-800"
-                ></tbody>
-
-            </table>
-
-            </div>
-
-            <!-- Footer -->
-            <div class="mt-10 flex justify-end">
-
-            <button
-                id="close-popup-bottom"
-                class="border border-zinc-700 hover:border-orange-500 hover:text-orange-500 transition px-8 py-4 rounded-xl font-bold"
+            <div
+              id="quote-popup-card"
+              class="relative z-10 w-full max-w-5xl max-h-[94vh] overflow-y-auto rounded-[20px] md:rounded-[24px] bg-zinc-100 text-slate-800 shadow-2xl"
             >
-                Đóng
-            </button>
+
+              <!-- Header -->
+              <div class="border-b border-slate-300 bg-white px-4 py-4 md:px-6">
+
+                <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-6">
+
+                  <div class="flex items-start gap-3 md:gap-4">
+                    <img
+                      src="/images/logo-ist.png"
+                      alt="Logo IST"
+                      class="h-12 w-auto shrink-0 object-contain md:h-14"
+                    />
+
+                    <div class="min-w-0">
+                      <h3 class="text-lg font-black leading-tight text-slate-900 md:text-2xl">
+                        BÁO GIÁ TEM NHÃN IST
+                      </h3>
+
+                      <p class="mt-1 text-xs text-slate-500 md:text-sm">
+                        Công ty TNHH MTV Quảng Cáo In Sáng Tạo
+                      </p>
+
+                      <p class="mt-1 text-xs text-slate-500">
+                        Thiết kế - In ấn - Quảng cáo
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left md:shrink-0 md:text-right">
+                    <p
+                      id="popup-quote-code"
+                      class="text-base font-black text-slate-900 md:text-xl"
+                    >
+                      IST-TEM-000
+                    </p>
+
+                    <p
+                      id="popup-date"
+                      class="mt-1 text-sm text-slate-500"
+                    >
+                      -
+                    </p>
+
+                    <p class="mt-1 text-xs text-slate-500">
+                      Giá trị tham khảo
+                    </p>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- Body -->
+              <div class="grid grid-cols-1 gap-5 px-4 py-4 md:px-6 md:py-5 lg:grid-cols-[340px_1fr]">
+
+                <!-- Left -->
+                <div>
+
+                  <!-- Order Info -->
+                  <div class="mb-4 overflow-hidden rounded-2xl border border-slate-300 bg-white">
+
+                    <div class="border-b border-slate-200 px-4 py-3">
+                      <p class="text-sm font-black uppercase tracking-wide text-slate-800">
+                        Thông tin đơn hàng
+                      </p>
+                    </div>
+
+                    <div class="divide-y divide-slate-200 text-sm">
+
+                      <div class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="text-slate-500">
+                          Kích thước
+                        </span>
+
+                        <strong
+                          id="popup-order-size"
+                          class="text-right text-slate-900"
+                        >
+                          -
+                        </strong>
+                      </div>
+
+                      <div class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="text-slate-500">
+                          Vật liệu
+                        </span>
+
+                        <strong
+                          id="popup-order-material"
+                          class="text-right text-slate-900"
+                        >
+                          -
+                        </strong>
+                      </div>
+
+                      <div class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="text-slate-500">
+                          Cán màng
+                        </span>
+
+                        <strong
+                          id="popup-order-lamination"
+                          class="text-right text-slate-900"
+                        >
+                          -
+                        </strong>
+                      </div>
+
+                      <div class="flex items-center justify-between gap-4 px-4 py-3">
+                        <span class="text-slate-500">
+                          Số lượng
+                        </span>
+
+                        <strong
+                          id="popup-order-quantity"
+                          class="text-right text-slate-900"
+                        >
+                          -
+                        </strong>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Price Main -->
+                  <div class="overflow-hidden rounded-2xl border border-orange-300 bg-orange-50">
+
+                    <div class="flex items-center justify-between gap-4 border-b border-orange-200 px-4 py-3">
+                      <span class="font-bold text-orange-700">
+                        Giá / 1 tem
+                      </span>
+
+                      <strong
+                        id="popup-unit-price"
+                        class="text-xl font-black text-orange-600 md:text-2xl"
+                      > 
+                        -
+                      </strong>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-4 px-4 py-3">
+                      <span class="font-bold text-orange-700">
+                        Tổng tiền
+                      </span>
+
+                      <strong
+                        id="popup-total-price"
+                        class="text-2xl font-black text-orange-600 md:text-3xl"
+                      >
+                        -
+                      </strong>
+                    </div>
+
+                  </div>
+
+                  <!-- Note -->
+                  <div class="mt-4 rounded-2xl border border-slate-300 bg-white px-4 py-3">
+                    <p class="text-xs leading-relaxed text-slate-500">
+                      Giá chỉ mang tính tham khảo. Giá thực tế có thể thay đổi theo file thiết kế,
+                      kiểu bế, chất liệu, cán màng và tiến độ cần giao.
+                    </p>
+                  </div>
+
+                </div>
+
+                <!-- Right -->
+                <div>
+
+                  <div class="overflow-hidden rounded-2xl border border-slate-300 bg-white">
+
+                    <div class="border-b border-slate-200 px-4 py-3">
+                      <p class="text-sm font-black uppercase tracking-wide text-slate-800">
+                        Giá tham khảo theo số lượng
+                      </p>
+                    </div>
+
+                    <div class="px-3 py-3 md:px-4">
+
+                      <div class="mb-2 grid grid-cols-[1.05fr_0.8fr_1.15fr] rounded-xl bg-slate-900 px-3 py-2 text-[11px] font-bold text-white md:grid-cols-3 md:px-4 md:text-xs">
+                        <div>
+                          SL
+                        </div>
+
+                        <div class="text-center">
+                          Giá
+                        </div>
+
+                        <div class="text-right">
+                          Tổng
+                        </div>
+                      </div>
+
+                      <div
+                        id="reference-table-body"
+                        class="space-y-1.5"
+                      ></div>
+
+                    </div>
+
+                </div>
+
+              </div>
+            </div>
+              <!-- Footer -->
+              <div class="flex flex-col gap-3 border-t border-slate-300 bg-white px-4 py-3 md:flex-row md:items-center md:justify-end md:px-6 rounded-b-[20px] md:rounded-b-[24px]">
+
+                <button
+                  id="copy-image-btn"
+                  type="button"
+                  class="w-full rounded-xl bg-emerald-600 px-4 py-2.5 font-bold text-white hover:bg-emerald-700 transition md:w-auto"
+                >
+                  Copy ảnh
+                </button>
+
+                <button
+                  id="save-image-btn"
+                  type="button"
+                  class="w-full rounded-xl bg-orange-500 px-4 py-2.5 font-bold text-white hover:bg-orange-600 transition md:w-auto"
+                >
+                  Lưu ảnh
+                </button>
+
+                <button
+                  id="close-popup-bottom"
+                  type="button"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-2.5 font-bold text-slate-700 hover:bg-slate-100 transition md:w-auto"
+                >
+                  Đóng
+                </button>
+
+              </div>
 
             </div>
-
-        </div>
+          </div>
 
         </div>
 

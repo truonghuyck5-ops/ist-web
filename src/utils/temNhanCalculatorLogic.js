@@ -1,11 +1,15 @@
+import { temNhanPricingConfig as config } from '../data/temNhanPricingConfig'
+
 export function formatCurrency(amount) {
-  return new Intl.NumberFormat(
-    'vi-VN',
-    {
-      style: 'currency',
-      currency: 'VND'
-    }
-  ).format(amount)
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+    maximumFractionDigits: 0,
+  }).format(amount)
+}
+
+function roundToNearest(value, step = 100) {
+  return Math.round(value / step) * step
 }
 
 function calculateOptimalLayout(
@@ -14,9 +18,9 @@ function calculateOptimalLayout(
   sheetWidth,
   sheetHeight
 ) {
-  const cols = Math.floor(sheetWidth / labelWidth)
-  const rows = Math.floor(sheetHeight / labelHeight)
-  const normal = cols * rows
+  const normalCols = Math.floor(sheetWidth / labelWidth)
+  const normalRows = Math.floor(sheetHeight / labelHeight)
+  const normal = normalCols * normalRows
 
   const rotatedCols = Math.floor(sheetWidth / labelHeight)
   const rotatedRows = Math.floor(sheetHeight / labelWidth)
@@ -25,120 +29,145 @@ function calculateOptimalLayout(
   return Math.max(normal, rotated)
 }
 
+function getInterpolatedSheetPrice(sheetsNeeded) {
+  const table = config.baseSheetPriceTable
+
+  if (sheetsNeeded <= table[0].sheets) {
+    return table[0].price
+  }
+
+  if (sheetsNeeded >= table[table.length - 1].sheets) {
+    return table[table.length - 1].price
+  }
+
+  for (let i = 0; i < table.length - 1; i++) {
+    const lower = table[i]
+    const upper = table[i + 1]
+
+    if (
+      sheetsNeeded >= lower.sheets &&
+      sheetsNeeded <= upper.sheets
+    ) {
+      const progress =
+        (sheetsNeeded - lower.sheets) /
+        (upper.sheets - lower.sheets)
+
+      const interpolatedPrice =
+        lower.price +
+        (upper.price - lower.price) * progress
+
+      return roundToNearest(interpolatedPrice, 100)
+    }
+  }
+
+  return table[table.length - 1].price
+}
+
+function calculateLaminationFee(lamination, sheetsNeeded) {
+  const laminationConfig = config.laminationFees[lamination]
+
+  if (!laminationConfig) {
+    return 0
+  }
+
+  const fee =
+    laminationConfig.feePerSheet * sheetsNeeded
+
+  return Math.max(fee, laminationConfig.minFee)
+}
+
 export function calculateQuote({
   width,
   height,
   quantity,
   decalType,
-  shape = 'special',
   lamination,
-  customerType = 'regular'
 }) {
   if (!width || !height || !quantity) {
     return null
   }
 
-  // LIMIT SIZE
   if (
-    width < 20 ||
-    width > 300 ||
-    height < 20 ||
-    height > 300
+    width < config.minSize ||
+    width > config.maxSize ||
+    height < config.minSize ||
+    height > config.maxSize
   ) {
     return null
   }
 
-  // SHAPE EXTRA
-  // IST mặc định có thể bế theo hình bất kỳ, nên cộng biên an toàn 2mm
-  let adjustedWidth = width
-  let adjustedHeight = height
+  const material = config.materials[decalType]
 
-  if (
-    shape === 'round' ||
-    shape === 'special'
-  ) {
-    adjustedWidth += 2
-    adjustedHeight += 2
+  if (!material) {
+    return null
   }
 
-  // SHEET SIZE
-  const sheetWidth = 310
-  const sheetHeight = 340
+  const adjustedWidth =
+    width + config.bleedForCutting
 
-  // LABELS PER SHEET
-  const labelsPerSheet = calculateOptimalLayout(
-    adjustedWidth,
-    adjustedHeight,
-    sheetWidth,
-    sheetHeight
-  )
+  const adjustedHeight =
+    height + config.bleedForCutting
+
+  const labelsPerSheet =
+    calculateOptimalLayout(
+      adjustedWidth,
+      adjustedHeight,
+      material.sheetWidth,
+      material.sheetHeight
+    )
 
   if (!labelsPerSheet || labelsPerSheet <= 0) {
     return null
   }
 
-  // SHEETS NEEDED
-  const sheetsNeeded = Math.ceil(quantity / labelsPerSheet)
+  const sheetsNeeded =
+    Math.ceil(quantity / labelsPerSheet)
 
-  // SHEET PRICE
-  let sheetPrice = 0
+  const sheetPrice =
+    getInterpolatedSheetPrice(sheetsNeeded)
 
-  if (sheetsNeeded < 10) {
-    sheetPrice = 18000
-  } else if (sheetsNeeded < 50) {
-    sheetPrice = 12000
-  } else if (sheetsNeeded < 200) {
-    sheetPrice = 8000
-  } else {
-    sheetPrice = 6000
+  const basePrintFee =
+    sheetPrice * sheetsNeeded
+
+  const materialFee =
+    material.extraFeePerSheet * sheetsNeeded
+
+  const laminationFee =
+    calculateLaminationFee(lamination, sheetsNeeded)
+
+  let totalPrice =
+    basePrintFee +
+    materialFee +
+    laminationFee
+
+  if (totalPrice < config.minimumOrder) {
+    totalPrice = config.minimumOrder
   }
 
-  // MATERIAL FEE
-  // decal giấy: mặc định 0 phụ phí
-  // decal nhựa: phụ phí 1.500đ/tờ
-  // decal nhựa trong: phụ phí 2.000đ/tờ
-  const materialFees = {
-    paper: 0,
-    plastic: 1500,
-    'clear-plastic': 2000
-  }
-
-  let materialFee = (materialFees[decalType] || 0) * sheetsNeeded
-
-  // LAMINATION
-  if (lamination !== 'none') {
-    materialFee += Math.max(
-      700 * sheetsNeeded,
-      20000
-    )
-  }
-
-  // BASE TOTAL
-  let totalPrice = (sheetPrice * sheetsNeeded) + materialFee
-
-  // CUSTOMER TYPE
-  // Landing page này hướng khách lẻ, mặc định không chiết khấu đại lý
-  let discount = 0
-
-  if (customerType === 'vip') {
-    discount = totalPrice * 0.1
-    totalPrice -= discount
-  }
-
-  // UNIT PRICE
-  const unitPrice = Math.round(totalPrice / quantity)
+  const unitPrice =
+    Math.round(totalPrice / quantity)
 
   return {
     unitPrice: formatCurrency(unitPrice),
     totalPrice: formatCurrency(totalPrice),
 
-    // vẫn giữ để popup "xem giá theo số lượng" dùng được
     labelsPerSheet,
     sheetsNeeded,
 
-    // vẫn giữ để code cũ không lỗi nếu chỗ nào còn gọi
     sheetPrice: formatCurrency(sheetPrice),
+    basePrintFee: formatCurrency(basePrintFee),
     materialFee: formatCurrency(materialFee),
-    discount: formatCurrency(discount)
+    laminationFee: formatCurrency(laminationFee),
+
+    raw: {
+      unitPrice,
+      totalPrice,
+      labelsPerSheet,
+      sheetsNeeded,
+      sheetPrice,
+      basePrintFee,
+      materialFee,
+      laminationFee,
+    },
   }
 }
