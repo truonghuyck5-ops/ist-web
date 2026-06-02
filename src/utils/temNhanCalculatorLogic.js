@@ -76,6 +76,47 @@ function calculateLaminationFee(lamination, sheetsNeeded) {
   return Math.max(fee, laminationConfig.minFee)
 }
 
+function getSmallLabelSurchargeRate(width, height) {
+  const area = width * height
+
+  const rules = [
+    { area: 2500, rate: 0 },
+    { area: 1600, rate: 0.1 },
+    { area: 900, rate: 0.3 },
+    { area: 400, rate: 0.5 },
+  ]
+
+  if (area >= rules[0].area) {
+    return 0
+  }
+
+  if (area <= rules[rules.length - 1].area) {
+    return rules[rules.length - 1].rate
+  }
+
+  for (let i = 0; i < rules.length - 1; i++) {
+    const upper = rules[i]
+    const lower = rules[i + 1]
+
+    if (
+      area <= upper.area &&
+      area >= lower.area
+    ) {
+      const progress =
+        (upper.area - area) /
+        (upper.area - lower.area)
+
+      const interpolatedRate =
+        upper.rate +
+        (lower.rate - upper.rate) * progress
+
+      return interpolatedRate
+    }
+  }
+
+  return 0
+}
+
 export function calculateQuote({
   width,
   height,
@@ -135,17 +176,26 @@ export function calculateQuote({
   const laminationFee =
     calculateLaminationFee(lamination, sheetsNeeded)
 
-  let totalPrice =
-    basePrintFee +
-    materialFee +
-    laminationFee
+let totalPrice =
+  basePrintFee +
+  materialFee +
+  laminationFee
 
-  if (totalPrice < config.minimumOrder) {
-    totalPrice = config.minimumOrder
-  }
+const smallLabelSurchargeRate =
+  getSmallLabelSurchargeRate(width, height)
 
-  const unitPrice =
-    Math.round(totalPrice / quantity)
+const smallLabelSurchargeFee =
+  totalPrice * smallLabelSurchargeRate
+
+totalPrice =
+  totalPrice + smallLabelSurchargeFee
+
+if (totalPrice < config.minimumOrder) {
+  totalPrice = config.minimumOrder
+}
+
+const unitPrice =
+  Math.round(totalPrice / quantity)
 
   return {
     unitPrice: formatCurrency(unitPrice),
@@ -168,6 +218,8 @@ export function calculateQuote({
       basePrintFee,
       materialFee,
       laminationFee,
+      smallLabelSurchargeRate,
+      smallLabelSurchargeFee: formatCurrency(smallLabelSurchargeFee),
     },
   }
 }

@@ -42,16 +42,22 @@ body {
 }
 
 
-/* Fix html2canvas không hỗ trợ màu oklch() của Tailwind v4 */
+/* ================================
+   FIX EXPORT IMAGE - HTML2CANVAS
+   Tailwind v4 dùng oklch(), html2canvas không parse được.
+   Khi export ảnh, ép popup về màu HEX/RGB an toàn.
+================================ */
+
 #quote-popup-card.capture-safe,
 #quote-popup-card.capture-safe * {
   box-shadow: none !important;
   text-shadow: none !important;
   background-image: none !important;
-  outline-color: transparent !important;
-  caret-color: #0f172a !important;
-  text-decoration-color: currentColor !important;
-  border-color: #cbd5e1 !important;
+  outline: none !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-shadow: 0 0 #0000 !important;
+  --tw-shadow-colored: 0 0 #0000 !important;
 }
 
 /* Khung chính */
@@ -60,47 +66,50 @@ body {
   color: #0f172a !important;
 }
 
-/* Nền */
+/* Ép màu nền an toàn */
 #quote-popup-card.capture-safe .bg-white {
   background-color: #ffffff !important;
 }
 
-#quote-popup-card.capture-safe .bg-zinc-100 {
+#quote-popup-card.capture-safe .bg-zinc-100,
+#quote-popup-card.capture-safe .bg-zinc-50 {
   background-color: #f4f4f5 !important;
 }
 
-#quote-popup-card.capture-safe .bg-zinc-50 {
-  background-color: #fafafa !important;
-}
-
-#quote-popup-card.capture-safe .bg-slate-50 {
+#quote-popup-card.capture-safe .bg-slate-50,
+#quote-popup-card.capture-safe .bg-slate-100 {
   background-color: #f8fafc !important;
-}
-
-#quote-popup-card.capture-safe .bg-orange-50 {
-  background-color: #fff7ed !important;
 }
 
 #quote-popup-card.capture-safe .bg-slate-900 {
   background-color: #0f172a !important;
 }
 
-#quote-popup-card.capture-safe .bg-orange-500 {
+#quote-popup-card.capture-safe .bg-orange-50 {
+  background-color: #fff7ed !important;
+}
+
+#quote-popup-card.capture-safe .bg-orange-500,
+#quote-popup-card.capture-safe .bg-orange-600 {
   background-color: #ff6600 !important;
 }
 
-#quote-popup-card.capture-safe .bg-emerald-600 {
+#quote-popup-card.capture-safe .bg-emerald-600,
+#quote-popup-card.capture-safe .bg-emerald-700 {
   background-color: #059669 !important;
 }
 
-/* Chữ */
+/* Ép màu chữ an toàn */
+#quote-popup-card.capture-safe,
 #quote-popup-card.capture-safe .text-slate-900,
 #quote-popup-card.capture-safe .text-slate-800,
 #quote-popup-card.capture-safe .text-slate-700 {
   color: #0f172a !important;
 }
 
-#quote-popup-card.capture-safe .text-slate-500 {
+#quote-popup-card.capture-safe .text-slate-600,
+#quote-popup-card.capture-safe .text-slate-500,
+#quote-popup-card.capture-safe .text-slate-400 {
   color: #64748b !important;
 }
 
@@ -108,6 +117,8 @@ body {
   color: #ffffff !important;
 }
 
+#quote-popup-card.capture-safe .text-orange-300,
+#quote-popup-card.capture-safe .text-orange-500,
 #quote-popup-card.capture-safe .text-orange-600,
 #quote-popup-card.capture-safe .text-orange-700 {
   color: #ea580c !important;
@@ -118,9 +129,9 @@ body {
   color: #047857 !important;
 }
 
-/* Border */
-#quote-popup-card.capture-safe .border-slate-200,
-#quote-popup-card.capture-safe .border-slate-300 {
+/* Ép border an toàn */
+#quote-popup-card.capture-safe,
+#quote-popup-card.capture-safe * {
   border-color: #cbd5e1 !important;
 }
 
@@ -130,11 +141,40 @@ body {
   border-color: #fb923c !important;
 }
 
-#quote-popup-card.capture-safe .border-emerald-300 {
+#quote-popup-card.capture-safe .border-emerald-300,
+#quote-popup-card.capture-safe .border-emerald-600 {
   border-color: #6ee7b7 !important;
 }
 
-/* Dòng đang chọn */
-#quote-popup-card.capture-safe .bg-orange-50 {
+/* Dòng số lượng đang chọn */
+#quote-popup-card.capture-safe .reference-table-row.active-row {
   background-color: #fff7ed !important;
+  border-color: #fb923c !important;
+}
+
+/* Khi xuất ảnh thì ẩn khu vực nút thao tác */
+#quote-popup-card.export-image .popup-footer {
+  display: none !important;
+}
+
+/* Export ảnh luôn dùng bố cục desktop */
+#quote-popup-card.export-desktop {
+  width: 1120px !important;
+  max-width: 1120px !important;
+  min-width: 1120px !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  border-radius: 24px !important;
+}
+
+#quote-popup-card.export-desktop .popup-body {
+  display: grid !important;
+  grid-template-columns: 340px 1fr !important;
+  gap: 20px !important;
+}
+
+#quote-popup-card.export-desktop .popup-footer {
+  flex-direction: row !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
 }

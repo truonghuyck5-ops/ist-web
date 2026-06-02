@@ -246,13 +246,13 @@ export function TemNhanCalculator() {
           const isActive =
             q === formData.quantity
 
-          table.innerHTML += `
-            <div class="
-              grid grid-cols-[1.05fr_0.8fr_1.15fr] items-center rounded-xl border px-3 py-2.5 text-[12px] md:grid-cols-3 md:px-4 md:text-sm
-              ${isActive
-                ? 'border-orange-500 bg-orange-50 shadow-sm'
-                : 'border-slate-200 bg-slate-50'}
-            ">
+            table.innerHTML += `
+              <div class="
+                reference-table-row grid grid-cols-[1.05fr_0.8fr_1.15fr] items-center rounded-xl border px-3 py-2.5 text-[12px] md:grid-cols-3 md:px-4 md:text-sm
+                ${isActive
+                  ? 'active-row border-orange-500 bg-orange-50 shadow-sm'
+                  : 'border-slate-200 bg-slate-50'}
+              ">
               <div class="font-bold leading-tight ${isActive ? 'text-orange-700' : 'text-slate-700'}">
                 ${isActive ? '▶ ' : ''}${q.toLocaleString('vi-VN')} tem
               </div>
@@ -285,6 +285,8 @@ export function TemNhanCalculator() {
         }
 
         popupCard.classList.add('capture-safe')
+        popupCard.classList.add('export-desktop')
+        popupCard.classList.add('export-image')
 
         await new Promise((resolve) => {
           requestAnimationFrame(() => {
@@ -301,6 +303,8 @@ export function TemNhanCalculator() {
             logging: false,
             scrollX: 0,
             scrollY: 0,
+            width: 1120,
+            windowWidth: 1120,
 
             onclone: (clonedDocument) => {
               const clonedCard =
@@ -308,11 +312,15 @@ export function TemNhanCalculator() {
 
               if (clonedCard) {
                 clonedCard.classList.add('capture-safe')
+                clonedCard.classList.add('export-desktop')
+                clonedCard.classList.add('export-image')
               }
             },
           })
         } finally {
           popupCard.classList.remove('capture-safe')
+          popupCard.classList.remove('export-desktop')
+          popupCard.classList.remove('export-image')
         }
       }
 
@@ -691,7 +699,7 @@ export function TemNhanCalculator() {
               </p>
             </div>
 
-            <div class="grid grid-cols-1 gap-5">
+            <div class="price-summary-grid grid grid-cols-1 gap-5">
 
               <div class="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 min-w-0">
                 <p class="text-orange-300 mb-3">
@@ -700,7 +708,7 @@ export function TemNhanCalculator() {
 
                 <p
                   id="quote-unit"
-                  class="text-orange-500 text-3xl md:text-4xl font-black break-words leading-tight"
+                  class="quote-unit-text text-orange-500 text-3xl md:text-4xl font-black break-words leading-tight"
                 >
                   -
                 </p>
@@ -713,7 +721,7 @@ export function TemNhanCalculator() {
 
                 <p
                   id="quote-total"
-                  class="text-white text-3xl md:text-4xl font-black break-words leading-tight"
+                  class="quote-total-text text-white text-3xl md:text-4xl font-black break-words leading-tight"
                 >
                   -
                 </p>
@@ -747,7 +755,7 @@ export function TemNhanCalculator() {
             >
 
               <!-- Header -->
-              <div class="border-b border-slate-300 bg-white px-4 py-4 md:px-6">
+              <div class="popup-header border-b border-slate-300 bg-white px-4 py-4 md:px-6">
 
                 <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-6">
 
@@ -760,7 +768,7 @@ export function TemNhanCalculator() {
                     />
 
                     <div class="min-w-0">
-                      <h3 class="text-lg font-black leading-tight text-slate-900 md:text-2xl">
+                      <h3 class="popup-title text-lg font-black leading-tight text-slate-900 md:text-2xl">
                         BÁO GIÁ TEM NHÃN IST
                       </h3>
 
@@ -777,7 +785,7 @@ export function TemNhanCalculator() {
                   <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left md:shrink-0 md:text-right">
                     <p
                       id="popup-quote-code"
-                      class="text-base font-black text-slate-900 md:text-xl"
+                      class="popup-code text-base font-black text-slate-900 md:text-xl"
                     >
                       IST-TEM-000
                     </p>
@@ -799,7 +807,7 @@ export function TemNhanCalculator() {
               </div>
 
               <!-- Body -->
-              <div class="grid grid-cols-1 gap-5 px-4 py-4 md:px-6 md:py-5 lg:grid-cols-[340px_1fr]">
+              <div class="popup-body grid grid-cols-1 gap-5 px-4 py-4 md:px-6 md:py-5 lg:grid-cols-[340px_1fr]">
 
                 <!-- Left -->
                 <div>
@@ -919,7 +927,7 @@ export function TemNhanCalculator() {
 
                     <div class="border-b border-slate-200 px-4 py-3">
                       <p class="text-sm font-black uppercase tracking-wide text-slate-800">
-                        Giá tham khảo theo số lượng
+                        GIÁ THAM KHẢO THEO SỐ LƯỢNG IN
                       </p>
                     </div>
 
@@ -950,8 +958,23 @@ export function TemNhanCalculator() {
 
               </div>
             </div>
+
+              <!-- Quote Contact Footer -->
+              <div class="quote-contact-footer border-t border-slate-300 bg-white px-6 py-4">
+                <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+                  <p>
+                    <strong class="text-slate-900">In Sáng Tạo </strong>
+                    - Thiết kế, in ấn, tem nhãn, bảng hiệu quảng cáo
+                  </p>
+
+                  <p class="font-bold text-orange-600">
+                    Zalo / Hotline: 0974 31 32 30
+                  </p>
+                </div>
+              </div>
+
               <!-- Footer -->
-              <div class="flex flex-col gap-3 border-t border-slate-300 bg-white px-4 py-3 md:flex-row md:items-center md:justify-end md:px-6 rounded-b-[20px] md:rounded-b-[24px]">
+              <div class="popup-footer flex flex-col gap-3 border-t border-slate-300 bg-white px-4 py-3 md:flex-row md:items-center md:justify-end md:px-6 rounded-b-[20px] md:rounded-b-[24px]">
 
                 <button
                   id="copy-image-btn"

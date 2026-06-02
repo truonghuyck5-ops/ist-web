@@ -1,3 +1,108 @@
+import { productMenu } from '../data/productMenu'
+
+function ProductDropdownDesktop() {
+  return `
+    <div class="relative group">
+
+      <button
+        type="button"
+        onclick="
+          trackEvent('click_nav', {
+            menu: 'san_pham_dropdown',
+            type: 'desktop'
+          })
+        "
+        class="flex items-center gap-1 hover:text-orange-500 transition"
+      >
+        Sản phẩm
+        <span class="text-xs">▾</span>
+      </button>
+
+      <div
+        class="invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full pt-4 z-50"
+      >
+        <div class="w-80 rounded-2xl border border-zinc-800 bg-black shadow-2xl overflow-hidden">
+
+          ${productMenu.map((item) => `
+            <a
+              href="${item.href}"
+              onclick="
+                trackEvent('click_nav_product', {
+                  product: '${item.key}',
+                  type: 'desktop'
+                })
+              "
+              class="block px-5 py-4 hover:bg-zinc-900 transition"
+            >
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <span class="block text-sm font-semibold text-white">
+                    ${item.label}
+                  </span>
+
+                  <span class="block mt-1 text-xs leading-relaxed text-gray-500">
+                    ${item.description}
+                  </span>
+                </div>
+
+                ${
+                  item.status === 'coming'
+                    ? `<span class="shrink-0 rounded-full border border-zinc-700 px-2 py-1 text-[10px] text-gray-500">
+                        Sắp có
+                      </span>`
+                    : ''
+                }
+              </div>
+            </a>
+          `).join('')}
+
+        </div>
+      </div>
+
+    </div>
+  `
+}
+
+function ProductDropdownMobile() {
+  return `
+    <div class="border-b border-zinc-800 py-3">
+
+      <p class="mb-3 font-semibold text-white">
+        Sản phẩm
+      </p>
+
+      <div class="grid gap-2 pl-4">
+        ${productMenu.map((item) => `
+          <a
+            href="${item.href}"
+            onclick="
+              trackEvent('click_nav_product', {
+                product: '${item.key}',
+                type: 'mobile'
+              })
+            "
+            class="block py-2 text-gray-400 hover:text-orange-500 transition"
+          >
+            <span class="block">
+              ${item.label}
+              ${
+                item.status === 'coming'
+                  ? `<span class="ml-2 text-xs text-gray-600">(sắp có)</span>`
+                  : ''
+              }
+            </span>
+
+            <span class="block mt-1 text-xs text-gray-600">
+              ${item.description}
+            </span>
+          </a>
+        `).join('')}
+      </div>
+
+    </div>
+  `
+}
+
 export function Navbar() {
 
   setTimeout(() => {
@@ -81,18 +186,7 @@ export function Navbar() {
             Năng lực
           </a>
 
-          <a
-            href="/#products"
-            onclick="
-              trackEvent('click_nav', {
-                menu: 'san_pham',
-                type: 'desktop'
-              })
-            "
-            class="hover:text-orange-500 transition"
-          >
-            Sản phẩm
-          </a>
+          ${ProductDropdownDesktop()}
 
           <a
             href="/#projects"
@@ -199,18 +293,7 @@ export function Navbar() {
             Năng lực
           </a>
 
-          <a
-            href="/#products"
-            onclick="
-              trackEvent('click_nav', {
-                menu: 'san_pham',
-                type: 'mobile'
-              })
-            "
-            class="hover:text-orange-500 transition"
-          >
-            Sản phẩm
-          </a>
+          ${ProductDropdownMobile()}
 
           <a
             href="/#projects"

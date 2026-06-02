@@ -1,0 +1,44 @@
+export const productMenu = [
+  {
+    label: 'In tem nhãn',
+    description: 'Decal giấy, decal nhựa, sticker sản phẩm',
+    href: '/tem-nhan.html',
+    key: 'tem_nhan',
+    status: 'active',
+  },
+  {
+    label: 'Bảng hiệu quảng cáo',
+    description: 'Bảng hiệu shop, công ty, cơ quan, hộ kinh doanh',
+    href: '/bang-hieu.html',
+    key: 'bang_hieu',
+    status: 'active',
+  },
+  {
+    label: 'Combo mở quán',
+    description: 'Bảng hiệu, menu, tem nhãn, decal, standee',
+    href: '/combo-mo-quan.html',
+    key: 'combo_mo_quan',
+    status: 'active',
+  },
+  {
+    label: 'In bạt - decal - standee',
+    description: 'Banner, backdrop, decal kính, standee sự kiện',
+    href: '/#products',
+    key: 'in_bat_decal_standee',
+    status: 'coming',
+  },
+{
+  label: 'In hóa đơn - biểu mẫu',
+  description: 'Phiếu thu, phiếu chi, biên nhận, hóa đơn bán hàng',
+  href: '/hoa-don.html',
+  key: 'hoa_don_bieu_mau',
+  status: 'active',
+},
+  {
+    label: 'In túi xốp',
+    description: 'In túi xốp logo cho shop, chợ, đại lý, cơ sở kinh doanh',
+    href: '/#products',
+    key: 'in_tui_xop',
+    status: 'coming',
+  },
+]
