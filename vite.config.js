@@ -15,6 +15,7 @@ export default defineConfig({
         bangHieu: resolve(__dirname, 'bang-hieu.html'),
         comboMoQuan: resolve(__dirname, 'combo-mo-quan.html'),
         hoaDon: resolve(__dirname, 'hoa-don.html'),
+        kinhDoanh: resolve(__dirname, 'kinh-doanh.html'),
       },
     },
   },
