@@ -6,20 +6,21 @@ import { homeServices } from '../../../data/homeServices.js'
   <div class="mx-auto max-w-7xl px-6 py-24">
     <div class="mb-12 max-w-3xl">
       <p class="mb-5 font-semibold tracking-widest text-orange-500 uppercase">Sản phẩm &amp; dịch vụ</p>
-      <h2 class="mb-8 text-3xl leading-tight font-black text-white md:text-5xl">Nhóm dịch vụ chủ lực<br />IST đang cung cấp</h2>
-      <p class="text-lg leading-relaxed text-gray-400">IST cung cấp giải pháp thiết kế, in ấn, sản xuất và thi công quảng cáo cho nhiều nhóm khách hàng: shop, hộ kinh doanh, doanh nghiệp, cơ quan, trường học và đơn vị tổ chức sự kiện.</p>
+      <h2 class="mb-8 text-3xl leading-tight font-black text-white md:text-5xl">Dịch vụ chủ lực<br />IST đang cung cấp</h2>
+      <p class="text-lg leading-relaxed text-gray-400">Từ bảng hiệu, tem nhãn và combo mở quán đến in khổ lớn, IST triển khai các hạng mục quảng cáo cho shop, hộ kinh doanh, doanh nghiệp, cơ quan và tổ chức.</p>
     </div>
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {homeServices.map((service) => (
-        <article class="group overflow-hidden rounded-3xl border border-zinc-800 bg-black transition hover:border-orange-500/70">
+        <article class:list={['group overflow-hidden rounded-3xl border transition hover:border-orange-500/70', service.tier === 'primary' ? 'border-orange-500/50 bg-black' : 'border-zinc-800 bg-zinc-950']}>
           <div class="relative overflow-hidden">
             <button type="button" data-lightbox={service.image} data-caption={`${service.title} - Dịch vụ tại IST`} class="block w-full" aria-label={`Xem ảnh lớn: ${service.title}`}><img src={service.image} alt={service.title} loading="lazy" decoding="async" class="h-60 w-full object-cover transition duration-500 group-hover:scale-105" /></button>
-            <div class:list={['absolute top-4 left-4 rounded-full px-4 py-2 text-xs font-bold', service.status === 'active' ? 'bg-orange-500 text-white' : 'bg-zinc-800 text-gray-300']}>{service.tag}</div>
+            <div class="absolute top-4 left-4 rounded-full bg-black/75 px-4 py-2 text-xs font-bold text-white backdrop-blur">{service.tag}</div>
           </div>
           <div class="p-6">
+            <p class:list={['mb-3 text-xs font-bold tracking-widest uppercase', service.tier === 'primary' ? 'text-orange-500' : 'text-gray-500']}>{service.tier === 'primary' ? 'Dịch vụ chủ lực' : 'Dịch vụ bổ trợ'}</p>
             <h3 class="mb-3 text-xl font-bold text-white">{service.title}</h3>
             <p class="mb-6 leading-relaxed text-gray-400">{service.desc}</p>
-            {service.status === 'coming' ? <a href="#contact" class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Tư vấn báo giá →</a> : <span class="inline-flex items-center font-bold text-orange-500">Xem chi tiết →</span>}
+            {service.astroRouteAvailable ? <a href={service.href} class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Xem chi tiết →</a> : <a href="#contact" class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Nhận tư vấn &amp; báo giá →</a>}
           </div>
         </article>
       ))}
