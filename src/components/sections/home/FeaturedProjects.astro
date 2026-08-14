@@ -2,7 +2,7 @@
 import { featuredProjects } from '../../../data/featuredProjects.js'
 ---
 
-<section id="projects" class="border-t border-gray-900 bg-black">
+<section id="projects" class="border-t border-gray-900 bg-black" data-reveal>
   <div class="mx-auto max-w-7xl px-6 py-24">
     <div class="mb-12 grid items-end gap-10 lg:grid-cols-12">
       <div class="lg:col-span-8">
@@ -16,10 +16,10 @@ import { featuredProjects } from '../../../data/featuredProjects.js'
       {featuredProjects.map((project) => (
         <article class="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950 transition hover:border-orange-500/70">
           <div class="relative overflow-hidden">
-            <img src={project.image} alt={project.title} loading="lazy" decoding="async" class="h-72 w-full object-cover transition duration-500 group-hover:scale-105" />
+            <button type="button" data-lightbox={project.image} data-caption={project.caption} class="block w-full" aria-label={`Xem ảnh lớn: ${project.title}`}><img src={project.image} alt={project.title} loading="lazy" decoding="async" class="h-72 w-full object-cover transition duration-500 group-hover:scale-105" /></button>
             <div class="absolute top-4 left-4 rounded-full bg-black/75 px-4 py-2 text-xs font-bold text-white backdrop-blur">{project.category}</div>
           </div>
-          <div class="p-6"><h3 class="mb-3 text-xl font-bold text-white">{project.title}</h3><p class="mb-5 leading-relaxed text-gray-400">{project.service}</p><span class="font-bold text-orange-500">Xem ảnh lớn →</span></div>
+          <div class="p-6"><h3 class="mb-3 text-xl font-bold text-white">{project.title}</h3><p class="mb-5 leading-relaxed text-gray-400">{project.service}</p><button type="button" data-lightbox-trigger={project.image} class="font-bold text-orange-500 transition hover:text-orange-400">Xem ảnh lớn →</button></div>
         </article>
       ))}
     </div>

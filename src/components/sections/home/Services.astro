@@ -2,7 +2,7 @@
 import { homeServices } from '../../../data/homeServices.js'
 ---
 
-<section id="products" class="border-t border-gray-900 bg-zinc-950">
+<section id="products" class="border-t border-gray-900 bg-zinc-950" data-reveal>
   <div class="mx-auto max-w-7xl px-6 py-24">
     <div class="mb-12 max-w-3xl">
       <p class="mb-5 font-semibold tracking-widest text-orange-500 uppercase">Sản phẩm &amp; dịch vụ</p>
@@ -13,7 +13,7 @@ import { homeServices } from '../../../data/homeServices.js'
       {homeServices.map((service) => (
         <article class="group overflow-hidden rounded-3xl border border-zinc-800 bg-black transition hover:border-orange-500/70">
           <div class="relative overflow-hidden">
-            <img src={service.image} alt={service.title} loading="lazy" decoding="async" class="h-60 w-full object-cover transition duration-500 group-hover:scale-105" />
+            <button type="button" data-lightbox={service.image} data-caption={`${service.title} - Dịch vụ tại IST`} class="block w-full" aria-label={`Xem ảnh lớn: ${service.title}`}><img src={service.image} alt={service.title} loading="lazy" decoding="async" class="h-60 w-full object-cover transition duration-500 group-hover:scale-105" /></button>
             <div class:list={['absolute top-4 left-4 rounded-full px-4 py-2 text-xs font-bold', service.status === 'active' ? 'bg-orange-500 text-white' : 'bg-zinc-800 text-gray-300']}>{service.tag}</div>
           </div>
           <div class="p-6">

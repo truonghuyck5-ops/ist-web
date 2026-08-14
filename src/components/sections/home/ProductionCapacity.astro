@@ -7,15 +7,15 @@ const machineGroups = [
 ]
 
 const gallery = [
-  ['/images/home/may-in-nhanh-konica.webp', 'Máy in nhanh Konica tại IST', 'h-44 md:h-48'],
-  ['/images/home/may-in-bat-kho-lon.webp', 'Máy in bạt khổ lớn tại IST', 'mt-8 h-44 md:h-48'],
-  ['/images/home/may-cnc-laser-ist.webp', 'Máy CNC và laser tại IST', 'col-span-2 h-52 md:h-60'],
-  ['/images/home/san-xuat-hoa-don.webp', 'Khu vực sản xuất hóa đơn, biểu mẫu', 'h-44 md:h-48'],
-  ['/images/home/khu-san-xuat-thi-cong-ist.webp', 'Khu sản xuất và thi công bảng hiệu IST', 'mt-8 h-44 md:h-48'],
+  ['/images/home/may-in-nhanh-konica.webp', 'Máy in nhanh Konica tại IST', 'Máy in nhanh Konica C2060L tại xưởng IST', 'h-44 md:h-48'],
+  ['/images/home/may-in-bat-kho-lon.webp', 'Máy in bạt khổ lớn tại IST', 'Máy in bạt khổ lớn phục vụ banner, backdrop và bảng hiệu', 'mt-8 h-44 md:h-48'],
+  ['/images/home/may-cnc-laser-ist.webp', 'Máy CNC và laser tại IST', 'Hệ thống CNC và laser phục vụ gia công bảng hiệu, mica, alu, fomex', 'col-span-2 h-52 md:h-60'],
+  ['/images/home/san-xuat-hoa-don.webp', 'Khu vực sản xuất hóa đơn, biểu mẫu', 'Khu vực sản xuất hóa đơn, biểu mẫu', 'h-44 md:h-48'],
+  ['/images/home/khu-san-xuat-thi-cong-ist.webp', 'Khu sản xuất và thi công bảng hiệu IST', 'Khu sản xuất, gia công và thi công bảng hiệu tại IST', 'mt-8 h-44 md:h-48'],
 ]
 ---
 
-<section id="factory" class="border-t border-gray-900 bg-black">
+<section id="factory" class="border-t border-gray-900 bg-black" data-reveal>
   <div class="mx-auto max-w-7xl px-6 py-24">
     <div class="grid items-center gap-14 lg:grid-cols-2">
       <div>
@@ -33,7 +33,7 @@ const gallery = [
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4">
-        {gallery.map(([src, alt, classes]) => <img src={src} alt={alt} loading="lazy" decoding="async" class:list={['w-full rounded-3xl border border-zinc-800 object-cover', classes]} />)}
+        {gallery.map(([src, alt, caption, classes]) => <button type="button" data-lightbox={src} data-caption={caption} class:list={['block w-full', classes]} aria-label={`Xem ảnh lớn: ${alt}`}><img src={src} alt={alt} loading="lazy" decoding="async" class="h-full w-full rounded-3xl border border-zinc-800 object-cover" /></button>)}
       </div>
     </div>
   </div>
