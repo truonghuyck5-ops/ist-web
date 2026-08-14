@@ -1,0 +1,44 @@
+---
+import '../style.css'
+
+interface Props {
+  title?: string
+  description?: string
+  canonical?: string
+  ogImage?: string
+}
+
+const {
+  title = 'In Sáng Tạo IST',
+  description = 'Công ty TNHH MTV Quảng Cáo In Sáng Tạo - thiết kế, in ấn và quảng cáo.',
+  canonical,
+  ogImage = '/images/og/og-home-ist.jpg',
+} = Astro.props
+
+const canonicalUrl = canonical ? new URL(canonical, Astro.site) : undefined
+const ogImageUrl = new URL(ogImage, Astro.site)
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:site_name" content="In Sáng Tạo IST" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:image" content={ogImageUrl} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

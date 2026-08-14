@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "devDependencies": {
-    "vite": "^8.0.10"
+    "astro": "^7.2.2"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
