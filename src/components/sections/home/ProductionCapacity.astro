@@ -1,0 +1,40 @@
+---
+const machineGroups = [
+  ['In nhanh & tem nhãn', 'Máy in nhanh Konica C2060L, máy bế tem nhãn tự động Saga, máy photo màu hỗ trợ sản xuất tem nhãn, card, tag, voucher, thiệp mời và ấn phẩm giấy.', ['Konica C2060L', 'Máy bế Saga', 'Máy photo màu', 'Máy cắt giấy']],
+  ['In khổ lớn', 'Hệ thống máy in bạt, máy in decal và máy cán màng giúp IST chủ động sản xuất banner, backdrop, decal, PP, vật liệu phục vụ bảng hiệu và sự kiện.', ['Máy in bạt 3m2', 'Máy in decal 1m6', 'Máy cán màng 1m6', 'In PP - decal - hiflex']],
+  ['CNC - Laser - Gia công', 'Máy CNC và laser hỗ trợ gia công mica, alu, fomex, chữ nổi, chi tiết trang trí và các hạng mục phục vụ bảng hiệu quảng cáo.', ['CNC 130x250', 'Laser 130x90', 'Laser 60x40', 'Gia công mica - alu - fomex']],
+  ['Sản xuất & thi công', 'Khu sản xuất bảng hiệu được trang bị máy hàn, máy cắt, dụng cụ cơ khí, xe tải phục vụ vận chuyển và thi công thực tế tại công trình.', ['Máy hàn - máy cắt', 'Dụng cụ thi công', 'Xe tải giao hàng', 'Đội thi công trực tiếp']],
+]
+
+const gallery = [
+  ['/images/home/may-in-nhanh-konica.webp', 'Máy in nhanh Konica tại IST', 'h-44 md:h-48'],
+  ['/images/home/may-in-bat-kho-lon.webp', 'Máy in bạt khổ lớn tại IST', 'mt-8 h-44 md:h-48'],
+  ['/images/home/may-cnc-laser-ist.webp', 'Máy CNC và laser tại IST', 'col-span-2 h-52 md:h-60'],
+  ['/images/home/san-xuat-hoa-don.webp', 'Khu vực sản xuất hóa đơn, biểu mẫu', 'h-44 md:h-48'],
+  ['/images/home/khu-san-xuat-thi-cong-ist.webp', 'Khu sản xuất và thi công bảng hiệu IST', 'mt-8 h-44 md:h-48'],
+]
+---
+
+<section id="factory" class="border-t border-gray-900 bg-black">
+  <div class="mx-auto max-w-7xl px-6 py-24">
+    <div class="grid items-center gap-14 lg:grid-cols-2">
+      <div>
+        <p class="mb-5 font-semibold tracking-widest text-orange-500 uppercase">Nhà xưởng &amp; máy móc</p>
+        <h2 class="mb-8 text-3xl leading-tight font-black text-white md:text-5xl">Nền tảng sản xuất<br />giúp IST chủ động tiến độ</h2>
+        <p class="mb-8 text-lg leading-relaxed text-gray-400">IST đầu tư nhà xưởng, máy móc và phân khu sản xuất để phục vụ đồng bộ từ in ấn, tem nhãn, in khổ lớn, CNC, laser đến sản xuất và thi công bảng hiệu. Đây là nền tảng giúp IST chủ động hơn về tiến độ, chất lượng và khả năng xử lý đơn hàng thực tế.</p>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {machineGroups.map(([title, description, items]) => (
+            <article class="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-orange-500/70">
+              <h3 class="mb-3 text-lg font-bold text-white">{title}</h3>
+              <p class="mb-5 text-sm leading-relaxed text-gray-400">{description}</p>
+              <ul class="space-y-2">{items.map((item) => <li class="flex items-start gap-2 text-sm text-gray-300"><span class="font-bold text-orange-500">✓</span><span>{item}</span></li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        {gallery.map(([src, alt, classes]) => <img src={src} alt={alt} loading="lazy" decoding="async" class:list={['w-full rounded-3xl border border-zinc-800 object-cover', classes]} />)}
+      </div>
+    </div>
+  </div>
+</section>
