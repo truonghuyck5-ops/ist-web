@@ -9,9 +9,10 @@ export const productMenu = [
   {
     label: 'Bảng hiệu quảng cáo',
     description: 'Bảng hiệu shop, công ty, cơ quan, hộ kinh doanh',
-    href: '/bang-hieu.html',
+    href: '/bang-hieu/',
     key: 'bang_hieu',
     status: 'active',
+    astroRouteAvailable: true,
   },
   {
     label: 'Combo mở quán',

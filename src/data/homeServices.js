@@ -3,10 +3,11 @@ export const homeServices = [
     title: 'Thi Công Bảng Hiệu',
     desc: 'Tư vấn, thiết kế, sản xuất và thi công bảng hiệu quảng cáo cho shop, doanh nghiệp, cơ quan và công trình thực tế.',
     image: '/images/home/service-bang-hieu.webp',
+    href: '/bang-hieu/',
     tag: 'Tư vấn & thi công trọn gói',
     tier: 'primary',
     businessStatus: 'available',
-    astroRouteAvailable: false,
+    astroRouteAvailable: true,
   },
   {
     title: 'In Tem Nhãn',

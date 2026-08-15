@@ -26,20 +26,27 @@ import { productMenu } from '../../data/productMenu'
         <div class="invisible absolute left-0 top-full z-50 translate-y-2 pt-4 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
           <div class="w-80 overflow-hidden rounded-2xl border border-zinc-800 bg-black shadow-2xl">
             {productMenu.map((item) => (
-              <div class="block px-5 py-4 text-gray-500">
-                <div class="flex items-start justify-between gap-3">
-                  <div>
-                    <span class="block text-sm font-semibold text-white">{item.label}</span>
-                    <span class="mt-1 block text-xs leading-relaxed text-gray-500">{item.description}</span>
+              item.astroRouteAvailable ? (
+                <a href={item.href} class="block px-5 py-4 text-gray-500 transition hover:bg-zinc-900 hover:text-white">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <span class="block text-sm font-semibold text-white">{item.label}</span>
+                      <span class="mt-1 block text-xs leading-relaxed text-gray-500">{item.description}</span>
+                    </div>
+                    {item.status === 'coming' && <span class="shrink-0 rounded-full border border-zinc-700 px-2 py-1 text-[10px] text-gray-500">Sắp có</span>}
                   </div>
-
-                  {item.status === 'coming' && (
-                    <span class="shrink-0 rounded-full border border-zinc-700 px-2 py-1 text-[10px] text-gray-500">
-                      Sắp có
-                    </span>
-                  )}
+                </a>
+              ) : (
+                <div class="block px-5 py-4 text-gray-500">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <span class="block text-sm font-semibold text-white">{item.label}</span>
+                      <span class="mt-1 block text-xs leading-relaxed text-gray-500">{item.description}</span>
+                    </div>
+                    {item.status === 'coming' && <span class="shrink-0 rounded-full border border-zinc-700 px-2 py-1 text-[10px] text-gray-500">Sắp có</span>}
+                  </div>
                 </div>
-              </div>
+              )
             ))}
           </div>
         </div>
@@ -75,13 +82,23 @@ import { productMenu } from '../../data/productMenu'
         <p class="mb-3 font-semibold text-white">Sản phẩm</p>
         <div class="grid gap-2 pl-4">
           {productMenu.map((item) => (
-            <div class="py-2 text-gray-500">
-              <span class="block">
-                {item.label}
-                {item.status === 'coming' && <span class="ml-2 text-xs text-gray-600">(sắp có)</span>}
-              </span>
-              <span class="mt-1 block text-xs text-gray-600">{item.description}</span>
-            </div>
+            item.astroRouteAvailable ? (
+              <a href={item.href} class="block py-2 text-gray-400 transition hover:text-orange-500">
+                <span class="block">
+                  {item.label}
+                  {item.status === 'coming' && <span class="ml-2 text-xs text-gray-600">(sắp có)</span>}
+                </span>
+                <span class="mt-1 block text-xs text-gray-600">{item.description}</span>
+              </a>
+            ) : (
+              <div class="py-2 text-gray-500">
+                <span class="block">
+                  {item.label}
+                  {item.status === 'coming' && <span class="ml-2 text-xs text-gray-600">(sắp có)</span>}
+                </span>
+                <span class="mt-1 block text-xs text-gray-600">{item.description}</span>
+              </div>
+            )
           ))}
         </div>
       </div>

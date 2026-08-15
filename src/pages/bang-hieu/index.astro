@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Hero from '../../components/sections/bang-hieu/Hero.astro'
+import Types from '../../components/sections/bang-hieu/Types.astro'
+import Process from '../../components/sections/bang-hieu/Process.astro'
+import Pricing from '../../components/sections/bang-hieu/Pricing.astro'
+import Faq from '../../components/sections/bang-hieu/Faq.astro'
+import ContactCta from '../../components/sections/home/ContactCta.astro'
+---
+
+<BaseLayout
+  title="Làm Bảng Hiệu Quảng Cáo | In Sáng Tạo IST"
+  description="IST nhận thiết kế, sản xuất và thi công bảng hiệu quảng cáo, bảng alu, hộp đèn, chữ nổi, hiflex cho cửa hàng, doanh nghiệp và cơ quan tại Trà Vinh."
+  canonical="/bang-hieu/"
+  ogImage="/images/projects/bang-hieu-001.jpg"
+>
+  <main>
+    <Hero />
+    <Types />
+    <Process />
+    <Pricing />
+    <Faq />
+    <ContactCta />
+  </main>
+
+  <script>
+    import '../../scripts/bang-hieu-interactions.js'
+  </script>
+</BaseLayout>
