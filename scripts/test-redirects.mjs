@@ -2,19 +2,19 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 
 const expectedRedirects = new Map([
-  ['/index.html', '/'],
-  ['/bang-hieu.html', '/bang-hieu/'],
-  ['/bang-hieu', '/bang-hieu/'],
-  ['/tem-nhan.html', '/tem-nhan/'],
-  ['/tem-nhan', '/tem-nhan/'],
-  ['/combo-mo-quan.html', '/combo-mo-quan/'],
-  ['/combo-mo-quan', '/combo-mo-quan/'],
-  ['/hoa-don.html', '/hoa-don/'],
-  ['/hoa-don', '/hoa-don/'],
-  ['/blog/index.html', '/blog/'],
-  ['/blog', '/blog/'],
-  ['/blog/gia-bang-hieu-alu.html', '/blog/gia-bang-hieu-alu/'],
-  ['/blog/in-tem-nhan-so-luong-it.html', '/blog/in-tem-nhan-so-luong-it/'],
+  ['/index.html', { target: '/', status: '301!' }],
+  ['/bang-hieu.html', { target: '/bang-hieu/', status: '301' }],
+  ['/bang-hieu', { target: '/bang-hieu/', status: '301' }],
+  ['/tem-nhan.html', { target: '/tem-nhan/', status: '301' }],
+  ['/tem-nhan', { target: '/tem-nhan/', status: '301' }],
+  ['/combo-mo-quan.html', { target: '/combo-mo-quan/', status: '301' }],
+  ['/combo-mo-quan', { target: '/combo-mo-quan/', status: '301' }],
+  ['/hoa-don.html', { target: '/hoa-don/', status: '301' }],
+  ['/hoa-don', { target: '/hoa-don/', status: '301' }],
+  ['/blog/index.html', { target: '/blog/', status: '301!' }],
+  ['/blog', { target: '/blog/', status: '301' }],
+  ['/blog/gia-bang-hieu-alu.html', { target: '/blog/gia-bang-hieu-alu/', status: '301' }],
+  ['/blog/in-tem-nhan-so-luong-it.html', { target: '/blog/in-tem-nhan-so-luong-it/', status: '301' }],
 ])
 
 const rules = readFileSync('public/_redirects', 'utf8')
@@ -31,15 +31,17 @@ assert.equal(rules.length, expectedRedirects.size, 'redirect rule count')
 assert.equal(new Set(rules.map((rule) => rule.source)).size, rules.length, 'no duplicate redirect sources')
 
 for (const rule of rules) {
-  assert.equal(rule.status, '301', `${rule.source}: status`)
-  assert.equal(rule.target, expectedRedirects.get(rule.source), `${rule.source}: canonical target`)
+  const expected = expectedRedirects.get(rule.source)
+  assert.equal(rule.status, expected.status, `${rule.source}: status`)
+  assert.equal(rule.target, expected.target, `${rule.source}: canonical target`)
+  assert.ok(rule.status === '301' || rule.status === '301!', `${rule.source}: permanent redirect`)
   assert.ok(!rule.target.includes('.html'), `${rule.source}: target is clean`)
   assert.ok(!rule.source.startsWith('/kinh-doanh'), `${rule.source}: no kinh-doanh rule`)
   assert.ok(!expectedRedirects.has(rule.target), `${rule.source}: one-hop target`)
 }
 
-for (const [source, target] of expectedRedirects) {
-  assert.ok(rules.some((rule) => rule.source === source && rule.target === target), `${source}: expected rule`)
+for (const [source, expected] of expectedRedirects) {
+  assert.ok(rules.some((rule) => rule.source === source && rule.target === expected.target && rule.status === expected.status), `${source}: expected rule`)
 }
 
 assert.ok(!rules.some((rule) => rule.source === '/*' && rule.status === '200'), 'no SPA fallback')
