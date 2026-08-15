@@ -1,0 +1,10 @@
+---
+const faqs = [
+  ['Vì sao không nhập số lượng tự do?', 'Hóa đơn và biểu mẫu cần tối ưu theo giấy, liên giấy và quy trình đóng cuốn. Nếu làm số lượng lẻ ngoài bảng, chi phí sản xuất có thể cao hơn nên IST chỉ hiển thị các mốc phù hợp.'],
+  ['Hóa đơn này có phải hóa đơn VAT không?', 'Không. Đây là hóa đơn bán hàng nội bộ, phiếu thu, phiếu chi, biên nhận, biểu mẫu ghi chép. Nếu cần hóa đơn VAT điện tử, khách hàng cần dùng dịch vụ hóa đơn điện tử theo quy định.'],
+  ['Có thiết kế mẫu hóa đơn không?', 'Có. IST có thể hỗ trợ bố cục mẫu hóa đơn cơ bản theo tên cửa hàng, logo, số điện thoại, địa chỉ và các cột thông tin cần ghi.'],
+  ['Có thể in màu khác ngoài xanh, đỏ, đen không?', 'Bảng giá tham khảo áp dụng cho in 1 màu xanh, đỏ hoặc đen. Nếu cần quy cách khác, IST sẽ báo giá riêng.'],
+]
+---
+
+<section id="faq" class="border-t border-zinc-900 bg-black py-20 text-white"><div class="mx-auto max-w-4xl px-6"><div class="mb-10 text-center"><p class="mb-4 font-semibold tracking-[0.2em] text-orange-500 uppercase">FAQ</p><h2 class="text-4xl font-black md:text-5xl">Câu hỏi thường gặp</h2></div><div class="grid gap-4">{faqs.map(([question, answer]) => (<article class="rounded-3xl border border-zinc-800 bg-zinc-900 p-6"><h3 class="mb-3 text-xl font-black text-white">{question}</h3><p class="leading-relaxed text-gray-400">{answer}</p></article>))}</div></div></section>

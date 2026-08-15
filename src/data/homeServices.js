@@ -42,10 +42,11 @@ export const homeServices = [
     title: 'In Hóa Đơn - Biểu Mẫu',
     desc: 'In phiếu thu, phiếu chi, biên nhận, hóa đơn bán hàng, biểu mẫu nội bộ cho cửa hàng, doanh nghiệp và cơ quan.',
     image: '/images/home/service-hoa-don-bieu-mau.webp',
+    href: '/hoa-don/',
     tag: 'Biểu mẫu kinh doanh',
     tier: 'secondary',
     businessStatus: 'available',
-    astroRouteAvailable: false,
+    astroRouteAvailable: true,
   },
   {
     title: 'In Túi Xốp',

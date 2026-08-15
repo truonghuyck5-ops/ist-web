@@ -33,9 +33,10 @@ export const productMenu = [
 {
   label: 'In hóa đơn - biểu mẫu',
   description: 'Phiếu thu, phiếu chi, biên nhận, hóa đơn bán hàng',
-  href: '/hoa-don.html',
+  href: '/hoa-don/',
   key: 'hoa_don_bieu_mau',
   status: 'active',
+  astroRouteAvailable: true,
 },
   {
     label: 'In túi xốp',
