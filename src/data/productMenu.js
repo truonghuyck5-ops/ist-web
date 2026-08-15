@@ -17,9 +17,10 @@ export const productMenu = [
   {
     label: 'Combo mở quán',
     description: 'Bảng hiệu, menu, tem nhãn, decal, standee',
-    href: '/combo-mo-quan.html',
+    href: '/combo-mo-quan/',
     key: 'combo_mo_quan',
     status: 'active',
+    astroRouteAvailable: true,
   },
   {
     label: 'In bạt - decal - standee',

@@ -22,10 +22,11 @@ export const homeServices = [
     title: 'Combo Mở Quán',
     desc: 'Gói nhận diện cơ bản cho quán mới: bảng hiệu, menu, decal, tem nhãn, standee, voucher và các ấn phẩm cần thiết.',
     image: '/images/home/service-combo-mo-quan.webp',
+    href: '/combo-mo-quan/',
     tag: 'Phù hợp quán mới',
     tier: 'primary',
     businessStatus: 'available',
-    astroRouteAvailable: false,
+    astroRouteAvailable: true,
   },
   {
     title: 'In Bạt - Decal - Standee',

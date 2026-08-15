@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Hero from '../../components/sections/combo-mo-quan/Hero.astro'
+import Items from '../../components/sections/combo-mo-quan/Items.astro'
+import Packages from '../../components/sections/combo-mo-quan/Packages.astro'
+import Process from '../../components/sections/combo-mo-quan/Process.astro'
+import Faq from '../../components/sections/combo-mo-quan/Faq.astro'
+import ContactCta from '../../components/sections/home/ContactCta.astro'
+---
+
+<BaseLayout
+  title="Combo Mở Quán - Bảng Hiệu, Menu, Tem Nhãn | IST"
+  description="IST cung cấp combo mở quán gồm bảng hiệu, menu, tem nhãn, voucher, decal kính, standee và vật phẩm khai trương cho cửa hàng, quán ăn, cafe, trà sữa, spa."
+  canonical="/combo-mo-quan/"
+  ogImage="/images/projects/bang-hieu-001.jpg"
+>
+  <main>
+    <Hero />
+    <Items />
+    <Packages />
+    <Process />
+    <Faq />
+    <ContactCta />
+  </main>
+
+  <script>
+    import '../../scripts/combo-mo-quan-interactions.js'
+  </script>
+</BaseLayout>

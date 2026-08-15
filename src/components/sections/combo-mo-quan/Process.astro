@@ -1,0 +1,28 @@
+---
+const steps = [
+  { number: '01', title: 'Tư vấn nhu cầu', description: 'IST tìm hiểu ngành nghề, phong cách quán, ngân sách và các hạng mục cần chuẩn bị trước khai trương.' },
+  { number: '02', title: 'Chốt danh sách hạng mục', description: 'Lựa chọn bảng hiệu, menu, tem nhãn, voucher, decal kính, standee hoặc các vật phẩm phù hợp.' },
+  { number: '03', title: 'Thiết kế đồng bộ', description: 'Thiết kế theo màu sắc, logo, phong cách thương hiệu để các hạng mục nhìn thống nhất và chuyên nghiệp.' },
+  { number: '04', title: 'Sản xuất tại IST', description: 'IST chủ động in ấn, gia công, cắt bế, làm bảng hiệu và chuẩn bị các vật phẩm cần thiết.' },
+  { number: '05', title: 'Bàn giao & thi công', description: 'Bàn giao sản phẩm, hỗ trợ lắp đặt bảng hiệu, decal, vật phẩm trưng bày và hoàn thiện trước ngày khai trương.' },
+]
+---
+
+<section class="border-t border-zinc-900">
+  <div class="mx-auto max-w-7xl px-6 py-24">
+    <div class="mb-16 max-w-3xl">
+      <p class="mb-4 font-semibold tracking-wide text-orange-500 uppercase">Quy trình triển khai</p>
+      <h2 class="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">Từ ý tưởng mở quán<br />đến bộ nhận diện hoàn chỉnh</h2>
+      <p class="text-lg leading-relaxed text-gray-400">IST giúp chủ quán đi từng bước rõ ràng, tránh thiếu sót các hạng mục quan trọng trước ngày khai trương.</p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-5">
+      {steps.map((step) => (
+        <article class="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-orange-500">
+          <p class="mb-6 text-4xl font-black text-orange-500">{step.number}</p>
+          <h3 class="mb-4 text-xl font-bold text-white">{step.title}</h3>
+          <p class="text-sm leading-relaxed text-gray-400">{step.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
