@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test:tem-pricing": "node scripts/test-tem-nhan-pricing-parity.mjs"
+    "test:tem-pricing": "node scripts/test-tem-nhan-pricing-parity.mjs",
+    "test:hoa-don-pricing": "node scripts/test-hoa-don-pricing-parity.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.2"
