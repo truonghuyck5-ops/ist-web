@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import BlogCard from '../../components/blog/BlogCard.astro'
+import ContactCta from '../../components/sections/home/ContactCta.astro'
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf())
+---
+
+<BaseLayout
+  title="Blog kiến thức thiết kế, in ấn & quảng cáo | IST"
+  description="Kinh nghiệm thực tế về bảng hiệu, tem nhãn, thiết kế và quảng cáo từ In Sáng Tạo IST."
+  canonical="/blog/"
+>
+  <main class="bg-black py-16 text-white md:py-24">
+    <div class="mx-auto max-w-7xl px-6">
+      <header class="mb-14 max-w-3xl md:mb-20">
+        <p class="mb-5 font-semibold tracking-[0.2em] text-orange-500 uppercase">Blog IST</p>
+        <h1 class="mb-8 text-5xl leading-tight font-black md:text-7xl">Kiến thức thiết kế, in ấn &amp; quảng cáo</h1>
+        <p class="text-lg leading-relaxed text-gray-400 md:text-xl">Chia sẻ kinh nghiệm thực tế về bảng hiệu, tem nhãn, thiết kế và triển khai quảng cáo dành cho cửa hàng, doanh nghiệp và cơ quan.</p>
+      </header>
+
+      {posts.length > 0 ? (
+        <section class="grid gap-8 md:grid-cols-2" aria-label="Danh sách bài viết">
+          {posts.map((post) => <BlogCard post={post} />)}
+        </section>
+      ) : (
+        <section class="max-w-2xl rounded-3xl border border-zinc-800 bg-zinc-950/60 p-8 md:p-10" aria-label="Trạng thái Blog">
+          <h2 class="mb-3 text-2xl font-black">Bài viết đang được chuẩn bị</h2>
+          <p class="leading-relaxed text-gray-400">IST sẽ sớm chia sẻ các kiến thức hữu ích về thiết kế, in ấn và quảng cáo.</p>
+        </section>
+      )}
+    </div>
+  </main>
+  <ContactCta />
+</BaseLayout>
