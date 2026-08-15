@@ -1,6 +1,19 @@
-/tem-nhan   /tem-nhan.html   200
-/bang-hieu   /bang-hieu.html   200
-/combo-mo-quan   /combo-mo-quan.html   200
+/index.html / 301
 
-/kinh-doanh.html  /kinh-doanh  301
-/kinh-doanh       /kinh-doanh.html  200
+/bang-hieu.html /bang-hieu/ 301
+/bang-hieu /bang-hieu/ 301
+
+/tem-nhan.html /tem-nhan/ 301
+/tem-nhan /tem-nhan/ 301
+
+/combo-mo-quan.html /combo-mo-quan/ 301
+/combo-mo-quan /combo-mo-quan/ 301
+
+/hoa-don.html /hoa-don/ 301
+/hoa-don /hoa-don/ 301
+
+/blog/index.html /blog/ 301
+/blog /blog/ 301
+
+/blog/gia-bang-hieu-alu.html /blog/gia-bang-hieu-alu/ 301
+/blog/in-tem-nhan-so-luong-it.html /blog/in-tem-nhan-so-luong-it/ 301
