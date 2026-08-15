@@ -5,6 +5,7 @@ import Benefits from '../../components/sections/tem-nhan/Benefits.astro'
 import Types from '../../components/sections/tem-nhan/Types.astro'
 import Gallery from '../../components/sections/tem-nhan/Gallery.astro'
 import Faq from '../../components/sections/tem-nhan/Faq.astro'
+import TemNhanCalculator from '../../components/sections/tem-nhan/TemNhanCalculator.astro'
 import ContactCta from '../../components/sections/home/ContactCta.astro'
 ---
 
@@ -20,10 +21,12 @@ import ContactCta from '../../components/sections/home/ContactCta.astro'
     <Types />
     <Gallery />
     <Faq />
+    <TemNhanCalculator />
     <ContactCta />
   </main>
 
   <script>
     import '../../scripts/tem-nhan-interactions.js'
+    import '../../scripts/tem-nhan-calculator.client.js'
   </script>
 </BaseLayout>
