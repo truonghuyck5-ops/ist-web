@@ -17,11 +17,11 @@ const title = `${data.title} | IST`
         {data.category && <p class="mb-4 font-semibold tracking-[0.18em] text-orange-500 uppercase">{data.category}</p>}
         <h1 class="mb-6 text-4xl leading-tight font-black md:text-6xl">{data.title}</h1>
         <p class="text-lg leading-relaxed text-gray-300 md:text-xl">{data.description}</p>
-        <div class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500">
-          <time datetime={data.publishedAt.toISOString()}>Đăng ngày {formatBlogDate(data.publishedAt)}</time>
+        {(data.publishedAt || data.updatedAt || data.author) && <div class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500">
+          {data.publishedAt && <time datetime={data.publishedAt.toISOString()}>Đăng ngày {formatBlogDate(data.publishedAt)}</time>}
           {data.updatedAt && <time datetime={data.updatedAt.toISOString()}>Cập nhật {formatBlogDate(data.updatedAt)}</time>}
           {data.author && <span>{data.author}</span>}
-        </div>
+        </div>}
       </header>
 
       {data.image && <img src={data.image} alt={data.title} class="mb-12 w-full rounded-3xl border border-zinc-800" />}

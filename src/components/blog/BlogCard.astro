@@ -10,7 +10,7 @@ const { data, id } = post
   <div class="p-7 md:p-8">
     <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
       {data.category && <span class="font-semibold text-orange-500">{data.category}</span>}
-      <time datetime={data.publishedAt.toISOString()} class="text-gray-500">{formatBlogDate(data.publishedAt)}</time>
+      {data.publishedAt && <time datetime={data.publishedAt.toISOString()} class="text-gray-500">{formatBlogDate(data.publishedAt)}</time>}
     </div>
     <h2 class="mb-4 text-2xl font-black text-white transition group-hover:text-orange-500 md:text-3xl"><a href={`/blog/${id}/`}>{data.title}</a></h2>
     <p class="mb-6 leading-relaxed text-gray-400">{data.description}</p>

@@ -5,7 +5,10 @@ import BlogCard from '../../components/blog/BlogCard.astro'
 import ContactCta from '../../components/sections/home/ContactCta.astro'
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf())
+  .sort((left, right) => {
+    if (!left.data.publishedAt || !right.data.publishedAt) return 0
+    return right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf()
+  })
 ---
 
 <BaseLayout
