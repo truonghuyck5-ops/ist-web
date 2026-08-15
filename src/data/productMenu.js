@@ -2,9 +2,10 @@ export const productMenu = [
   {
     label: 'In tem nhãn',
     description: 'Decal giấy, decal nhựa, sticker sản phẩm',
-    href: '/tem-nhan.html',
+    href: '/tem-nhan/',
     key: 'tem_nhan',
     status: 'active',
+    astroRouteAvailable: true,
   },
   {
     label: 'Bảng hiệu quảng cáo',

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Hero from '../../components/sections/tem-nhan/Hero.astro'
+import Benefits from '../../components/sections/tem-nhan/Benefits.astro'
+import Types from '../../components/sections/tem-nhan/Types.astro'
+import Gallery from '../../components/sections/tem-nhan/Gallery.astro'
+import Faq from '../../components/sections/tem-nhan/Faq.astro'
+import ContactCta from '../../components/sections/home/ContactCta.astro'
+---
+
+<BaseLayout
+  title="In Tem Nhãn - Sticker - Decal Sản Phẩm tại Vĩnh Long | IST"
+  description="IST nhận in tem nhãn, sticker, decal sản phẩm, tem logo, tem dán bao bì số lượng ít đến lớn. Sản xuất nhanh, hỗ trợ thiết kế, giao hàng tại Cầu Ngang, Vĩnh Long."
+  canonical="/tem-nhan/"
+  ogImage="/images/sp-tem-nhan/tem-nhan-001.webp"
+>
+  <main>
+    <Hero />
+    <Benefits />
+    <Types />
+    <Gallery />
+    <Faq />
+    <ContactCta />
+  </main>
+
+  <script>
+    import '../../scripts/tem-nhan-interactions.js'
+  </script>
+</BaseLayout>

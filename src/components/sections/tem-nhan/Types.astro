@@ -1,0 +1,29 @@
+---
+const types = [
+  ['Tem decal giấy', 'Phù hợp sản phẩm khô, bao bì giấy, hộp, túi, nhãn dán sử dụng trong môi trường bình thường.', 'Chi phí tốt'],
+  ['Tem decal nhựa', 'Bền hơn decal giấy, phù hợp sản phẩm cần độ dai, hạn chế rách, sử dụng trên chai, hũ, bao bì nhựa.', 'Bền hơn'],
+  ['Tem decal trong', 'Tạo cảm giác tinh tế, hiện đại, phù hợp chai lọ, mỹ phẩm, sản phẩm cần thấy nền bao bì bên dưới.', 'Tinh tế'],
+  ['Tem cán màng', 'Bảo vệ bề mặt tem, hạn chế trầy xước, tăng độ bền màu và giúp tem nhìn đẹp hơn.', 'Đẹp & bền'],
+  ['Tem bế theo hình', 'Cắt theo hình logo, hình tròn, oval, bo góc hoặc hình dạng riêng để tăng nhận diện thương hiệu.', 'Theo mẫu riêng'],
+  ['Sticker thương hiệu', 'Dùng làm sticker tặng kèm, dán hộp, dán túi, dán sản phẩm hoặc trang trí bao bì bán hàng.', 'Dễ ứng dụng'],
+]
+---
+
+<section id="tem-nhan-types" class="border-t border-zinc-900 bg-black">
+  <div class="mx-auto max-w-7xl px-6 py-24">
+    <div class="mb-12 max-w-3xl">
+      <p class="mb-4 font-semibold tracking-widest text-orange-500 uppercase">Phân loại tem nhãn</p>
+      <h2 class="mb-6 text-4xl leading-tight font-black text-white md:text-5xl">Chọn loại tem phù hợp<br />với sản phẩm của bạn</h2>
+      <p class="text-lg leading-relaxed text-gray-400">Mỗi sản phẩm sẽ phù hợp với một loại tem khác nhau. IST sẽ tư vấn chất liệu, kích thước, kiểu bế và phương án in phù hợp với ngân sách thực tế.</p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {types.map(([title, desc, note]) => (
+        <article class="rounded-3xl border border-zinc-800 bg-zinc-950 p-7 transition hover:border-orange-500/70">
+          <div class="mb-5 inline-flex rounded-full bg-orange-500/10 px-4 py-2 text-xs font-bold text-orange-500">{note}</div>
+          <h3 class="mb-3 text-xl font-bold text-white">{title}</h3>
+          <p class="leading-relaxed text-gray-400">{desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

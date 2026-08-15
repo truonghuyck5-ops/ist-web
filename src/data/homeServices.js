@@ -13,10 +13,11 @@ export const homeServices = [
     title: 'In Tem Nhãn',
     desc: 'In tem nhãn decal giấy, decal nhựa, tem sản phẩm, tem mỹ phẩm, tem thực phẩm. Phù hợp shop, cơ sở sản xuất và thương hiệu nhỏ.',
     image: '/images/home/service-tem-nhan.webp',
+    href: '/tem-nhan/',
     tag: 'Cho shop & sản phẩm',
     tier: 'primary',
     businessStatus: 'available',
-    astroRouteAvailable: false,
+    astroRouteAvailable: true,
   },
   {
     title: 'Combo Mở Quán',
