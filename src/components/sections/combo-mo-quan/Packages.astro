@@ -22,7 +22,7 @@ import { comboPackages } from '../../../data/comboPackages.js'
               <div class="flex items-start gap-3"><span class="text-orange-500">✓</span><p class="text-gray-300">{feature}</p></div>
             ))}
           </div>
-          <a href="#contact" class:list={['inline-flex rounded-xl px-6 py-3 font-semibold transition', item.featured ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-700 text-white hover:border-orange-500 hover:text-orange-500']}>Nhận tư vấn &amp; báo giá</a>
+          <a href="#contact" data-track-event="service_cta_click" data-track-location="combo_package" data-track-service="combo_mo_quan" data-track-action="quote_request" class:list={['inline-flex rounded-xl px-6 py-3 font-semibold transition', item.featured ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-700 text-white hover:border-orange-500 hover:text-orange-500']}>Nhận tư vấn &amp; báo giá</a>
         </article>
       ))}
     </div>

@@ -20,7 +20,7 @@ import { homeServices } from '../../../data/homeServices.js'
             <p class:list={['mb-3 text-xs font-bold tracking-widest uppercase', service.tier === 'primary' ? 'text-orange-500' : 'text-gray-500']}>{service.tier === 'primary' ? 'Dịch vụ chủ lực' : 'Dịch vụ bổ trợ'}</p>
             <h3 class="mb-3 text-xl font-bold text-white">{service.title}</h3>
             <p class="mb-6 leading-relaxed text-gray-400">{service.desc}</p>
-            {service.astroRouteAvailable ? <a href={service.href} class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Xem chi tiết →</a> : <a href="#contact" class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Nhận tư vấn &amp; báo giá →</a>}
+            {service.astroRouteAvailable ? <a href={service.href} data-track-event="service_cta_click" data-track-location="home_service_card" data-track-service={service.title} data-track-action="view_service" class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Xem chi tiết →</a> : <a href="#contact" data-track-event="service_cta_click" data-track-location="home_service_card" data-track-service={service.title} data-track-action="quote_request" class="inline-flex items-center font-bold text-orange-500 transition hover:text-orange-400">Nhận tư vấn &amp; báo giá →</a>}
           </div>
         </article>
       ))}

@@ -22,6 +22,7 @@ if (form) {
   const closePopupButton = document.querySelector('#close-popup-bottom')
   const copyImageButton = document.querySelector('#copy-image-btn')
   const saveImageButton = document.querySelector('#save-image-btn')
+  let hasTrackedValidCalculation = false
 
   const getFormData = () => ({
     width: Number(widthInput.value),
@@ -74,6 +75,10 @@ if (form) {
     quoteWarning.classList.add('text-orange-500')
     quoteResult.dataset.labelsPerSheet = result.labelsPerSheet
     quoteResult.dataset.sheetsNeeded = result.sheetsNeeded
+    if (!hasTrackedValidCalculation) {
+      hasTrackedValidCalculation = true
+      trackEvent('calculator_interaction', { calculator: 'tem_nhan' })
+    }
   }
 
   const updateQuoteLive = () => {
@@ -137,7 +142,7 @@ if (form) {
     popup.setAttribute('aria-hidden', 'false')
     document.body.classList.add('overflow-hidden')
     closePopupButton.focus()
-    trackEvent('export_quote', { page: 'tem_nhan', tool: 'tem_nhan_calculator' })
+    trackEvent('calculator_quote', { calculator: 'tem_nhan' })
   }
 
   const generatePopupCanvas = async () => {
@@ -186,7 +191,7 @@ if (form) {
       saveImageButton.textContent = 'Đã lưu ✓'
       saveImageButton.dataset.exportStatus = 'success'
       setTimeout(() => { saveImageButton.textContent = 'Lưu ảnh' }, 1800)
-      trackEvent('save_quote_image', { page: 'tem_nhan', tool: 'tem_nhan_calculator' })
+      trackEvent('quote_export', { calculator: 'tem_nhan', export_method: 'image_save' })
     } catch (error) {
       saveImageButton.dataset.exportStatus = 'error'
       console.error('Save image failed:', error)
@@ -209,7 +214,7 @@ if (form) {
       copyImageButton.textContent = 'Đã copy ✓'
       copyImageButton.dataset.exportStatus = 'success'
       setTimeout(() => { copyImageButton.textContent = 'Copy ảnh' }, 1800)
-      trackEvent('copy_quote_image', { page: 'tem_nhan', tool: 'tem_nhan_calculator' })
+      trackEvent('quote_export', { calculator: 'tem_nhan', export_method: 'image_copy' })
     } catch (error) {
       copyImageButton.dataset.exportStatus = 'fallback'
       console.error('Copy image failed:', error)
@@ -231,7 +236,6 @@ if (form) {
     laminationInput.value = 'none'
     resetResult()
     widthInput.focus()
-    trackEvent('reset_quote', { page: 'tem_nhan', tool: 'tem_nhan_calculator' })
   })
   copyImageButton.addEventListener('click', copyPopupAsImage)
   saveImageButton.addEventListener('click', savePopupAsImage)

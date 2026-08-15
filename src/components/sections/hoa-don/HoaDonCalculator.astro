@@ -71,7 +71,7 @@ const defaultQuote = calculateHoaDonQuote({
           </p>
           <p id="invoice-note" class="mb-6 text-sm leading-relaxed text-gray-500">{defaultQuote?.note ?? ''}</p>
           <div class="grid gap-4 md:grid-cols-2">
-            <a id="invoice-zalo-btn" href="https://zalo.me/0974313230" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-orange-500 px-5 py-4 text-center font-bold text-white transition hover:bg-orange-600">Nhắn Zalo đặt in</a>
+            <a id="invoice-zalo-btn" href="https://zalo.me/0974313230" data-track-event="zalo_click" data-track-location="hoa_don_calculator" data-track-service="hoa_don" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-orange-500 px-5 py-4 text-center font-bold text-white transition hover:bg-orange-600">Nhắn Zalo đặt in</a>
             <button id="invoice-price-table-btn" type="button" class="rounded-xl border border-zinc-700 px-5 py-4 text-center font-bold text-white transition hover:border-orange-500 hover:text-orange-500">Xem giá theo số lượng</button>
           </div>
         </div>

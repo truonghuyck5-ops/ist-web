@@ -18,7 +18,7 @@ import { bangHieuPricing } from '../../../data/bangHieuPricing.js'
           <p class="mb-6 text-4xl font-black text-orange-500">{item.price}</p>
           <p class="mb-8 leading-relaxed text-gray-400">{item.description}</p>
           <ul class="mb-10 space-y-4">{item.features.map((feature) => <li class="flex items-start gap-3"><span class="text-orange-500">✓</span><span class="text-gray-300">{feature}</span></li>)}</ul>
-          <a href="#contact" class:list={['inline-flex rounded-xl px-8 py-4 font-semibold transition duration-300', item.featured ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-700 text-white hover:border-orange-500 hover:text-orange-500']}>Nhận tư vấn &amp; báo giá</a>
+          <a href="#contact" data-track-event="service_cta_click" data-track-location="bang_hieu_pricing" data-track-service="bang_hieu" data-track-action="quote_request" class:list={['inline-flex rounded-xl px-8 py-4 font-semibold transition duration-300', item.featured ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-700 text-white hover:border-orange-500 hover:text-orange-500']}>Nhận tư vấn &amp; báo giá</a>
         </article>
       ))}
     </div>

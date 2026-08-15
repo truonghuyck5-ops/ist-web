@@ -28,6 +28,7 @@ if (calculator) {
   const pricePopupSubtitle = calculator.querySelector('#invoice-popup-subtitle')
   const pricePopupNote = calculator.querySelector('#invoice-popup-note')
   const priceTableBody = calculator.querySelector('#invoice-price-table-body')
+  let hasTrackedCalculatorInteraction = false
 
   const renderOptions = (select, options, placeholder = '') => {
     select.replaceChildren(...(
@@ -37,7 +38,7 @@ if (calculator) {
     ))
   }
 
-  const updateQuote = () => {
+  const updateQuote = (isUserInteraction = false) => {
     const quote = calculateHoaDonQuote({
       size: sizeSelect.value,
       ply: plySelect.value,
@@ -60,13 +61,18 @@ if (calculator) {
     resultInfo.innerHTML = `<strong class="text-white">${quote.quantity.toLocaleString('vi-VN')} cuốn</strong><span class="text-gray-400"> - ${quote.size} / ${quote.plyLabel} - Thành phẩm khoảng ${quote.finishedSize}</span>`
     resultNote.textContent = quote.note
 
+    if (isUserInteraction && !hasTrackedCalculatorInteraction) {
+      hasTrackedCalculatorInteraction = true
+      trackEvent('calculator_interaction', { calculator: 'hoa_don' })
+    }
+
     const zaloText = `Tôi cần báo giá in hóa đơn ${quote.size} ${quote.plyLabel}, số lượng ${quote.quantity} cuốn. Giá tham khảo trên web: ${quote.totalPriceText}`
     zaloButton.href = `https://zalo.me/0974313230?text=${encodeURIComponent(zaloText)}`
   }
 
-  const updateQuantityOptions = () => {
+  const updateQuantityOptions = (isUserInteraction = false) => {
     renderOptions(quantitySelect, getQuantityOptions(sizeSelect.value, plySelect.value), 'Liên hệ IST để báo giá')
-    updateQuote()
+    updateQuote(isUserInteraction)
   }
 
   const openPriceTablePopup = () => {
@@ -93,7 +99,7 @@ if (calculator) {
     pricePopup.classList.remove('hidden')
     pricePopup.classList.add('flex')
     pricePopup.setAttribute('aria-hidden', 'false')
-    trackEvent('open_invoice_price_table', { page: 'hoa_don', size, ply })
+    trackEvent('calculator_quote', { calculator: 'hoa_don' })
   }
 
   const closePriceTablePopup = () => {
@@ -108,11 +114,10 @@ if (calculator) {
   plySelect.value = config.default.ply
   updateQuantityOptions()
 
-  sizeSelect.addEventListener('change', updateQuantityOptions)
-  plySelect.addEventListener('change', updateQuantityOptions)
-  quantitySelect.addEventListener('change', updateQuote)
+  sizeSelect.addEventListener('change', () => updateQuantityOptions(true))
+  plySelect.addEventListener('change', () => updateQuantityOptions(true))
+  quantitySelect.addEventListener('change', () => updateQuote(true))
   priceTableButton.addEventListener('click', openPriceTablePopup)
   pricePopupOverlay.addEventListener('click', closePriceTablePopup)
   pricePopupClose.addEventListener('click', closePriceTablePopup)
-  zaloButton.addEventListener('click', () => trackEvent('click_contact', { page: 'hoa_don', button: 'zalo_from_invoice_calculator' }))
 }
