@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro'
 import { formatBlogDate } from '../utils/blog'
 import ContactCta from '../components/sections/home/ContactCta.astro'
+import { blogPostingStructuredData } from '../utils/seo'
 
 const { post } = Astro.props
 const { data } = post
@@ -9,7 +10,14 @@ const canonical = data.canonical ?? `/blog/${post.id}/`
 const title = `${data.title} | IST`
 ---
 
-<BaseLayout title={title} description={data.description} canonical={canonical} ogImage={data.image}>
+<BaseLayout seo={{
+  title,
+  description: data.description,
+  canonical,
+  image: data.image,
+  type: 'article',
+  structuredData: blogPostingStructuredData({ title, description: data.description, image: data.image, canonical }),
+}}>
   <main class="bg-black py-16 text-white md:py-24">
     <article class="mx-auto max-w-3xl px-6">
       <a href="/blog/" class="mb-10 inline-flex font-bold text-orange-500 transition hover:text-orange-300">← Quay lại Blog</a>

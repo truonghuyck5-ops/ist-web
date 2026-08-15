@@ -7,12 +7,12 @@ import Faq from '../../components/sections/hoa-don/Faq.astro'
 import ContactCta from '../../components/sections/home/ContactCta.astro'
 ---
 
-<BaseLayout
-  title="In hóa đơn, phiếu thu, biểu mẫu tại Cầu Ngang, Vĩnh Long | IST"
-  description="IST nhận in hóa đơn bán hàng, phiếu thu, phiếu chi, biên nhận và biểu mẫu cho shop, cửa hàng, quán ăn, doanh nghiệp nhỏ tại Cầu Ngang, Vĩnh Long."
-  canonical="/hoa-don/"
-  ogImage="/images/hoa-don/og-hoa-don.webp"
->
+<BaseLayout seo={{
+  title: 'In hóa đơn, phiếu thu, biểu mẫu tại Cầu Ngang, Vĩnh Long | IST',
+  description: 'IST nhận in hóa đơn bán hàng, phiếu thu, phiếu chi, biên nhận và biểu mẫu cho shop, cửa hàng, quán ăn, doanh nghiệp nhỏ tại Cầu Ngang, Vĩnh Long.',
+  canonical: '/hoa-don/',
+  image: '/images/hoa-don/og-hoa-don.webp',
+}}>
   <main>
     <Hero />
     <HoaDonCalculator />

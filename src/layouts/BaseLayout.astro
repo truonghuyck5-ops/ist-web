@@ -3,23 +3,33 @@ import '../style.css'
 import Navbar from '../components/layout/Navbar.astro'
 import Footer from '../components/layout/Footer.astro'
 import FloatingContact from '../components/layout/FloatingContact.astro'
+import { siteConfig } from '../data/site'
 
 interface Props {
-  title?: string
-  description?: string
-  canonical?: string
-  ogImage?: string
+  seo?: {
+    title?: string
+    description?: string
+    canonical?: string
+    image?: string
+    type?: 'website' | 'article'
+    noindex?: boolean
+    structuredData?: Record<string, unknown> | Record<string, unknown>[]
+  }
 }
 
 const {
-  title = 'In Sáng Tạo IST',
-  description = 'Công ty TNHH MTV Quảng Cáo In Sáng Tạo - thiết kế, in ấn và quảng cáo.',
-  canonical,
-  ogImage = '/images/og/og-home-ist.jpg',
+  seo = {},
 } = Astro.props
 
-const canonicalUrl = canonical ? new URL(canonical, Astro.site) : undefined
-const ogImageUrl = new URL(ogImage, Astro.site)
+const title = seo.title ?? siteConfig.name
+const description = seo.description ?? siteConfig.defaultDescription
+const canonicalUrl = seo.canonical ? new URL(seo.canonical, Astro.site) : undefined
+const image = seo.image ?? siteConfig.defaultImage
+const imageUrl = new URL(image, Astro.site)
+const type = seo.type ?? 'website'
+const structuredData = seo.structuredData
+  ? (Array.isArray(seo.structuredData) ? seo.structuredData : [seo.structuredData])
+  : []
 ---
 
 <!doctype html>
@@ -32,14 +42,22 @@ const ogImageUrl = new URL(ogImage, Astro.site)
     <title>{title}</title>
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {seo.noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="vi_VN" />
-    <meta property="og:site_name" content="In Sáng Tạo IST" />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content={siteConfig.locale} />
+    <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
-    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image" content={imageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    {structuredData.map((entry) => <script type="application/ld+json" set:html={JSON.stringify(entry)} />)}
   </head>
   <body>
     <Navbar />

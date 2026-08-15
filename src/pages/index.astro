@@ -7,13 +7,15 @@ import ProductionCapacity from '../components/sections/home/ProductionCapacity.a
 import Services from '../components/sections/home/Services.astro'
 import FeaturedProjects from '../components/sections/home/FeaturedProjects.astro'
 import ContactCta from '../components/sections/home/ContactCta.astro'
+import { organizationStructuredData } from '../utils/seo'
 ---
 
-<BaseLayout
-  title="IST - Công ty TNHH MTV Quảng Cáo In Sáng Tạo - Thiết kế, In ấn & Quảng cáo tại Vĩnh Long"
-  description="Công ty TNHH MTV Quảng Cáo In Sáng Tạo - IST chuyên thiết kế, in ấn, tem nhãn, bảng hiệu quảng cáo, in khổ lớn, thi công công trình cho shop, doanh nghiệp và cơ quan tại Trà Vinh, Vĩnh Long."
-  canonical="/"
->
+<BaseLayout seo={{
+  title: 'IST - Công ty TNHH MTV Quảng Cáo In Sáng Tạo - Thiết kế, In ấn & Quảng cáo tại Vĩnh Long',
+  description: 'Công ty TNHH MTV Quảng Cáo In Sáng Tạo - IST chuyên thiết kế, in ấn, tem nhãn, bảng hiệu quảng cáo, in khổ lớn, thi công công trình cho shop, doanh nghiệp và cơ quan tại Trà Vinh, Vĩnh Long.',
+  canonical: '/',
+  structuredData: organizationStructuredData,
+}}>
   <main>
     <Hero />
     <Services />
