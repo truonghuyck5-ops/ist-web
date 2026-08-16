@@ -9,13 +9,13 @@ export const bangHieuTypes = [
     title: 'Hộp đèn quảng cáo',
     description:
       'Tăng nhận diện vào ban đêm, phù hợp cửa hàng, quán ăn, spa, nhà thuốc.',
-    image: '/images/projects/bang-hieu-003.jpg'
+    image: '/images/projects/bang-hieu-003.JPG'
   },
   {
     title: 'Chữ nổi mica / inox',
     description:
       'Tạo điểm nhấn cao cấp cho thương hiệu, văn phòng, showroom và bảng hiệu chính.',
-    image: '/images/projects/thi-cong-001.jpg'
+    image: '/images/projects/thi-cong-001.JPG'
   },
   {
     title: 'Bảng hiflex',

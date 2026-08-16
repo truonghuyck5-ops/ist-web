@@ -1,0 +1,12 @@
+---
+const benefits = [
+  ['Ghi chép rõ ràng', 'Biểu mẫu được trình bày dễ ghi, dễ kiểm tra thông tin bán hàng, giao nhận và thanh toán.'],
+  ['Nhiều khổ thông dụng', 'Có A4, A5, A6 phù hợp nhiều nhu cầu từ shop nhỏ, quán ăn đến doanh nghiệp.'],
+  ['Có 1 liên và 2 liên', 'Phù hợp nhu cầu lưu nội bộ, giao khách hoặc quản lý đối soát đơn hàng.'],
+  ['Sản xuất tại xưởng', 'IST chủ động in, cán răng cưa, đóng cuốn và hoàn thiện thành phẩm tại xưởng.'],
+]
+---
+
+<section class="border-t border-zinc-900 bg-black py-20 text-white">
+  <div class="mx-auto max-w-7xl px-6"><div class="mb-10"><p class="mb-4 font-semibold tracking-[0.2em] text-orange-500 uppercase">Ưu điểm</p><h2 class="text-4xl leading-tight font-black md:text-5xl">Vì sao nên in hóa đơn<br />tại IST?</h2></div><div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{benefits.map(([title, desc]) => (<article class="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-orange-500/50"><h3 class="mb-4 text-xl font-black text-orange-500">{title}</h3><p class="leading-relaxed text-gray-400">{desc}</p></article>))}</div></div>
+</section>

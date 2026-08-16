@@ -41,6 +41,21 @@ body {
   transform: translateY(0);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal].reveal-enhanced {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
+
+  [data-reveal].reveal-enhanced.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* ================================
    FIX EXPORT IMAGE - HTML2CANVAS

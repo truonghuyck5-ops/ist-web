@@ -1,0 +1,24 @@
+---
+const faqs = [
+  ['IST có nhận in tem nhãn số lượng ít không?', 'Có. IST nhận in tem nhãn số lượng ít cho shop mới, khách test sản phẩm hoặc khách cần in nhanh. Tuy nhiên số lượng càng nhiều thì đơn giá sẽ tốt hơn.'],
+  ['Tôi chưa có file thiết kế thì có in được không?', 'Được. Bạn có thể gửi logo, nội dung cần đưa lên tem, kích thước mong muốn hoặc hình mẫu tham khảo. IST sẽ hỗ trợ bố cục và chỉnh file cơ bản.'],
+  ['Tem nhãn nên dùng decal giấy hay decal nhựa?', 'Decal giấy phù hợp sản phẩm khô, dùng trong môi trường bình thường và có chi phí tốt. Decal nhựa bền hơn, phù hợp chai lọ, mỹ phẩm, thực phẩm hoặc sản phẩm cần độ dai và chống rách tốt hơn.'],
+  ['IST có bế tem theo hình logo được không?', 'Có. IST có thể bế tem tròn, vuông, bo góc, oval hoặc theo hình dạng riêng tùy theo file thiết kế và quy cách sản phẩm.'],
+  ['Thời gian in tem nhãn mất bao lâu?', 'Tùy số lượng, chất liệu và lịch sản xuất. Với đơn đơn giản, file sẵn, IST có thể xử lý nhanh. Với đơn cần thiết kế, bế theo mẫu hoặc số lượng lớn, thời gian sẽ được báo cụ thể khi chốt đơn.'],
+  ['Làm sao để được báo giá chính xác?', 'Bạn nên gửi kích thước tem, số lượng, chất liệu mong muốn, hình mẫu hoặc file thiết kế. Nếu chưa rõ, chỉ cần gửi sản phẩm hoặc bao bì, IST sẽ tư vấn phương án phù hợp.'],
+]
+---
+
+<section id="tem-nhan-faq" class="border-t border-zinc-900 bg-zinc-950">
+  <div class="mx-auto max-w-4xl px-6 py-24">
+    <div class="mb-12 text-center"><p class="mb-4 font-semibold tracking-widest text-orange-500 uppercase">Câu hỏi thường gặp</p><h2 class="mb-6 text-4xl leading-tight font-black text-white md:text-5xl">Khách thường hỏi gì<br />khi in tem nhãn?</h2><p class="text-lg leading-relaxed text-gray-400">Một số thông tin giúp bạn chuẩn bị nhanh hơn trước khi gửi yêu cầu báo giá.</p></div>
+    <div class="space-y-4">
+      {faqs.map(([question, answer]) => (
+        <details class="group rounded-3xl border border-zinc-800 bg-black p-6 transition open:border-orange-500/70">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-5"><span class="text-lg font-bold text-white">{question}</span><span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-orange-500/10 text-orange-500 transition group-open:rotate-45">+</span></summary>
+          <p class="mt-5 leading-relaxed text-gray-400">{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

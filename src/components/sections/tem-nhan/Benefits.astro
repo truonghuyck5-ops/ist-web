@@ -1,0 +1,34 @@
+---
+const benefits = [
+  ['In số lượng ít vẫn nhận', 'Phù hợp shop mới, sản phẩm test mẫu, khách cần in nhanh số lượng nhỏ trước khi sản xuất nhiều.'],
+  ['Số lượng nhiều giá tốt hơn', 'Khách đặt định kỳ hoặc in số lượng lớn sẽ được tư vấn quy cách tối ưu để giảm chi phí trên từng tem.'],
+  ['Hỗ trợ thiết kế cơ bản', 'IST hỗ trợ chỉnh file, bố cục thông tin, logo, mã QR, thành phần, hướng dẫn sử dụng và thông tin liên hệ.'],
+  ['Có thể bế theo hình', 'Tem có thể cắt bế tròn, vuông, bo góc, oval hoặc theo hình dạng riêng phù hợp với logo và bao bì.'],
+  ['Nhiều chất liệu decal', 'Tư vấn decal giấy, decal nhựa, decal trong, decal sữa hoặc cán màng tùy theo nhu cầu sử dụng.'],
+  ['Sản xuất chủ động tại IST', 'IST chủ động máy in nhanh và máy bế tem nhãn, giúp xử lý đơn hàng linh hoạt, nhanh và dễ kiểm soát chất lượng.'],
+]
+---
+
+<section id="tem-nhan-benefits" class="border-t border-zinc-900 bg-zinc-950">
+  <div class="mx-auto max-w-7xl px-6 py-24">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="mb-4 font-semibold tracking-widest text-orange-500 uppercase">Vì sao chọn In Sáng Tạo?</p>
+        <h2 class="mb-6 text-4xl leading-tight font-black text-white md:text-5xl">In tem nhãn nhanh,<br />đúng nhu cầu sử dụng</h2>
+        <p class="text-lg leading-relaxed text-gray-400">Tem nhãn không chỉ để dán lên sản phẩm. Một mẫu tem rõ ràng, đẹp và đúng chất liệu giúp sản phẩm chuyên nghiệp hơn, dễ bán hơn và tạo niềm tin với khách hàng.</p>
+        <a href="#contact" class="mt-8 inline-flex rounded-xl bg-orange-500 px-6 py-4 font-bold text-white transition hover:bg-orange-600">Tư vấn chất liệu tem</a>
+      </div>
+      <div class="lg:col-span-8">
+        <div class="grid gap-5 md:grid-cols-2">
+          {benefits.map(([title, desc], index) => (
+            <article class="group rounded-3xl border border-zinc-800 bg-black p-7 transition hover:border-orange-500/70">
+              <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-500/10 font-black text-orange-500">{String(index + 1).padStart(2, '0')}</div>
+              <h3 class="mb-3 text-xl font-bold text-white">{title}</h3>
+              <p class="leading-relaxed text-gray-400">{desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

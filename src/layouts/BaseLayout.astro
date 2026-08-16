@@ -1,0 +1,71 @@
+---
+import '../style.css'
+import Navbar from '../components/layout/Navbar.astro'
+import Footer from '../components/layout/Footer.astro'
+import FloatingContact from '../components/layout/FloatingContact.astro'
+import { siteConfig } from '../data/site'
+
+interface Props {
+  seo?: {
+    title?: string
+    description?: string
+    canonical?: string
+    image?: string
+    type?: 'website' | 'article'
+    noindex?: boolean
+    structuredData?: Record<string, unknown> | Record<string, unknown>[]
+  }
+}
+
+const {
+  seo = {},
+} = Astro.props
+
+const title = seo.title ?? siteConfig.name
+const description = seo.description ?? siteConfig.defaultDescription
+const canonicalUrl = seo.canonical ? new URL(seo.canonical, Astro.site) : undefined
+const image = seo.image ?? siteConfig.defaultImage
+const imageUrl = new URL(image, Astro.site)
+const type = seo.type ?? 'website'
+const structuredData = seo.structuredData
+  ? (Array.isArray(seo.structuredData) ? seo.structuredData : [seo.structuredData])
+  : []
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {seo.noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content={siteConfig.locale} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:image" content={imageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    {structuredData.map((entry) => <script type="application/ld+json" set:html={JSON.stringify(entry)} />)}
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <Footer />
+    <FloatingContact />
+    <script>
+      import '../scripts/tracking.client.js'
+    </script>
+  </body>
+</html>

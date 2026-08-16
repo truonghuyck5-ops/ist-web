@@ -9,7 +9,7 @@ export const comboItems = [
     title: 'Menu / bảng giá',
     description:
       'Menu in ấn rõ ràng, dễ gọi món, phù hợp quán ăn, cafe, trà sữa và dịch vụ.',
-    image: '/images/projects/hoa-don-001.jpg'
+    image: '/images/projects/hoa-don-001.JPG'
   },
   {
     title: 'Tem nhãn sản phẩm',
@@ -27,7 +27,7 @@ export const comboItems = [
     title: 'Decal kính / decal trang trí',
     description:
       'Trang trí mặt tiền, kính, tường hoặc khu vực check-in cho quán.',
-    image: '/images/projects/thi-cong-001.jpg'
+    image: '/images/projects/thi-cong-001.JPG'
   },
   {
     title: 'Standee / banner khai trương',

@@ -1,0 +1,102 @@
+---
+import { hoaDonPricingConfig as config } from '../../../data/hoaDonPricingConfig'
+import {
+  calculateHoaDonQuote,
+  getPlyOptions,
+  getQuantityOptions,
+  getSizeOptions,
+} from '../../../utils/hoaDonCalculatorLogic'
+
+const sizeOptions = getSizeOptions()
+const plyOptions = getPlyOptions()
+const quantityOptions = getQuantityOptions(config.default.size, config.default.ply)
+const defaultQuantity = quantityOptions[0]?.value
+const defaultQuote = calculateHoaDonQuote({
+  ...config.default,
+  quantity: defaultQuantity,
+})
+---
+
+<section id="calculator" class="bg-black py-20 text-white">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <p class="mb-4 font-semibold tracking-[0.2em] text-orange-500 uppercase">Bảng giá tham khảo</p>
+        <h2 class="mb-6 text-4xl leading-tight font-black text-white md:text-5xl">Chọn đúng quy cách,<br />xem giá nhanh</h2>
+        <p class="mb-6 leading-relaxed text-gray-400">Hóa đơn và biểu mẫu được tính theo các mốc số lượng tối ưu để chẵn giấy, dễ sản xuất và có giá tốt hơn. Khách hàng chỉ cần chọn đúng khổ, số liên và số lượng phù hợp.</p>
+        <div class="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-5">
+          <p class="mb-2 font-semibold text-orange-300">Lưu ý sản xuất</p>
+          <p class="text-sm leading-relaxed text-gray-300">Các mốc số lượng được thiết kế để hạn chế lẻ ream giấy. Nếu cần số lượng khác bảng, IST sẽ tư vấn riêng để tối ưu chi phí.</p>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 md:p-8">
+        <form id="invoice-calculator-form" class="contents">
+          <div class="mb-6 grid gap-5 md:grid-cols-3">
+            <div>
+              <label for="invoice-size" class="mb-3 block text-sm text-gray-400">Kích thước</label>
+              <select id="invoice-size" class="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none focus:border-orange-500">
+                {sizeOptions.map((option) => <option value={option.value} selected={option.value === config.default.size}>{option.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label for="invoice-ply" class="mb-3 block text-sm text-gray-400">Loại hóa đơn</label>
+              <select id="invoice-ply" class="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none focus:border-orange-500">
+                {plyOptions.map((option) => <option value={option.value} selected={option.value === config.default.ply}>{option.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label for="invoice-quantity" class="mb-3 block text-sm text-gray-400">Số lượng</label>
+              <select id="invoice-quantity" class="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none focus:border-orange-500">
+                {quantityOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <div id="invoice-result" class="rounded-3xl border border-zinc-800 bg-black p-6 md:p-8" aria-live="polite">
+          <p class="mb-4 font-semibold tracking-[0.2em] text-orange-500 uppercase">Kết quả báo giá</p>
+          <div class="mb-6 grid gap-5 md:grid-cols-2">
+            <div class="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6">
+              <p class="mb-3 text-orange-300">Đơn giá / cuốn</p>
+              <p id="invoice-unit-price" class="break-words text-3xl font-black text-orange-500 md:text-4xl">{defaultQuote?.unitPriceText ?? '-'}</p>
+            </div>
+            <div class="rounded-2xl border border-zinc-700 bg-zinc-950 p-6">
+              <p class="mb-3 text-gray-400">Tổng tiền</p>
+              <p id="invoice-total-price" class="break-words text-3xl font-black text-white md:text-4xl">{defaultQuote?.totalPriceText ?? '-'}</p>
+            </div>
+          </div>
+          <p id="invoice-info" class="mb-3 leading-relaxed text-gray-300">
+            {defaultQuote && <><strong class="text-white">{defaultQuote.quantity.toLocaleString('vi-VN')} cuốn</strong><span class="text-gray-400"> - {defaultQuote.size} / {defaultQuote.plyLabel} - Thành phẩm khoảng {defaultQuote.finishedSize}</span></>}
+          </p>
+          <p id="invoice-note" class="mb-6 text-sm leading-relaxed text-gray-500">{defaultQuote?.note ?? ''}</p>
+          <div class="grid gap-4 md:grid-cols-2">
+            <a id="invoice-zalo-btn" href="https://zalo.me/0974313230" data-track-event="zalo_click" data-track-location="hoa_don_calculator" data-track-service="hoa_don" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-orange-500 px-5 py-4 text-center font-bold text-white transition hover:bg-orange-600">Nhắn Zalo đặt in</a>
+            <button id="invoice-price-table-btn" type="button" class="rounded-xl border border-zinc-700 px-5 py-4 text-center font-bold text-white transition hover:border-orange-500 hover:text-orange-500">Xem giá theo số lượng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="invoice-price-popup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/75 p-4" role="dialog" aria-modal="true" aria-label="Bảng giá hóa đơn theo số lượng" aria-hidden="true">
+    <div id="invoice-price-popup-overlay" class="absolute inset-0"></div>
+    <div class="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-zinc-800 bg-zinc-950 text-white shadow-2xl">
+      <div class="flex items-start justify-between gap-5 border-b border-zinc-800 px-6 py-5">
+        <div>
+          <p class="mb-2 font-semibold tracking-[0.18em] text-orange-500 uppercase">Bảng giá theo số lượng</p>
+          <h3 id="invoice-popup-title" class="text-2xl font-black md:text-3xl">-</h3>
+          <p id="invoice-popup-subtitle" class="mt-2 text-sm text-gray-400">-</p>
+        </div>
+        <button id="invoice-price-popup-close" type="button" class="shrink-0 rounded-xl border border-zinc-700 px-4 py-2 text-sm font-bold text-gray-300 transition hover:border-orange-500 hover:text-orange-500">Đóng</button>
+      </div>
+      <div class="p-5 md:p-6">
+        <div class="mb-3 grid grid-cols-3 rounded-xl bg-orange-500 px-3 py-3 text-xs font-black text-white sm:px-4 sm:text-sm">
+          <div>Số lượng</div><div class="text-center">Đơn giá</div><div class="text-right">Thành tiền</div>
+        </div>
+        <div id="invoice-price-table-body" class="grid gap-2"></div>
+        <p id="invoice-popup-note" class="mt-5 text-sm leading-relaxed text-gray-500">-</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import { comboPackages } from '../../../data/comboPackages.js'
+---
+
+<section class="border-t border-zinc-900">
+  <div class="mx-auto max-w-7xl px-6 py-24">
+    <div class="mx-auto mb-16 max-w-3xl text-center">
+      <p class="mb-4 font-semibold tracking-wide text-orange-500 uppercase">Gói combo gợi ý</p>
+      <h2 class="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">Chọn gói phù hợp<br />với giai đoạn mở quán</h2>
+      <p class="text-lg leading-relaxed text-gray-400">IST có thể linh hoạt điều chỉnh từng hạng mục theo ngành nghề, ngân sách và nhu cầu thực tế.</p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      {comboPackages.map((item) => (
+        <article class:list={['rounded-3xl border p-8 transition duration-300', item.featured ? 'border-orange-500 bg-orange-500/5 lg:scale-105' : 'border-zinc-800 bg-zinc-900']}>
+          {item.featured && <div class="mb-6 inline-block rounded-full bg-orange-500 px-4 py-1 text-sm text-white">Phù hợp nhất</div>}
+          <h3 class="mb-4 text-3xl font-bold text-white">{item.title}</h3>
+          <div class="mb-6 text-4xl font-black text-orange-500">{item.price}</div>
+          <p class="mb-8 leading-relaxed text-gray-400">{item.description}</p>
+          <div class="mb-10 space-y-4">
+            {item.features.map((feature) => (
+              <div class="flex items-start gap-3"><span class="text-orange-500">✓</span><p class="text-gray-300">{feature}</p></div>
+            ))}
+          </div>
+          <a href="#contact" data-track-event="service_cta_click" data-track-location="combo_package" data-track-service="combo_mo_quan" data-track-action="quote_request" class:list={['inline-flex rounded-xl px-6 py-3 font-semibold transition', item.featured ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-700 text-white hover:border-orange-500 hover:text-orange-500']}>Nhận tư vấn &amp; báo giá</a>
+        </article>
+      ))}
+    </div>
+
+    <p class="mt-10 text-center text-sm text-gray-500">* Giá chỉ mang tính tham khảo. Combo thực tế sẽ được điều chỉnh theo kích thước, vật liệu và nhu cầu của từng cửa hàng.</p>
+  </div>
+</section>

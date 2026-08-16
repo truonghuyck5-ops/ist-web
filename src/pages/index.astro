@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/sections/home/Hero.astro'
+import About from '../components/sections/home/About.astro'
+import Capabilities from '../components/sections/home/Capabilities.astro'
+import ProductionCapacity from '../components/sections/home/ProductionCapacity.astro'
+import Services from '../components/sections/home/Services.astro'
+import FeaturedProjects from '../components/sections/home/FeaturedProjects.astro'
+import ContactCta from '../components/sections/home/ContactCta.astro'
+import { organizationStructuredData } from '../utils/seo'
+---
+
+<BaseLayout seo={{
+  title: 'IST - Công ty TNHH MTV Quảng Cáo In Sáng Tạo - Thiết kế, In ấn & Quảng cáo tại Vĩnh Long',
+  description: 'Công ty TNHH MTV Quảng Cáo In Sáng Tạo - IST chuyên thiết kế, in ấn, tem nhãn, bảng hiệu quảng cáo, in khổ lớn, thi công công trình cho shop, doanh nghiệp và cơ quan tại Trà Vinh, Vĩnh Long.',
+  canonical: '/',
+  structuredData: organizationStructuredData,
+}}>
+  <main>
+    <Hero />
+    <Services />
+    <Capabilities />
+    <ProductionCapacity />
+    <FeaturedProjects />
+    <About />
+    <ContactCta />
+  </main>
+
+  <script>
+    import '../scripts/homepage-interactions.js'
+  </script>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+const steps = [
+  ['01', 'Tiếp nhận nhu cầu', 'IST ghi nhận vị trí lắp đặt, kích thước, hình ảnh mẫu, ngân sách và mục tiêu sử dụng của khách hàng.'],
+  ['02', 'Tư vấn giải pháp', 'Đề xuất vật liệu phù hợp như alu, mica, hiflex, hộp đèn, chữ nổi hoặc phương án kết hợp.'],
+  ['03', 'Thiết kế & báo giá', 'Lên phương án thiết kế, bóc tách hạng mục và báo giá rõ ràng trước khi sản xuất.'],
+  ['04', 'Sản xuất tại xưởng', 'Gia công khung sắt, in ấn, cắt CNC, laser, mica, alu và chuẩn bị vật tư thi công.'],
+  ['05', 'Thi công lắp đặt', 'Đội thi công IST lắp đặt tại công trình, kiểm tra độ chắc chắn, thẩm mỹ và hoàn thiện.'],
+]
+---
+
+<section class="border-t border-zinc-900 bg-zinc-950">
+  <div class="mx-auto max-w-7xl px-6 py-24">
+    <div class="mb-16 max-w-3xl">
+      <p class="mb-4 font-semibold tracking-wide text-orange-500 uppercase">Quy trình làm việc</p>
+      <h2 class="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">Từ tư vấn đến thi công<br />đều được kiểm soát rõ ràng</h2>
+      <p class="text-lg leading-relaxed text-gray-400">IST chủ động từ thiết kế, sản xuất đến thi công giúp khách hàng dễ theo dõi tiến độ và kiểm soát chất lượng.</p>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-5">
+      {steps.map(([number, title, description]) => (
+        <article class="rounded-3xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-orange-500">
+          <p class="mb-6 text-4xl font-black text-orange-500">{number}</p>
+          <h3 class="mb-4 text-xl font-bold text-white">{title}</h3>
+          <p class="text-sm leading-relaxed text-gray-400">{description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

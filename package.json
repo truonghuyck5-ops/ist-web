@@ -4,12 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test:tem-pricing": "node scripts/test-tem-nhan-pricing-parity.mjs",
+    "test:hoa-don-pricing": "node scripts/test-hoa-don-pricing-parity.mjs",
+    "test:seo": "node scripts/test-seo.mjs",
+    "test:redirects": "node scripts/test-redirects.mjs",
+    "test:tracking": "node scripts/test-tracking.mjs"
   },
   "devDependencies": {
-    "vite": "^8.0.10"
+    "astro": "^7.2.2"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",

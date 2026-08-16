@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Hero from '../../components/sections/hoa-don/Hero.astro'
+import HoaDonCalculator from '../../components/sections/hoa-don/HoaDonCalculator.astro'
+import Benefits from '../../components/sections/hoa-don/Benefits.astro'
+import Faq from '../../components/sections/hoa-don/Faq.astro'
+import ContactCta from '../../components/sections/home/ContactCta.astro'
+---
+
+<BaseLayout seo={{
+  title: 'In hóa đơn, phiếu thu, biểu mẫu tại Cầu Ngang, Vĩnh Long | IST',
+  description: 'IST nhận in hóa đơn bán hàng, phiếu thu, phiếu chi, biên nhận và biểu mẫu cho shop, cửa hàng, quán ăn, doanh nghiệp nhỏ tại Cầu Ngang, Vĩnh Long.',
+  canonical: '/hoa-don/',
+  image: '/images/hoa-don/og-hoa-don.webp',
+}}>
+  <main>
+    <Hero />
+    <HoaDonCalculator />
+    <Benefits />
+    <Faq />
+    <ContactCta />
+  </main>
+
+  <script>
+    import '../../scripts/hoa-don-interactions.js'
+    import '../../scripts/hoa-don-calculator.client.js'
+  </script>
+</BaseLayout>
