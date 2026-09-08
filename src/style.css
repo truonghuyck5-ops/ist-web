@@ -12,6 +12,12 @@ body {
   animation: floatingPulse 2s infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .floating-pulse {
+    animation: none;
+  }
+}
+
 @keyframes floatingPulse {
   0% {
     transform: scale(1);

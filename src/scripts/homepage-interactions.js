@@ -63,10 +63,11 @@ function initLightbox() {
   const closeButton = dialog.querySelector('[data-lightbox-close]')
   let currentIndex = 0
   let lastTrigger = null
+  let activeTriggers = triggers
 
   const show = (index) => {
-    currentIndex = (index + triggers.length) % triggers.length
-    const trigger = triggers[currentIndex]
+    currentIndex = (index + activeTriggers.length) % activeTriggers.length
+    const trigger = activeTriggers[currentIndex]
     const source = trigger.dataset.lightbox
     const alt = trigger.querySelector('img')?.alt || trigger.getAttribute('aria-label') || ''
 
@@ -75,9 +76,11 @@ function initLightbox() {
     caption.textContent = trigger.dataset.caption || alt
   }
 
-  const open = (index) => {
-    lastTrigger = triggers[index]
-    show(index)
+  const open = (trigger) => {
+    const group = trigger.dataset.lightboxGroup
+    activeTriggers = group ? triggers.filter((candidate) => candidate.dataset.lightboxGroup === group) : triggers
+    lastTrigger = trigger
+    show(activeTriggers.indexOf(trigger))
     dialog.classList.remove('hidden')
     dialog.classList.add('flex')
     document.body.classList.add('overflow-hidden')
@@ -92,12 +95,12 @@ function initLightbox() {
     lastTrigger?.focus()
   }
 
-  triggers.forEach((trigger, index) => trigger.addEventListener('click', () => open(index)))
+  triggers.forEach((trigger) => trigger.addEventListener('click', () => open(trigger)))
   document.querySelectorAll('[data-lightbox-trigger]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const index = triggers.findIndex((imageTrigger) => imageTrigger.dataset.lightbox === trigger.dataset.lightboxTrigger)
 
-      if (index >= 0) open(index)
+      if (index >= 0) open(triggers[index])
     })
   })
   closeButton.addEventListener('click', close)
