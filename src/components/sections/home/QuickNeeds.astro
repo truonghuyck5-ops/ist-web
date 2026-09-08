@@ -1,0 +1,62 @@
+---
+const quickNeeds = [
+  {
+    title: 'Làm bảng hiệu',
+    description: 'Thiết kế & thi công',
+    href: '/bang-hieu/',
+    service: 'bang_hieu',
+    action: 'view_service',
+  },
+  {
+    title: 'In nhanh',
+    description: 'Card, tag, voucher',
+    href: '#contact',
+    service: 'in_nhanh',
+    action: 'quote_request',
+  },
+  {
+    title: 'Chuẩn bị mở quán',
+    description: 'Nhận diện đồng bộ',
+    href: '/combo-mo-quan/',
+    service: 'combo_mo_quan',
+    action: 'view_service',
+  },
+  {
+    title: 'In tem nhãn',
+    description: 'Có báo giá trực tuyến',
+    href: '/tem-nhan/',
+    service: 'tem_nhan',
+    action: 'view_service',
+  },
+]
+---
+
+<section id="quick-needs" class="border-t border-stone-200 bg-white" data-reveal>
+  <div class="mx-auto max-w-7xl px-6 py-14 md:py-18">
+    <div class="mb-8 max-w-3xl">
+      <p class="mb-3 text-sm font-bold tracking-[0.18em] text-orange-600 uppercase">Chọn nhanh</p>
+      <h2 class="text-3xl leading-tight font-black text-zinc-950 md:text-4xl">Hôm nay bạn cần IST hỗ trợ gì?</h2>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {quickNeeds.map((item) => (
+        <a
+          href={item.href}
+          data-track-event="service_cta_click"
+          data-track-location="home_quick_need"
+          data-track-service={item.service}
+          data-track-action={item.action}
+          class="group flex min-h-32 items-center justify-between gap-4 rounded-2xl bg-stone-100 p-5 transition hover:bg-orange-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+        >
+          <span>
+            <span class="block text-lg font-black text-zinc-950 group-hover:text-orange-700">{item.title}</span>
+            <span class="mt-1 block text-sm text-zinc-600">{item.description}</span>
+          </span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="h-6 w-6 shrink-0 text-orange-600">
+            <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

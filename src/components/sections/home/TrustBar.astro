@@ -1,0 +1,22 @@
+---
+const stats = [
+  { value: '10+', target: '10', suffix: '+', label: 'Năm kinh nghiệm' },
+  { value: '500m²+', target: '500', suffix: 'm²+', label: 'Nhà xưởng' },
+  { value: '15+', target: '15', suffix: '+', label: 'Nhân sự' },
+  { value: '1.000+', target: '1000', suffix: '+', label: 'Đơn hàng & công trình' },
+]
+---
+
+<section id="trust" class="border-y border-zinc-800 bg-zinc-950" aria-labelledby="trust-heading" data-reveal>
+  <h2 id="trust-heading" class="sr-only">Dấu ấn năng lực IST</h2>
+  <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
+    <dl class="grid grid-cols-2 gap-x-5 gap-y-8 lg:grid-cols-4">
+      {stats.map((stat) => (
+        <div class="flex flex-col text-center lg:border-r lg:border-zinc-800 lg:last:border-r-0">
+          <dt class="order-2 mt-2 text-sm text-zinc-400">{stat.label}</dt>
+          <dd class="order-1 text-3xl font-black text-orange-500 md:text-4xl" data-counter data-target={stat.target} data-suffix={stat.suffix}>{stat.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/sections/home/Hero.astro'
+import QuickNeeds from '../components/sections/home/QuickNeeds.astro'
+import TrustBar from '../components/sections/home/TrustBar.astro'
 import About from '../components/sections/home/About.astro'
 import Capabilities from '../components/sections/home/Capabilities.astro'
 import ProductionCapacity from '../components/sections/home/ProductionCapacity.astro'
@@ -18,6 +20,8 @@ import { organizationStructuredData } from '../utils/seo'
 }}>
   <main>
     <Hero />
+    <QuickNeeds />
+    <TrustBar />
     <Services />
     <Capabilities />
     <ProductionCapacity />
