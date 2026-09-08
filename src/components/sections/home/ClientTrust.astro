@@ -1,0 +1,24 @@
+---
+import { featuredProjects } from '../../../data/featuredProjects.js'
+
+const trustProjects = featuredProjects.filter((project) => project.homepageFeatured)
+---
+
+<section id="client-trust" class="border-t border-stone-200 bg-white" aria-labelledby="client-trust-heading">
+  <div class="mx-auto max-w-7xl px-6 py-14 md:py-16">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-bold tracking-[0.18em] text-orange-600 uppercase">Kinh nghiệm thực tế</p>
+      <h2 id="client-trust-heading" class="mt-3 text-3xl leading-tight font-black text-zinc-950 md:text-4xl">Kinh nghiệm triển khai trên các nhóm công trình thực tế</h2>
+      <p class="mt-4 text-base leading-relaxed text-zinc-600">Các nhóm dưới đây được tổng hợp trực tiếp từ những công trình IST đã thực hiện.</p>
+    </div>
+
+    <ul class="mt-9 grid grid-cols-2 gap-3 md:mt-10 lg:grid-cols-4 lg:gap-4">
+      {trustProjects.map((project) => (
+        <li class="rounded-2xl border border-stone-200 bg-stone-50 p-4 sm:p-5">
+          <p class="text-xs font-bold tracking-[0.12em] text-orange-700 uppercase">{project.category}</p>
+          <h3 class="mt-3 text-base leading-snug font-black text-zinc-950">{project.title}</h3>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
