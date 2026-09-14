@@ -71,3 +71,9 @@ for (const tag of serviceLinks) {
 }
 for (const [tag] of projectsHtml.matchAll(/<a\b[^>]*data-project-image[^>]*>/g)) assert.ok(!tag.includes('data-track-event'), 'no lightbox tracking')
 console.log('PROJECT CTA TRACKING: PASS')
+
+const homeProjectLinks = [...read('dist/index.html').matchAll(/<a\b[^>]*data-track-location="home_featured_projects"[^>]*>/g)].map(([tag]) => tag)
+assert.equal(homeProjectLinks.length, 1, 'one homepage projects CTA')
+for (const marker of ['href="/du-an/"', 'data-track-event="service_cta_click"', 'data-track-action="view_projects"']) assert.ok(homeProjectLinks[0].includes(marker), marker)
+assert.doesNotMatch(homeProjectLinks[0], /data-track-(?:title|customer|caption|service)=/, 'no inferred service or customer payload')
+console.log('HOMEPAGE PROJECTS CTA TRACKING: PASS')
