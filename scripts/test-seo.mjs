@@ -8,6 +8,7 @@ const publicRoutes = new Map([
   ['dist/combo-mo-quan/index.html', { path: '/combo-mo-quan/', type: 'website' }],
   ['dist/tem-nhan/index.html', { path: '/tem-nhan/', type: 'website' }],
   ['dist/hoa-don/index.html', { path: '/hoa-don/', type: 'website' }],
+  ['dist/du-an/index.html', { path: '/du-an/', type: 'website' }],
   ['dist/blog/index.html', { path: '/blog/', type: 'website' }],
   ['dist/blog/gia-bang-hieu-alu/index.html', { path: '/blog/gia-bang-hieu-alu/', type: 'article' }],
   ['dist/blog/in-tem-nhan-so-luong-it/index.html', { path: '/blog/in-tem-nhan-so-luong-it/', type: 'article' }],

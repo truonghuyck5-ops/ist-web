@@ -9,6 +9,7 @@ const publicPages = [
   'dist/combo-mo-quan/index.html',
   'dist/tem-nhan/index.html',
   'dist/hoa-don/index.html',
+  'dist/du-an/index.html',
   'dist/blog/index.html',
   'dist/blog/gia-bang-hieu-alu/index.html',
   'dist/blog/in-tem-nhan-so-luong-it/index.html',
@@ -38,7 +39,7 @@ assert.ok(trackingClient.includes('page_path: window.location.pathname'), 'event
 assert.ok(!source.includes('window.trackEvent'), 'Astro source has no legacy global trackEvent dependency')
 assert.ok(!sourceFiles.filter((file) => file.endsWith('.astro')).some((file) => read(file).includes('onclick=')), 'Astro markup has no inline onclick handlers')
 
-for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator']) {
+for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator']) {
   assert.ok(source.includes(marker), `required CTA tracking marker: ${marker}`)
 }
 
@@ -60,3 +61,13 @@ for (const page of publicPages) {
 
 console.log('GA4 BASE TRACKING: PASS')
 console.log('CONVERSION EVENT TRACKING: PASS')
+
+const projectsHtml = read('dist/du-an/index.html')
+const serviceLinks = [...projectsHtml.matchAll(/<a\b[^>]*data-track-location="project_card"[^>]*>/g)].map(([tag]) => tag)
+assert.equal(serviceLinks.length, 4, 'four project service tracking links')
+for (const tag of serviceLinks) {
+  for (const marker of ['href="/bang-hieu/"', 'data-track-event="service_cta_click"', 'data-track-service="bang_hieu"', 'data-track-action="view_service"']) assert.ok(tag.includes(marker), marker)
+  assert.doesNotMatch(tag, /data-track-(?:title|customer|project)/, 'no project or customer payload')
+}
+for (const [tag] of projectsHtml.matchAll(/<a\b[^>]*data-project-image[^>]*>/g)) assert.ok(!tag.includes('data-track-event'), 'no lightbox tracking')
+console.log('PROJECT CTA TRACKING: PASS')
