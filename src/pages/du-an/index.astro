@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import ContactCta from '../../components/sections/home/ContactCta.astro'
+import ProjectCard from '../../components/projects/ProjectCard.astro'
+import { featuredProjects } from '../../data/featuredProjects.js'
+
+const listingProjects = featuredProjects.filter((project) => project.listingVisible)
+---
+
+<BaseLayout seo={{
+  title: 'Công trình đã thực hiện | In Sáng Tạo',
+  description: 'Hình ảnh và phần việc IST thực hiện trong các hạng mục bảng hiệu cho cửa hàng và doanh nghiệp. Xem công trình và liên hệ tư vấn hạng mục tương tự.',
+  canonical: '/du-an/',
+}}>
+  <main class="bg-zinc-950 text-white">
+    <section class="mx-auto max-w-7xl px-6 pt-12 pb-10 md:pt-16 md:pb-12" aria-labelledby="projects-heading">
+      <p class="mb-4 text-sm font-bold tracking-[0.18em] text-orange-400 uppercase">Công trình thực tế</p>
+      <h1 id="projects-heading" class="max-w-3xl text-3xl leading-tight font-black md:text-5xl">Công trình IST đã thực hiện</h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-lg">Một số hình ảnh và phần việc trong các hạng mục thực tế IST đã triển khai.</p>
+    </section>
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 pb-16 md:grid-cols-2 md:pb-20">
+      {listingProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+    <ContactCta />
+  </main>
+  <script>
+    import '../../scripts/project-lightbox.client.js'
+  </script>
+</BaseLayout>

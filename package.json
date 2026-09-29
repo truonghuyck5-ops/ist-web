@@ -11,7 +11,8 @@
     "test:hoa-don-pricing": "node scripts/test-hoa-don-pricing-parity.mjs",
     "test:seo": "node scripts/test-seo.mjs",
     "test:redirects": "node scripts/test-redirects.mjs",
-    "test:tracking": "node scripts/test-tracking.mjs"
+    "test:tracking": "node scripts/test-tracking.mjs",
+    "test:projects": "node scripts/test-projects.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.2"
