@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content'
 import { absoluteUrl } from '../utils/seo'
 
-const staticPaths = ['/', '/bang-hieu/', '/combo-mo-quan/', '/tem-nhan/', '/hoa-don/', '/du-an/', '/blog/']
+const staticPaths = ['/', '/san-pham/', '/bang-hieu/', '/combo-mo-quan/', '/tem-nhan/', '/hoa-don/', '/du-an/', '/blog/']
 
 export async function GET() {
   const posts = await getCollection('blog', ({ data }) => !data.draft)

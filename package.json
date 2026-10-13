@@ -13,7 +13,8 @@
     "test:redirects": "node scripts/test-redirects.mjs",
     "test:tracking": "node scripts/test-tracking.mjs",
     "test:projects": "node scripts/test-projects.mjs",
-    "test:homepage": "node scripts/test-homepage.mjs"
+    "test:homepage": "node scripts/test-homepage.mjs",
+    "test:product-portal": "node scripts/test-product-portal.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.8"

@@ -1,4 +1,4 @@
-/* Approved IST Homepage visual system. Loaded only by the homepage. */
+/* Approved IST Homepage visual system. Shared by the V3 homepage and product routes. */
 :root {
   --hv3-bg: #fff;
   --hv3-soft: #f6f6f2;

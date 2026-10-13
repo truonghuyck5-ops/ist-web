@@ -1,11 +1,11 @@
 ---
 import Media from './Media.astro'
 import { featuredProjects } from '../../data/featuredProjects.js'
-const projects = featuredProjects.filter((project) => project.homepageFeatured).slice(0, 4)
+const { projects = featuredProjects.filter((project) => project.homepageFeatured).slice(0, 4), eyebrow = '03 / DẤU ẤN THỰC TẾ', location = 'home_featured_projects' } = Astro.props
 ---
 <section id="projects" class="hv3-section hv3-projects-section" aria-labelledby="projects-heading">
   <div class="hv3-container">
-    <div class="hv3-section-head"><div><p class="hv3-eyebrow">03 / DẤU ẤN THỰC TẾ</p><h2 id="projects-heading">CÔNG TRÌNH THỰC TẾ</h2></div><a class="hv3-text-link" href="/du-an/" data-track-event="service_cta_click" data-track-location="home_featured_projects" data-track-action="view_projects">Xem tất cả công trình <span aria-hidden="true">↗</span></a></div>
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">{eyebrow}</p><h2 id="projects-heading">CÔNG TRÌNH THỰC TẾ</h2></div><a class="hv3-text-link" href="/du-an/" data-track-event="service_cta_click" data-track-location={location} data-track-action="view_projects">Xem tất cả công trình <span aria-hidden="true">↗</span></a></div>
     <div class="hv3-project-grid">{projects.map((project) => <a class="hv3-project" href="/du-an/"><div class="hv3-media-frame"><Media src={project.image} alt={project.imageAlt} width={project.imageWidth} height={project.imageHeight} /></div><div class="hv3-project-caption"><div><p>{project.category}</p><h3>{project.title}</h3></div><span aria-hidden="true">↗</span></div></a>)}</div>
   </div>
 </section>

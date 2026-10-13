@@ -1,29 +1,35 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'
-import Hero from '../../components/sections/bang-hieu/Hero.astro'
-import Types from '../../components/sections/bang-hieu/Types.astro'
-import Process from '../../components/sections/bang-hieu/Process.astro'
-import Pricing from '../../components/sections/bang-hieu/Pricing.astro'
-import Faq from '../../components/sections/bang-hieu/Faq.astro'
-import ContactCta from '../../components/sections/home/ContactCta.astro'
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import ProductIndex from '../../components/product-v3/ProductIndex.astro'
+import SelectedProjects from '../../components/home-v3/SelectedProjects.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { signageOptions } from '../../components/product-v3/content.js'
+import { featuredProjects } from '../../data/featuredProjects.js'
+import { bangHieuPricing } from '../../data/bangHieuPricing.js'
+import { bangHieuFaqs } from '../../data/bangHieuFaqs.js'
+const projects = featuredProjects.filter((project) => project.listingVisible && project.serviceHref === '/bang-hieu/')
+const steps = [
+  ['Tư vấn', 'Trao đổi nhu cầu, vị trí lắp đặt và kích thước dự kiến.'],
+  ['Thiết kế', 'Thống nhất phương án thiết kế, vật liệu và báo giá.'],
+  ['Sản xuất', 'Gia công các hạng mục tại xưởng IST.'],
+  ['Thi công', 'Lắp đặt, kiểm tra và hoàn thiện tại công trình.'],
+]
 ---
-
-<BaseLayout seo={{
+<ProductLayout seo={{
   title: 'Làm Bảng Hiệu Quảng Cáo | In Sáng Tạo IST',
   description: 'IST nhận thiết kế, sản xuất và thi công bảng hiệu quảng cáo, bảng alu, hộp đèn, chữ nổi, hiflex cho cửa hàng, doanh nghiệp và cơ quan tại Trà Vinh.',
   canonical: '/bang-hieu/',
   image: '/images/projects/bang-hieu-001.jpg',
 }}>
-  <main>
-    <Hero />
-    <Types />
-    <Process />
-    <Pricing />
-    <Faq />
-    <ContactCta />
-  </main>
-
-  <script>
-    import '../../scripts/bang-hieu-interactions.js'
-  </script>
-</BaseLayout>
+  <ProductHero eyebrow="SẢN PHẨM / BẢNG HIỆU" lines={['BẢNG HIỆU', 'QUẢNG CÁO']} description="Thiết kế, sản xuất và thi công bảng hiệu cho cửa hàng, doanh nghiệp và tổ chức." location="bang_hieu_hero" service="bang_hieu" media={{ src: '/images/product-v3/ist-finished-sign.webp', alt: 'Bảng hiệu hoàn thiện có ánh sáng viền do IST thực hiện', width: 1400, height: 933 }} primary={{ href: '#contact', label: 'Nhận tư vấn', action: 'quote_request' }} secondary={{ href: '#projects', label: 'Xem công trình', action: 'view_projects' }} />
+  <section id="bang-hieu-types" class="hv3-section hv3-soft" aria-labelledby="types-heading">
+    <div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">01 / CHỌN HẠNG MỤC</p><h2 id="types-heading">MỖI MẶT TIỀN,<br />MỘT PHƯƠNG ÁN.</h2></div><p class="hv3-body pv3-section-note">Chọn theo nhu cầu sử dụng.<br />IST tư vấn vật liệu và cách hoàn thiện.</p></div><ProductIndex items={signageOptions} headingLevel="h3" location="bang_hieu_types" /></div>
+  </section>
+  <section class="hv3-section pv3-audience" aria-labelledby="audience-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">02 / THEO NHU CẦU</p><h2 id="audience-heading">TỪ CỬA HÀNG<br />ĐẾN TỔ CHỨC.</h2></div><ul><li>Cửa hàng · shop · showroom</li><li>Quán ăn · café · spa</li><li>Doanh nghiệp · văn phòng</li><li>Cơ quan · tổ chức</li></ul></div></section>
+  <SelectedProjects projects={projects} eyebrow="03 / DẤU ẤN THỰC TẾ" location="bang_hieu_projects" />
+  <section class="hv3-section hv3-soft" aria-labelledby="process-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / CÁCH IST LÀM</p><h2 id="process-heading">TỪ TƯ VẤN ĐẾN THI CÔNG.</h2></div></div><ol class="pv3-process">{steps.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+  <section id="pricing" class="hv3-section" aria-labelledby="pricing-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">05 / BÁO GIÁ THAM KHẢO</p><h2 id="pricing-heading">BẮT ĐẦU TỪ HẠNG MỤC.</h2></div><p class="hv3-body pv3-section-note">Giá thực tế phụ thuộc kích thước, vật liệu, vị trí lắp đặt, kết cấu khung và yêu cầu thi công.</p></div><ul class="pv3-pricing">{bangHieuPricing.map((item) => <li><h3>{item.title}</h3><p>{item.description}</p><span>{item.price}</span></li>)}</ul><p class="pv3-price-note">Giá trên chỉ mang tính tham khảo. IST sẽ khảo sát hoặc xem hình thực tế để báo giá chính xác.</p><a class="hv3-text-link" href="#contact" data-track-event="service_cta_click" data-track-location="bang_hieu_pricing" data-track-service="bang_hieu" data-track-action="quote_request">Nhận tư vấn &amp; báo giá <span aria-hidden="true">↗</span></a></div></section>
+  <section class="hv3-section hv3-soft" aria-labelledby="faq-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">06 / TRƯỚC KHI BẮT ĐẦU</p><h2 id="faq-heading">BẠN MUỐN BIẾT THÊM?</h2></div><div class="pv3-faq">{bangHieuFaqs.map(([question, answer]) => <details><summary><h3>{question}</h3><span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+  <ContactCta headingLineOne="BẢNG HIỆU" headingLineTwo="CỦA BẠN?" description={['Gửi hình mặt tiền và kích thước dự kiến.', 'IST sẽ tư vấn phương án phù hợp.']} />
+</ProductLayout>

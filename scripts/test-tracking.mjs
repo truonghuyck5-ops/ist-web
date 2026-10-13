@@ -5,6 +5,7 @@ import { join } from 'node:path'
 const measurementId = 'G-77XN8YE2ZY'
 const publicPages = [
   'dist/index.html',
+  'dist/san-pham/index.html',
   'dist/bang-hieu/index.html',
   'dist/combo-mo-quan/index.html',
   'dist/tem-nhan/index.html',
@@ -79,7 +80,7 @@ assert.doesNotMatch(homeProjectLinks[0], /data-track-(?:title|customer|caption|s
 console.log('HOMEPAGE PROJECTS CTA TRACKING: PASS')
 
 // Exercise the real delegated tracking client without sending analytics requests.
-// Preview gating and payload allow-list must work for the rendered Homepage CTAs.
+// Preview gating and payload allow-list apply to all three rendered V3 routes.
 const { runInNewContext } = await import('node:vm')
 const { siteConfig: liveSiteConfig } = await import('../src/data/site.js')
 const tagAttribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
@@ -98,38 +99,41 @@ class TrackedElement {
   getAttribute(name) { return name === 'href' ? this.href : null }
 }
 
-for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
-  const calls = []
-  const scripts = []
-  const listeners = new Map()
-  const document = {
-    querySelector: () => scripts[0] ?? null,
-    createElement: () => ({dataset: {}}),
-    head: {append: script => scripts.push(script)},
-    addEventListener: (name, listener) => listeners.set(name, listener),
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+for (const [pagePath, trackedTags] of productTrackedPages) {
+  for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
+    const calls = []
+    const scripts = []
+    const listeners = new Map()
+    const document = {
+      querySelector: () => scripts[0] ?? null,
+      createElement: () => ({dataset: {}}),
+      head: {append: script => scripts.push(script)},
+      addEventListener: (name, listener) => listeners.set(name, listener),
+    }
+    const window = {
+      location: {hostname: host, origin: `https://${host}`, pathname: pagePath},
+      gtag: (...args) => calls.push(args),
+    }
+    runInNewContext(trackingClient.replace(/^import[^\n]+\n/, ''), {window, document, URL, Element: TrackedElement, siteConfig: liveSiteConfig})
+    for (const tag of trackedTags) listeners.get('click')({target: new TrackedElement(tag)})
+    listeners.get('click')({target: new TrackedElement('<a href="tel:0974313230" data-track-event="phone_click" data-track-location="floating_contact" data-track-customer="PRIVATE_CUSTOMER" data-track-title="PRIVATE_TITLE">')})
+    const events = calls.filter(([command]) => command === 'event')
+    if (host !== 'insangtao.net') {
+      assert.equal(scripts.length, 0, 'preview never loads GA4')
+      assert.equal(calls.length, 0, 'preview sends no GA4 calls')
+      continue
+    }
+    assert.equal(scripts.length, 1, 'one production GA4 loader')
+    assert.equal(scripts[0].async, true, 'production GA4 async')
+    assert.equal(events.length, trackedTags.length + 1, 'rendered CTAs dispatch through shared listener')
+    for (const [,name,params] of events) {
+      assert.ok(['service_cta_click', 'zalo_click', 'phone_click'].includes(name), 'existing event names only')
+      assert.ok(Object.keys(params).every(key => ['location', 'service', 'action', 'destination', 'page_path'].includes(key)), 'tracking parameter allow-list')
+      assert.equal(params.page_path, pagePath, 'current page_path')
+      assert.doesNotMatch(JSON.stringify(params), /PRIVATE_CUSTOMER|PRIVATE_TITLE|0974313230|@|z253652/, 'no customer/title/contact/image data leakage')
+    }
+    assert.equal(events.at(-1)[2].destination, 'phone', 'phone destination is categorical')
   }
-  const window = {
-    location: {hostname: host, origin: `https://${host}`, pathname: '/'},
-    gtag: (...args) => calls.push(args),
-  }
-  runInNewContext(trackingClient.replace(/^import[^\n]+\n/, ''), {window, document, URL, Element: TrackedElement, siteConfig: liveSiteConfig})
-  for (const tag of homeTrackedTags) listeners.get('click')({target: new TrackedElement(tag)})
-  listeners.get('click')({target: new TrackedElement('<a href="tel:0974313230" data-track-event="phone_click" data-track-location="floating_contact" data-track-customer="PRIVATE_CUSTOMER" data-track-title="PRIVATE_TITLE">')})
-  const events = calls.filter(([command]) => command === 'event')
-  if (host !== 'insangtao.net') {
-    assert.equal(scripts.length, 0, 'preview never loads GA4')
-    assert.equal(calls.length, 0, 'preview sends no GA4 calls')
-    continue
-  }
-  assert.equal(scripts.length, 1, 'one production GA4 loader')
-  assert.equal(scripts[0].async, true, 'production GA4 async')
-  assert.equal(events.length, homeTrackedTags.length + 1, 'rendered CTAs dispatch through shared listener')
-  for (const [,name,params] of events) {
-    assert.ok(['service_cta_click', 'zalo_click', 'phone_click'].includes(name), 'existing event names only')
-    assert.ok(Object.keys(params).every(key => ['location', 'service', 'action', 'destination', 'page_path'].includes(key)), 'tracking parameter allow-list')
-    assert.equal(params.page_path, '/', 'Homepage page_path')
-    assert.doesNotMatch(JSON.stringify(params), /PRIVATE_CUSTOMER|PRIVATE_TITLE|0974313230|@|z253652/, 'no customer/title/contact/image data leakage')
-  }
-  assert.equal(events.at(-1)[2].destination, 'phone', 'phone destination is categorical')
 }
-console.log('HOMEPAGE CTA RUNTIME / PREVIEW GATING / PRIVACY: PASS')
+console.log('V3 CTA RUNTIME / PREVIEW GATING / PRIVACY: PASS')
