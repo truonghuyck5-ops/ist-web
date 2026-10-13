@@ -1,0 +1,4 @@
+---
+const { src, alt, width, height, eager = false, position = '50% 50%', class: className = '' } = Astro.props
+---
+<img src={src} alt={alt} width={width} height={height} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" class={className} style={`object-position: ${position}`} />

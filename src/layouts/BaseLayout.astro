@@ -6,6 +6,9 @@ import FloatingContact from '../components/layout/FloatingContact.astro'
 import { siteConfig } from '../data/site'
 
 interface Props {
+  bodyClass?: string
+  bodyId?: string
+  viewportFit?: 'cover'
   seo?: {
     title?: string
     description?: string
@@ -19,6 +22,9 @@ interface Props {
 
 const {
   seo = {},
+  bodyClass,
+  bodyId,
+  viewportFit,
 } = Astro.props
 
 const title = seo.title ?? siteConfig.name
@@ -36,7 +42,7 @@ const structuredData = seo.structuredData
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content={viewportFit === 'cover' ? 'width=device-width, initial-scale=1.0, viewport-fit=cover' : 'width=device-width, initial-scale=1.0'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
@@ -59,11 +65,12 @@ const structuredData = seo.structuredData
 
     {structuredData.map((entry) => <script type="application/ld+json" set:html={JSON.stringify(entry)} />)}
   </head>
-  <body>
-    <Navbar />
+  <body class={bodyClass} id={bodyId}>
+    <slot name="before-main" />
+    <slot name="navbar"><Navbar /></slot>
     <slot />
-    <Footer />
-    <FloatingContact />
+    <slot name="footer"><Footer /></slot>
+    <slot name="floating-contact"><FloatingContact /></slot>
     <script>
       import '../scripts/tracking.client.js'
     </script>

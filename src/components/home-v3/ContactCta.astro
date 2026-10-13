@@ -1,0 +1,11 @@
+---
+import { siteConfig } from '../../data/site.js'
+const { contact } = siteConfig
+---
+<section id="contact" class="hv3-contact hv3-section" aria-labelledby="contact-heading">
+  <div class="hv3-container">
+    <p class="hv3-eyebrow"><span class="hv3-marker" aria-hidden="true"></span>CÙNG IST BẮT ĐẦU</p>
+    <div class="hv3-contact-grid"><h2 id="contact-heading">BẠN ĐANG<br />CẦN LÀM GÌ?</h2><div><p>Gửi hình ảnh hoặc mô tả.<br />IST sẽ tư vấn phương án phù hợp.</p><div class="hv3-actions"><a class="hv3-button hv3-button-accent" href={`https://zalo.me/${contact.phone}`} data-track-event="zalo_click" data-track-location="contact_cta" target="_blank" rel="noopener noreferrer">Chat Zalo <span aria-hidden="true">↗</span></a><a class="hv3-button hv3-button-outline" href={`tel:${contact.phone}`} data-track-event="phone_click" data-track-location="contact_cta">Gọi IST <span aria-hidden="true">↗</span></a></div><a class="hv3-contact-request" href={`mailto:${contact.email}?subject=${encodeURIComponent('Yêu cầu báo giá IST')}`} data-track-event="service_cta_click" data-track-location="contact_cta" data-track-action="quote_request">Gửi yêu cầu báo giá <span aria-hidden="true">↗</span></a></div></div>
+    <div class="hv3-contact-bottom"><span>THIẾT KẾ · IN ẤN · QUẢNG CÁO</span><a href={`tel:${contact.phone}`} data-track-event="phone_click" data-track-location="contact_cta">{contact.phoneDisplay}</a></div>
+  </div>
+</section>
