@@ -58,7 +58,7 @@ All additions, under prototype paths:
 - public/images/portal-v3/ist-printed-tags.webp: authorized optimized library copy.
 - docs/NEW-WEB-02-image-audit.md and this review.
 
-Git diff/stat: 19 new files, 629 text insertions, no deletions, plus one 68,046-byte WebP. No existing production file changes.
+Git diff/stat: 19 new files, 635 text insertions, no deletions, plus one 68,046-byte WebP. No existing production file changes.
 
 ## Local QA
 
@@ -87,3 +87,5 @@ SEO: noindex,nofollow; no canonical, JSON-LD, sitemap entry, redirects, producti
 Prototype PR must remain Draft; never merge or publish production. Security release alone was authorized for production. Final Netlify preview checks and direct URL are recorded in the PR and consolidated delivery report.
 
 Prototype-only limitations: contact quote action uses verified email (mailto), no new form backend; product links scroll within this page; project links use current /du-an/; no future portal/solution/detail routes. Real iOS safe-area behavior and OS reduced-motion emulation were not device-tested; CSS rules and browser geometry inspected. No Lighthouse score is claimed. Library image context/title remains generic and does not assert a named customer relationship. Hero fallback retained for CEO review.
+
+Preview host: CSS reserves an extra bottom gap when the Netlify review iframe is present, avoiding toolbar/consultation overlap. Prototype still does not alter Netlify settings or production UI.

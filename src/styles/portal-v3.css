@@ -289,3 +289,7 @@ body.pv3 { margin: 0; background: var(--pv3-bg); color: var(--pv3-ink); font-fam
   .pv3-contact-dialog h2 { font-size: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { :root { scroll-behavior: auto; } .pv3 *, .pv3 *::before, .pv3 *::after { animation: none !important; transition: none !important; } }
+
+/* Leave room for Netlify's review toolbar without changing its settings. */
+.pv3:has(iframe[src*="app.netlify.com/cdp"]) .pv3-floating-contact { bottom: calc(80px + env(safe-area-inset-bottom)); }
+@media (min-width: 768px) { .pv3:has(iframe[src*="app.netlify.com/cdp"]) .pv3-contact-dialog { bottom: 144px; } }
