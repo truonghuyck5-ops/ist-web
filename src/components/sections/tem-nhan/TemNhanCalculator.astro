@@ -1,84 +1,32 @@
 ---
 import { temNhanPricingConfig as config } from '../../../data/temNhanPricingConfig.js'
 ---
-
-<section id="calculator" class="border-t border-zinc-900 bg-zinc-950">
-  <div class="mx-auto max-w-6xl px-6 py-24">
-    <div class="mb-12 grid items-end gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-8">
-        <p class="mb-4 font-semibold tracking-widest text-orange-500 uppercase">Báo giá tem nhãn</p>
-        <h2 class="mb-6 text-4xl leading-tight font-black text-white md:text-5xl">Tự tính giá tem nhãn<br />theo nhu cầu của bạn</h2>
-        <p class="max-w-3xl text-lg leading-relaxed text-gray-400">Nhập kích thước, số lượng, chất liệu và kiểu gia công. Hệ thống sẽ tính giá tham khảo để bạn dễ hình dung chi phí trước khi nhắn Zalo đặt hàng.</p>
+<section id="calculator" class="hv3-section hv3-soft tv3-calculator" data-v3-contact-area aria-labelledby="calculator-heading">
+  <div class="hv3-container">
+    <div class="hv3-section-head" data-tv3-calculator-heading>
+      <div><p class="hv3-eyebrow">01 / BÁO GIÁ TRỰC TUYẾN</p><h2 id="calculator-heading">TÍNH GIÁ TEM NHÃN.</h2></div>
+      <p class="hv3-body pv3-section-note">Nhập kích thước, chất liệu và số lượng.<br />Giá tham khảo tự cập nhật theo lựa chọn.</p>
+    </div>
+    <div id="tem-nhan-calculator-form" class="tv3-calculator-grid">
+      <div class="tv3-fields">
+        <fieldset><legend><span>01</span> Kích thước tem</legend><div class="tv3-dimensions">
+          <div><label for="width">Chiều ngang tem (mm)</label><input id="width" type="number" inputmode="numeric" min={config.minSize} max={config.maxSize} placeholder="Ví dụ: 50" /></div>
+          <div><label for="height">Chiều cao tem (mm)</label><input id="height" type="number" inputmode="numeric" min={config.minSize} max={config.maxSize} placeholder="Ví dụ: 50" /></div>
+        </div><p class="tv3-field-note">Kích thước hợp lệ từ {config.minSize}mm đến {config.maxSize}mm.</p></fieldset>
+        <fieldset><legend><span>02</span> Chất liệu</legend><label for="decal-type">Loại decal</label><select id="decal-type">{Object.entries(config.materials).map(([value, material]) => <option value={value}>{material.label}</option>)}</select></fieldset>
+        <fieldset><legend><span>03</span> Số lượng</legend><label for="quantity">Số lượng tem</label><input id="quantity" type="number" inputmode="numeric" min="1" placeholder="Ví dụ: 1000" /></fieldset>
+        <fieldset><legend><span>04</span> Gia công</legend><label for="lamination">Cán màng</label><select id="lamination">{Object.entries(config.laminationFees).map(([value, film]) => <option value={value}>{film.label}</option>)}</select></fieldset>
+        <div class="tv3-calculator-actions"><button id="export-quote-btn" type="button" class="hv3-button hv3-button-ink">Xuất báo giá <span aria-hidden="true">↗</span></button><button id="reset-quote-btn" type="button" class="hv3-button tv3-reset">Làm mới</button></div>
+        <p class="tv3-field-note">Giá chỉ mang tính tham khảo. Gửi thêm hình mẫu hoặc file thiết kế để IST tư vấn chính xác hơn.</p>
       </div>
-      <div class="lg:col-span-4">
-        <div class="rounded-3xl border border-zinc-800 bg-black p-6">
-          <p class="mb-2 font-bold text-orange-500">Cần báo giá chính xác hơn?</p>
-          <p class="text-sm leading-relaxed text-gray-400">Gửi thêm hình mẫu, file thiết kế hoặc sản phẩm thực tế để IST tư vấn đúng chất liệu và quy cách.</p>
-        </div>
+      <div id="quote-result" class="tv3-result" aria-labelledby="result-heading">
+        <p class="hv3-eyebrow">05 / GIÁ TẠM TÍNH</p><h3 id="result-heading">Giá tem nhãn tham khảo</h3>
+        <p id="quote-warning" class="text-gray-500" aria-live="polite">Nhập thông tin bên trái, giá sẽ tự động cập nhật tại đây.</p>
+        <dl class="tv3-prices"><div><dt>Đơn giá 1 tem</dt><dd id="quote-unit" class="quote-unit-text">-</dd></div><div><dt>Tổng tiền</dt><dd id="quote-total" class="quote-total-text">-</dd></div></dl>
+        <p class="tv3-price-note">Giá thực tế có thể thay đổi theo file thiết kế, kiểu bế, chất liệu, cán màng và tiến độ cần giao.</p>
+        <a class="hv3-text-link" href="#contact" data-track-event="service_cta_click" data-track-location="tem_nhan_calculator" data-track-service="tem_nhan" data-track-action="quote_request">Cần IST tư vấn thêm? <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-
-    <div id="tem-nhan-calculator-form" class="rounded-3xl border border-zinc-800 bg-zinc-900 p-5 md:p-8">
-      <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
-        <div>
-          <div class="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <div>
-              <label for="width" class="mb-3 block text-sm text-gray-400">Chiều ngang tem (mm)</label>
-              <input id="width" type="number" min={config.minSize} max={config.maxSize} class="w-full rounded-xl border border-zinc-700 bg-black px-5 py-4 text-white outline-none focus:border-orange-500" placeholder="Ví dụ: 50" />
-            </div>
-            <div>
-              <label for="height" class="mb-3 block text-sm text-gray-400">Chiều cao tem (mm)</label>
-              <input id="height" type="number" min={config.minSize} max={config.maxSize} class="w-full rounded-xl border border-zinc-700 bg-black px-5 py-4 text-white outline-none focus:border-orange-500" placeholder="Ví dụ: 50" />
-            </div>
-            <div>
-              <label for="decal-type" class="mb-3 block text-sm text-gray-400">Loại decal</label>
-              <select id="decal-type" class="w-full rounded-xl border border-zinc-700 bg-black px-5 py-4 text-white outline-none focus:border-orange-500">
-                <option value="paper">Decal giấy</option>
-                <option value="plastic">Decal nhựa</option>
-                <option value="clear-plastic">Decal nhựa trong</option>
-              </select>
-            </div>
-            <div>
-              <label for="lamination" class="mb-3 block text-sm text-gray-400">Cán màng</label>
-              <select id="lamination" class="w-full rounded-xl border border-zinc-700 bg-black px-5 py-4 text-white outline-none focus:border-orange-500">
-                <option value="none">Không cán màng</option>
-                <option value="glossy">Màng bóng</option>
-                <option value="matte">Màng mờ</option>
-              </select>
-            </div>
-            <div class="sm:col-span-2">
-              <label for="quantity" class="mb-3 block text-sm text-gray-400">Số lượng tem</label>
-              <input id="quantity" type="number" min="1" class="w-full rounded-xl border border-zinc-700 bg-black px-5 py-4 text-white outline-none focus:border-orange-500" placeholder="Ví dụ: 1000" />
-            </div>
-          </div>
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <button id="export-quote-btn" type="button" class="rounded-xl bg-orange-500 py-4 text-base font-bold text-white transition hover:bg-orange-600 md:py-5 md:text-lg">Xuất báo giá</button>
-            <button id="reset-quote-btn" type="button" class="rounded-xl border border-zinc-700 py-4 text-base font-bold text-white transition hover:border-orange-500 hover:text-orange-500 md:py-5 md:text-lg">Làm mới</button>
-          </div>
-          <p class="mt-4 text-sm leading-relaxed text-gray-500">Kích thước hợp lệ từ {config.minSize}mm đến {config.maxSize}mm. Giá chỉ mang tính tham khảo.</p>
-        </div>
-
-        <div id="quote-result" class="rounded-3xl border border-zinc-800 bg-black p-5 md:p-8 lg:sticky lg:top-28">
-          <div class="mb-6">
-            <p class="mb-3 font-semibold tracking-widest text-orange-500 uppercase">Kết quả báo giá</p>
-            <h3 class="text-2xl leading-tight font-black text-white md:text-3xl">Giá tem nhãn tham khảo</h3>
-            <p id="quote-warning" class="mt-3 text-sm leading-relaxed text-gray-500" aria-live="polite">Nhập thông tin bên trái, giá sẽ tự động cập nhật tại đây.</p>
-          </div>
-          <div class="price-summary-grid grid grid-cols-1 gap-5">
-            <div class="min-w-0 rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6">
-              <p class="mb-3 text-orange-300">Đơn giá 1 tem</p>
-              <p id="quote-unit" class="quote-unit-text break-words text-3xl leading-tight font-black text-orange-500 md:text-4xl">-</p>
-            </div>
-            <div class="min-w-0 rounded-2xl border border-zinc-700 bg-zinc-950 p-6">
-              <p class="mb-3 text-gray-400">Tổng tiền</p>
-              <p id="quote-total" class="quote-total-text break-words text-3xl leading-tight font-black text-white md:text-4xl">-</p>
-            </div>
-          </div>
-          <p class="mt-5 text-sm leading-relaxed text-gray-500">Giá thực tế có thể thay đổi theo file thiết kế, kiểu bế, chất liệu, cán màng và tiến độ cần giao.</p>
-        </div>
-      </div>
-    </div>
-
     <div id="quote-popup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/75 p-4" role="dialog" aria-modal="true" aria-label="Báo giá tem nhãn IST" aria-hidden="true">
       <div id="popup-overlay" class="absolute inset-0"></div>
       <div id="quote-popup-card" class="relative z-10 max-h-[94vh] w-full max-w-5xl overflow-y-auto rounded-[20px] bg-zinc-100 text-slate-800 shadow-2xl md:rounded-[24px]">

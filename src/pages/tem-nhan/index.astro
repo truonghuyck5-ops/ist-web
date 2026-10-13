@@ -1,32 +1,51 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'
-import Hero from '../../components/sections/tem-nhan/Hero.astro'
-import Benefits from '../../components/sections/tem-nhan/Benefits.astro'
-import Types from '../../components/sections/tem-nhan/Types.astro'
-import Gallery from '../../components/sections/tem-nhan/Gallery.astro'
-import Faq from '../../components/sections/tem-nhan/Faq.astro'
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import Media from '../../components/home-v3/Media.astro'
 import TemNhanCalculator from '../../components/sections/tem-nhan/TemNhanCalculator.astro'
-import ContactCta from '../../components/sections/home/ContactCta.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { temNhanGallery } from '../../data/temNhanGallery.js'
+import { temNhanFaqs } from '../../data/temNhanFaqs.js'
+import '../../styles/tem-nhan-v3.css'
+const sampleMedia = {
+  '/images/sp-tem-nhan/tem-nhan-002.webp': { width: 1211, height: 911, alt: 'Tem bế theo đường viền cầm tại xưởng IST', position: '43% 50%' },
+  '/images/sp-tem-nhan/tem-nhan-004.webp': { width: 1215, height: 911, alt: 'Mẫu tem tròn có nền trong tại IST', position: '42% 48%' },
+  '/images/sp-tem-nhan/tem-nhan-001.webp': { width: 683, height: 911, alt: 'Các mẫu tem màu vàng đã in và bế trên tờ decal', position: '65% 45%' },
+}
+const samples = [temNhanGallery[1], temNhanGallery[3], temNhanGallery[0]]
+const uses = [
+  ['Sản phẩm & bao bì', 'Tem dán hộp, chai, túi và hũ.'],
+  ['Cửa hàng & thương hiệu', 'Sticker logo, tem dán bao bì bán hàng.'],
+  ['Mẫu mới & đơn hàng nhỏ', 'In số lượng ít để test mẫu trước khi in nhiều.'],
+]
+const materials = [
+  ['Decal giấy', 'Phù hợp sản phẩm khô, bao bì giấy, hộp, túi, nhãn dán sử dụng trong môi trường bình thường.'],
+  ['Decal nhựa', 'Bền hơn decal giấy, phù hợp sản phẩm cần độ dai, hạn chế rách, sử dụng trên chai, hũ, bao bì nhựa.'],
+  ['Decal trong', 'Tạo cảm giác tinh tế, hiện đại, phù hợp chai lọ, mỹ phẩm, sản phẩm cần thấy nền bao bì bên dưới.'],
+]
+const steps = [
+  ['Tư vấn', 'Chọn kích thước, số lượng, chất liệu và quy cách.'],
+  ['Thiết kế', 'Chuẩn bị hoặc chỉnh file, bố cục tem theo nhu cầu.'],
+  ['In & bế', 'In tem và cắt bế theo hình tại IST.'],
+  ['Hoàn thiện', 'Cán màng theo lựa chọn và kiểm tra thành phẩm.'],
+]
 ---
-
-<BaseLayout seo={{
+<ProductLayout pageClass="tv3" seo={{
   title: 'In Tem Nhãn - Sticker - Decal Sản Phẩm tại Vĩnh Long | IST',
   description: 'IST nhận in tem nhãn, sticker, decal sản phẩm, tem logo, tem dán bao bì số lượng ít đến lớn. Sản xuất nhanh, hỗ trợ thiết kế, giao hàng tại Cầu Ngang, Vĩnh Long.',
   canonical: '/tem-nhan/',
   image: '/images/sp-tem-nhan/tem-nhan-001.webp',
 }}>
-  <main>
-    <Hero />
-    <Benefits />
-    <Types />
-    <Gallery />
-    <Faq />
-    <TemNhanCalculator />
-    <ContactCta />
-  </main>
-
+  <ProductHero eyebrow="SẢN PHẨM / TEM NHÃN" lines={['IN', 'TEM NHÃN']} description="Tem nhãn, sticker và decal cho sản phẩm, cửa hàng và thương hiệu." location="tem_nhan_hero" service="tem_nhan" caption="TEM NHÃN IN & BẾ TẠI IST" media={{ src: '/images/sp-tem-nhan/tem-nhan-003.webp', alt: 'Các tờ tem nhãn sản phẩm đã in và bế tại IST', width: 1211, height: 911 }} primary={{ href: '#calculator', label: 'Tính giá ngay', action: 'view_calculator' }} secondary={{ href: '#contact', label: 'Nhận tư vấn', action: 'quote_request' }} />
+  <TemNhanCalculator />
+  <section class="hv3-section" aria-labelledby="uses-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">02 / THEO NHU CẦU</p><h2 id="uses-heading">CHO SẢN PHẨM<br />CỦA BẠN.</h2></div><ol class="tv3-uses">{uses.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol></div></section>
+  <section id="tem-nhan-gallery" class="hv3-section tv3-gallery" aria-labelledby="samples-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">03 / MẪU THỰC TẾ</p><h2 id="samples-heading">MỖI MẪU TEM,<br />MỘT DẤU ẤN.</h2></div><p class="hv3-body pv3-section-note">Tem nhãn đã được IST in và bế.<br />Từ nhãn bao bì đến sticker thương hiệu.</p></div><div class="tv3-samples">{samples.map(sample => <figure><div class="hv3-media-frame"><Media src={sample.image} {...sampleMedia[sample.image]} /></div><figcaption><h3>{sample.title}</h3><p>{sample.desc}</p></figcaption></figure>)}</div></div></section>
+  <section id="tem-nhan-types" class="hv3-section hv3-soft" aria-labelledby="materials-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / CHẤT LIỆU & GIA CÔNG</p><h2 id="materials-heading">CHỌN ĐÚNG QUY CÁCH.</h2></div><a class="hv3-text-link" href="#contact" data-track-event="service_cta_click" data-track-location="tem_nhan_materials" data-track-service="tem_nhan" data-track-action="quote_request">Tư vấn chất liệu <span aria-hidden="true">↗</span></a></div><div class="pv3-split"><dl class="tv3-materials">{materials.map(([title, description]) => <div><dt>{title}</dt><dd>{description}</dd></div>)}</dl><div class="tv3-finishing"><article><h3>Cán màng</h3><p>Màng bóng hoặc màng mờ. Bảo vệ bề mặt tem, hạn chế trầy xước và tăng độ bền màu.</p></article><article><h3>Bế theo hình</h3><p>Tem tròn, vuông, bo góc, oval hoặc theo hình dạng riêng phù hợp với logo và bao bì.</p></article></div></div></div></section>
+  <section class="hv3-section" aria-labelledby="process-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">05 / CÁCH IST LÀM</p><h2 id="process-heading">TỪ FILE ĐẾN THÀNH PHẨM.</h2></div></div><ol class="pv3-process">{steps.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+  <section id="tem-nhan-faq" class="hv3-section hv3-soft" aria-labelledby="faq-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">06 / TRƯỚC KHI IN</p><h2 id="faq-heading">BẠN MUỐN BIẾT THÊM?</h2></div><div class="pv3-faq">{temNhanFaqs.map(([question, answer]) => <details><summary><h3>{question}</h3><span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+  <ContactCta headingLineOne="TEM NHÃN" headingLineTwo="CỦA BẠN?" description={['Gửi kích thước, số lượng và hình mẫu.', 'IST sẽ tư vấn phương án phù hợp.']} />
   <script>
-    import '../../scripts/tem-nhan-interactions.js'
     import '../../scripts/tem-nhan-calculator.client.js'
+    import '../../scripts/tem-nhan-v3-ui.client.js'
   </script>
-</BaseLayout>
+</ProductLayout>
