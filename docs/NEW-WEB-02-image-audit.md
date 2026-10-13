@@ -1,5 +1,7 @@
 # NEW-WEB-02 image audit (before implementation)
 
+Historical NEW-WEB-02 record. Current hero selection and R1 QA: [NEW-WEB-02R1 review](NEW-WEB-02R1-review.md).
+
 Baseline: 4756a2dd5f67889a63c384bd2b7e7be53e5da6e2. Existing binaries remain unchanged.
 
 Library inspected: CEO_DROP / Sản phẩm IST, Google Drive folder 14cGmmHDhUWpnLAjiLah8_1jGCSpUcdrM. Product/category folders and real printed-tag originals inspected. Wedding invitations, invoices, personal contact-bearing images and confidential material excluded. The selected photo contains printed retail tags and a hand, without personal identifying details. Source original is preserved in Drive and local QA storage; only a resized WebP copy is added.

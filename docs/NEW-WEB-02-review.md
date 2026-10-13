@@ -1,5 +1,7 @@
 # SEC-01 + NEW-WEB-02 review
 
+Historical NEW-WEB-02 record. Current hero selection and R1 QA: [NEW-WEB-02R1 review](NEW-WEB-02R1-review.md).
+
 Date: 2026-10-13. Review scope: VISUAL PROTOTYPE ONLY / NOT FOR PRODUCTION MERGE.
 
 ## Security release
