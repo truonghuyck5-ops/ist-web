@@ -1,0 +1,13 @@
+---
+import Media from './Media.astro'
+import { productGroups } from './content.js'
+---
+<section id="products" class="pv3-section" aria-labelledby="products-heading">
+  <div class="pv3-container">
+    <div class="pv3-section-head"><div><p class="pv3-eyebrow">02 / KHÁM PHÁ IST</p><h2 id="products-heading">SẢN PHẨM & DỊCH VỤ</h2></div><a class="pv3-text-link" href="#contact">Tư vấn sản phẩm <span aria-hidden="true">↗</span></a></div>
+    <div class="pv3-explorer">
+      <div class="pv3-product-list">{productGroups.map((group, index) => <a id={group.id} class="pv3-product-row" href="#contact"><span class="pv3-product-number">{String(index + 1).padStart(2, '0')}</span><div><h3>{group.title}</h3><p>{group.detail}</p></div><span class="pv3-row-arrow" aria-hidden="true">↗</span><span class="pv3-sr-only"> — nhận tư vấn</span></a>)}</div>
+      <figure class="pv3-explorer-media"><div class="pv3-media-frame"><Media src="/images/portal-v3/ist-printed-tags.webp" alt="Chi tiết hai tag giấy đã được IST in và bế lỗ" width={1200} height={1114} position="50% 70%" /></div><figcaption><span>TỪ FILE ĐẾN THÀNH PHẨM</span><p>Mỗi chi tiết, một dấu ấn.</p></figcaption></figure>
+    </div>
+  </div>
+</section>
