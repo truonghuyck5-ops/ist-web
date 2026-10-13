@@ -99,7 +99,7 @@ class TrackedElement {
   getAttribute(name) { return name === 'href' ? this.href : null }
 }
 
-const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
 for (const [pagePath, trackedTags] of productTrackedPages) {
   for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
     const calls = []
