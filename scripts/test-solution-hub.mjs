@@ -21,7 +21,7 @@ for (const [tag] of html.matchAll(/<a\b[^>]*>/g)) {
  if (href?.startsWith('/')) assert.ok(real.has(href.split('#')[0]),href)
  if (href?.startsWith('#')) assert.ok(html.includes(`id="${href.slice(1)}"`))
 }
-for (const route of ['', 'san-pham', 'giai-phap', 'combo-mo-quan', 'bang-hieu', 'in-nhanh', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop']) {
+for (const route of ['', 'san-pham', 'giai-phap', 'combo-mo-quan', 'bang-hieu', 'in-nhanh', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop', 'du-an']) {
  const page=read('dist/'+(route?route+'/':'')+'index.html')
  const nav=page.match(/<header\b[\s\S]*?<\/header>/)[0]
  const links=[...nav.matchAll(/<a\b[^>]*>/g)].map(([tag])=>tag).filter(tag=>attr(tag,'data-track-location')==='navbar_solution')
