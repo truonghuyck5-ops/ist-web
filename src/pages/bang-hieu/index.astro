@@ -30,6 +30,35 @@ const steps = [
   <SelectedProjects projects={projects} eyebrow="03 / DẤU ẤN THỰC TẾ" location="bang_hieu_projects" />
   <section class="hv3-section hv3-soft" aria-labelledby="process-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / CÁCH IST LÀM</p><h2 id="process-heading">TỪ TƯ VẤN ĐẾN THI CÔNG.</h2></div></div><ol class="pv3-process">{steps.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
   <section id="pricing" class="hv3-section" aria-labelledby="pricing-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">05 / BÁO GIÁ THAM KHẢO</p><h2 id="pricing-heading">BẮT ĐẦU TỪ HẠNG MỤC.</h2></div><p class="hv3-body pv3-section-note">Giá thực tế phụ thuộc kích thước, vật liệu, vị trí lắp đặt, kết cấu khung và yêu cầu thi công.</p></div><ul class="pv3-pricing">{bangHieuPricing.map((item) => <li><h3>{item.title}</h3><p>{item.description}</p><span>{item.price}</span></li>)}</ul><p class="pv3-price-note">Giá trên chỉ mang tính tham khảo. IST sẽ khảo sát hoặc xem hình thực tế để báo giá chính xác.</p><a class="hv3-text-link" href="#contact" data-track-event="service_cta_click" data-track-location="bang_hieu_pricing" data-track-service="bang_hieu" data-track-action="quote_request">Nhận tư vấn &amp; báo giá <span aria-hidden="true">↗</span></a></div></section>
+  <section id="quote-preparation" class="hv3-section pv3-audience" aria-labelledby="quote-preparation-heading">
+    <div class="hv3-container pv3-split">
+      <div>
+        <div class="hv3-section-head"><h2 id="quote-preparation-heading">GỬI GÌ ĐỂ IST BÁO GIÁ?</h2></div>
+        <p class="hv3-body">Để IST tư vấn và báo giá nhanh hơn, bạn có thể gửi:</p>
+        <p class="pv3-price-note">Chưa có đủ thông tin cũng không sao. IST có thể tư vấn từ hình ảnh hiện trạng trước.</p>
+        <a class="hv3-text-link" href="#contact" data-track-event="service_cta_click" data-track-location="bang_hieu_checklist" data-track-service="bang_hieu" data-track-action="quote_request">Gửi hình để IST tư vấn <span aria-hidden="true">↗</span></a>
+      </div>
+      <div>
+        <ul>
+          <li>Hình mặt tiền hoặc vị trí cần làm bảng hiệu</li>
+          <li>Kích thước dự kiến</li>
+          <li>Nội dung / logo cần thể hiện</li>
+          <li>Mẫu bảng hiệu bạn thích nếu có</li>
+          <li>Địa điểm thi công và yêu cầu thời gian nếu có</li>
+        </ul>
+        <div class="quote-knowledge">
+          <p class="hv3-eyebrow">TÌM HIỂU THÊM</p>
+          <a class="hv3-text-link" href="/blog/gia-bang-hieu-alu/">Giá bảng hiệu alu phụ thuộc vào những gì? <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="hv3-section hv3-soft" aria-labelledby="faq-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">06 / TRƯỚC KHI BẮT ĐẦU</p><h2 id="faq-heading">BẠN MUỐN BIẾT THÊM?</h2></div><div class="pv3-faq">{bangHieuFaqs.map(([question, answer]) => <details><summary><h3>{question}</h3><span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
   <ContactCta headingLineOne="BẢNG HIỆU" headingLineTwo="CỦA BẠN?" description={['Gửi hình mặt tiền và kích thước dự kiến.', 'IST sẽ tư vấn phương án phù hợp.']} />
 </ProductLayout>
+
+<style>
+  #quote-preparation li { padding-block: 14px; font-size: 16px; font-weight: 500; }
+  .quote-knowledge { margin-top: 24px; }
+  .quote-knowledge .hv3-eyebrow { margin-bottom: 0 !important; }
+</style>
