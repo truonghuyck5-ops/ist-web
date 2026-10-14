@@ -1,0 +1,29 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import ProductIndex from '../../components/product-v3/ProductIndex.astro'
+import Media from '../../components/home-v3/Media.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { inKhoLonTypes, inKhoLonHero, inKhoLonGallery } from '../../data/inKhoLon.js'
+import '../../styles/in-kho-lon-v3.css'
+const uses = [
+  ['Cửa hàng', 'Nhận diện mặt tiền, decal kính và trang trí không gian.'],
+  ['Khai trương & sự kiện', 'Banner, backdrop và standee theo hạng mục cần triển khai.'],
+  ['Quảng cáo & trưng bày', 'Bản in và ấn phẩm để giới thiệu sản phẩm, thông tin, chương trình.'],
+]
+const steps = [
+  ['Tư vấn', 'Chọn hạng mục, kích thước và quy cách theo nhu cầu.'],
+  ['Chuẩn bị file', 'Thiết kế hoặc kiểm tra file trước khi in.'],
+  ['In & gia công', 'Sản xuất và hoàn thiện theo quy cách đã thống nhất.'],
+  ['Bàn giao', 'Giao thành phẩm; thi công theo hạng mục và lịch đã thống nhất.'],
+]
+---
+<ProductLayout pageClass="kv3" seo={{ title: 'In khổ lớn — Bạt, Decal, PP & Standee | IST', description: 'IST nhận in bạt hiflex, decal, PP, banner, backdrop và standee cho cửa hàng, quảng cáo và sự kiện. Tư vấn quy cách, chuẩn bị file, in và gia công tại IST.', canonical: '/in-kho-lon/', image: inKhoLonHero.src }}>
+  <ProductHero eyebrow="SẢN PHẨM / IN KHỔ LỚN" lines={['IN', 'KHỔ LỚN']} description="Bạt, decal, PP, standee và các hạng mục in quảng cáo khổ lớn." location="in_kho_lon_hero" service="in_kho_lon" caption="ỨNG DỤNG TRANG TRÍ ĐÃ HOÀN THIỆN TẠI IST" media={inKhoLonHero} primary={{ href: '#contact', label: 'Nhận tư vấn / Báo giá', action: 'quote_request' }} secondary={{ href: '#products', label: 'Xem sản phẩm', action: 'view_products' }} />
+  <section id="products" class="hv3-section kv3-product-types" aria-labelledby="types-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">01 / HẠNG MỤC IN</p><h2 id="types-heading">CHỌN ĐÚNG<br />HẠNG MỤC.</h2></div><p class="hv3-body pv3-section-note">Từ bản in quảng cáo<br />đến ấn phẩm trưng bày.</p></div><ProductIndex items={inKhoLonTypes} headingLevel="h3" location="in_kho_lon_types" /></div></section>
+  <section id="outputs" class="hv3-section kv3-output-section" aria-labelledby="outputs-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">02 / SẢN PHẨM THỰC TẾ</p><h2 id="outputs-heading">TỪ BẢN IN<br />ĐẾN KHÔNG GIAN.</h2></div><p class="hv3-body pv3-section-note">Những sản phẩm và ứng dụng<br />đã được IST thực hiện.</p></div><div class="kv3-gallery">{[inKhoLonGallery.slice(0, 2), inKhoLonGallery.slice(2)].map(column => <div class="kv3-gallery-column">{column.map(({ title, description, ...media }) => <figure><div class="hv3-media-frame kv3-gallery-frame" style={`--kv3-photo-ratio: ${media.width} / ${media.height}`}><Media {...media} /></div><figcaption><h3>{title}</h3><p>{description}</p></figcaption></figure>)}</div>)}</div></div></section>
+  <section id="production" class="hv3-section hv3-soft" aria-labelledby="production-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">03 / BÊN TRONG XƯỞNG</p><h2 id="production-heading">SẢN XUẤT TẠI IST</h2></div><p class="hv3-body pv3-section-note">Máy in bạt, máy in decal và máy cán màng phục vụ banner, backdrop, decal, PP cùng vật liệu bảng hiệu.</p></div><figure class="hv3-media-frame kv3-production-frame"><Media src="/images/home/may-in-bat-kho-lon.webp" alt="Hệ thống máy in bạt khổ lớn tại xưởng IST" width={1910} height={1076} /></figure><p class="kv3-production-note">Từ file thiết kế đến bản in và thành phẩm.<br />Quy cách được IST tư vấn theo từng hạng mục.</p></div></section>
+  <section class="hv3-section" aria-labelledby="uses-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">04 / THEO NHU CẦU</p><h2 id="uses-heading">ĐƯA THÔNG TIN<br />ĐẾN ĐÚNG CHỖ.</h2></div><ol class="kv3-uses">{uses.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol></div></section>
+  <section class="hv3-section hv3-soft" aria-labelledby="process-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">05 / CÁCH IST LÀM</p><h2 id="process-heading">TỪ YÊU CẦU<br />ĐẾN THÀNH PHẨM.</h2></div></div><ol class="pv3-process">{steps.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+  <ContactCta headingLineOne="HẠNG MỤC" headingLineTwo="CỦA BẠN?" description={['Gửi kích thước, số lượng và mẫu bạn cần.', 'IST sẽ tư vấn quy cách và báo giá phù hợp.']} />
+</ProductLayout>

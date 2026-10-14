@@ -6,6 +6,7 @@ const measurementId = 'G-77XN8YE2ZY'
 const publicPages = [
   'dist/index.html',
   'dist/san-pham/index.html',
+  'dist/in-kho-lon/index.html',
   'dist/bang-hieu/index.html',
   'dist/combo-mo-quan/index.html',
   'dist/tem-nhan/index.html',
@@ -40,7 +41,7 @@ assert.ok(trackingClient.includes('page_path: window.location.pathname'), 'event
 assert.ok(!source.includes('window.trackEvent'), 'Astro source has no legacy global trackEvent dependency')
 assert.ok(!sourceFiles.filter((file) => file.endsWith('.astro')).some((file) => read(file).includes('onclick=')), 'Astro markup has no inline onclick handlers')
 
-for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator']) {
+for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator', 'in_kho_lon_hero', 'in_kho_lon_types']) {
   assert.ok(source.includes(marker), `required CTA tracking marker: ${marker}`)
 }
 
@@ -99,7 +100,7 @@ class TrackedElement {
   getAttribute(name) { return name === 'href' ? this.href : null }
 }
 
-const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don', 'in-kho-lon'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
 for (const [pagePath, trackedTags] of productTrackedPages) {
   for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
     const calls = []
