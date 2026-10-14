@@ -1,0 +1,96 @@
+/* Tem-specific UI; pricing, quote content and export routines remain shared. */
+.tv3-calculator-grid { display: grid; grid-template-columns: 1fr .9fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
+.tv3-fields, .tv3-result { min-width: 0; }
+.tv3-fields fieldset { min-width: 0; margin: 0 0 26px; padding: 0; border: 0; }
+.tv3-fields legend { width: 100%; display: flex; align-items: center; gap: 16px; padding: 0 0 16px; font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+.tv3-fields legend > span { color: var(--hv3-muted); font-size: 11px; font-weight: 500; letter-spacing: 0; }
+.tv3-dimensions { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.tv3-fields label { display: block; margin-bottom: 9px; color: var(--hv3-muted); font-size: 14px; line-height: 1.5; }
+.tv3-fields :is(input, select) { display: block; width: 100%; min-width: 0; min-height: 56px; border: 1px solid var(--hv3-line); border-radius: 8px; padding: 14px 16px; background: var(--hv3-bg); color: var(--hv3-ink); font: inherit; line-height: 1.5; }
+.tv3-fields input::placeholder { color: var(--hv3-muted); opacity: 1; }
+.tv3-fields :is(input, select):focus-visible { border-color: var(--hv3-accent-text); }
+.tv3-field-note { margin-top: 12px !important; color: var(--hv3-muted); font-size: 13px; line-height: 1.7; }
+.tv3-calculator-actions { display: grid; grid-template-columns: 1.3fr 1fr; gap: 14px; margin-top: 8px; }
+.tv3 .tv3-reset { background: var(--hv3-bg); border: 1px solid var(--hv3-line); }
+.tv3 .tv3-reset:hover { border-color: var(--hv3-ink); }
+.tv3-result { padding: 32px; background: var(--hv3-bg); border: 1px solid var(--hv3-line); border-radius: var(--hv3-radius); }
+.tv3-result h3 { font-size: 27px; line-height: 1.25; }
+.tv3 #quote-warning { margin-top: 16px; min-height: 48px; color: var(--hv3-muted); font-size: 14px; line-height: 1.7; }
+.tv3 #quote-warning.text-orange-500 { color: var(--hv3-accent-text); }
+.tv3-prices { margin: 24px 0 0; }
+.tv3-prices > div { padding-block: 22px; border-top: 1px solid var(--hv3-line); }
+.tv3-prices dt { font-size: 14px; color: var(--hv3-muted); }
+.tv3-prices dd { margin: 8px 0 0; font-size: 32px; font-weight: 850; line-height: 1.25; letter-spacing: -.03em; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.tv3-prices #quote-total { color: var(--hv3-accent-text); font-size: clamp(32px, 3.1vw, 48px); }
+.tv3-price-note { padding-top: 20px; border-top: 1px solid var(--hv3-line); font-size: 13px; line-height: 1.7; color: var(--hv3-muted); }
+.tv3-result .hv3-text-link { margin-top: 16px; }
+.tv3-uses { border-top: 1px solid var(--hv3-line); }
+.tv3-uses li { display: grid; grid-template-columns: 24px 1fr; gap: 20px; padding-block: 24px; border-bottom: 1px solid var(--hv3-line); }
+.tv3-uses li > span { padding-top: 5px; font-size: 11px; color: var(--hv3-muted); }
+.tv3-uses h3 { font-size: 25px; line-height: 1.3; }
+.tv3-uses p { margin-top: 8px; font-size: 15px; color: var(--hv3-muted); }
+.tv3-gallery { padding-top: 0; }
+.tv3-samples { display: grid; grid-template-columns: 1.05fr 1.05fr .9fr; gap: 32px; align-items: start; }
+.tv3-samples figure { min-width: 0; }
+.tv3-samples figure:nth-child(2) { margin-top: 44px; }
+.tv3-samples figure:nth-child(3) { margin-top: 88px; }
+.tv3-samples .hv3-media-frame { aspect-ratio: 1.1; }
+.tv3-samples figure:nth-child(2) .hv3-media-frame { aspect-ratio: .95; }
+.tv3-samples figure:nth-child(3) .hv3-media-frame { aspect-ratio: .75; }
+.tv3-samples figcaption { padding-top: 18px; }
+.tv3-samples h3 { font-size: 23px; line-height: 1.25; }
+.tv3-samples figcaption p { margin-top: 9px; font-size: 14px; line-height: 1.7; color: var(--hv3-muted); }
+.tv3-materials { margin: 0; border-top: 1px solid var(--hv3-line); }
+.tv3-materials > div { padding-block: 24px; border-bottom: 1px solid var(--hv3-line); }
+.tv3-materials dt { font-size: 24px; font-weight: 750; line-height: 1.3; letter-spacing: -.02em; }
+.tv3-materials dd { margin: 10px 0 0; max-width: 500px; color: var(--hv3-muted); font-size: 15px; line-height: 1.7; }
+.tv3-finishing { padding: 0 0 0 40px; border-left: 1px solid var(--hv3-line); }
+.tv3-finishing article { padding-block: 24px; border-top: 1px solid var(--hv3-line); }
+.tv3-finishing h3 { font-size: 25px; }
+.tv3-finishing p { margin-top: 12px; color: var(--hv3-muted); font-size: 15px; line-height: 1.7; }
+/* Keep the original quote document/export classes; correct inherited V3 resets. */
+.tv3 #quote-popup img { width: auto; height: 48px; object-fit: contain; }
+.tv3 #quote-popup-card h3 { line-height: 1.25; }
+.tv3 #quote-popup-card p { line-height: 1.6; }
+.tv3 #quote-popup-card button { min-height: 44px; }
+.tv3 #close-popup-bottom { border: 1px solid #cbd5e1; }
+.tv3 #quote-popup-card strong { overflow-wrap: anywhere; }
+.tv3 #quote-popup-card { overscroll-behavior: contain; }
+.tv3-quote-open .hv3-floating-contact { display: none; }
+@media (max-width: 1100px) {
+  .tv3-calculator-grid { gap: 36px; }
+  .tv3-result { padding: 26px; }
+  .tv3-samples { gap: 24px; }
+}
+@media (max-width: 900px) {
+  .tv3-calculator-grid { grid-template-columns: 1fr; gap: 32px; }
+  .tv3-dimensions { gap: 24px; }
+  .tv3-finishing { border-left: 0; padding-left: 0; }
+  .tv3-samples { grid-template-columns: 1fr 1fr; }
+  .tv3-samples figure:nth-child(3) { margin-top: 0; width: 80%; }
+}
+@media (max-width: 767px) {
+  .tv3-dimensions { grid-template-columns: 1fr; gap: 18px; }
+  .tv3-fields legend { font-size: 18px; }
+  .tv3-fields fieldset { margin-bottom: 24px; }
+  .tv3-result { padding: 24px; }
+  .tv3-result h3 { font-size: 25px; }
+  .tv3-calculator-actions { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tv3-calculator-actions .hv3-button { padding-inline: 12px; gap: 12px; font-size: 13px; }
+  .tv3-uses h3 { font-size: 23px; }
+  .tv3-uses p { font-size: 14px; }
+  .tv3-samples { grid-template-columns: 1fr; gap: 36px; }
+  .tv3-samples figure:nth-child(n) { margin-top: 0; width: 100%; }
+  .tv3-samples figure:nth-child(n) .hv3-media-frame { aspect-ratio: 1.25; }
+  .tv3-samples h3 { font-size: 22px; }
+  .tv3-materials dt, .tv3-finishing h3 { font-size: 23px; }
+  .tv3 #quote-popup { padding: 12px; }
+  .tv3 #quote-popup-card { max-height: calc(100dvh - 24px); }
+}
+@media (max-width: 359px) {
+  .tv3-calculator-actions { grid-template-columns: 1fr; gap: 10px; }
+  .tv3-result { padding: 22px; }
+  .tv3-result h3 { font-size: 23px; }
+  .tv3 #quote-popup { padding: 8px; }
+  .tv3 #quote-popup-card { max-height: calc(100dvh - 16px); }
+}

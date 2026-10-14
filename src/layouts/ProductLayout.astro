@@ -5,9 +5,9 @@ import Footer from '../components/home-v3/Footer.astro'
 import FloatingContact from '../components/home-v3/FloatingContact.astro'
 import '../styles/home-v3.css'
 import '../styles/product-v3.css'
-const { seo } = Astro.props
+const { seo, pageClass = '' } = Astro.props
 ---
-<BaseLayout bodyClass="hv3 pv3" bodyId="top" viewportFit="cover" seo={seo}>
+<BaseLayout bodyClass={`hv3 pv3 ${pageClass}`.trim()} bodyId="top" viewportFit="cover" seo={seo}>
   <a slot="before-main" class="hv3-skip-link" href="#main">Đến nội dung chính</a>
   <Navbar slot="navbar" home={false} />
   <main id="main"><slot /></main>

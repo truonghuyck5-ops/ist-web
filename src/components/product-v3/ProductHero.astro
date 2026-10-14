@@ -1,6 +1,6 @@
 ---
 import Media from '../home-v3/Media.astro'
-const { eyebrow, lines, description, media, location, service, primary, secondary } = Astro.props
+const { eyebrow, lines, description, media, location, service, primary, secondary, caption = 'BẢNG HIỆU DO IST THỰC HIỆN' } = Astro.props
 ---
 <section class:list={['pv3-hero', 'hv3-container', { 'pv3-hero-with-media': media }]} data-v3-contact-area aria-labelledby="hero-heading">
   <div class="pv3-hero-copy">
@@ -12,5 +12,5 @@ const { eyebrow, lines, description, media, location, service, primary, secondar
       <a class="hv3-text-link" href={secondary.href} data-track-event="service_cta_click" data-track-location={location} data-track-service={service} data-track-action={secondary.action}>{secondary.label} <span aria-hidden="true">↗</span></a>
     </div>}
   </div>
-  {media ? <figure class="pv3-hero-media"><div class="hv3-media-frame"><Media {...media} eager={true} /></div><figcaption>BẢNG HIỆU DO IST THỰC HIỆN</figcaption></figure> : <div class="pv3-hero-intro"><p class="pv3-introduction hv3-body">{description}</p><div class="hv3-actions"><a class="hv3-text-link" href={primary.href} data-track-event="service_cta_click" data-track-location={location} data-track-action={primary.action}>{primary.label} <span aria-hidden="true">↓</span></a><a class="hv3-text-link" href={secondary.href} data-track-event="service_cta_click" data-track-location={location} data-track-action={secondary.action}>{secondary.label} <span aria-hidden="true">↗</span></a></div></div>}
+  {media ? <figure class="pv3-hero-media"><div class="hv3-media-frame"><Media {...media} eager={true} /></div><figcaption>{caption}</figcaption></figure> : <div class="pv3-hero-intro"><p class="pv3-introduction hv3-body">{description}</p><div class="hv3-actions"><a class="hv3-text-link" href={primary.href} data-track-event="service_cta_click" data-track-location={location} data-track-action={primary.action}>{primary.label} <span aria-hidden="true">↓</span></a><a class="hv3-text-link" href={secondary.href} data-track-event="service_cta_click" data-track-location={location} data-track-action={secondary.action}>{secondary.label} <span aria-hidden="true">↗</span></a></div></div>}
 </section>

@@ -80,7 +80,7 @@ assert.doesNotMatch(homeProjectLinks[0], /data-track-(?:title|customer|caption|s
 console.log('HOMEPAGE PROJECTS CTA TRACKING: PASS')
 
 // Exercise the real delegated tracking client without sending analytics requests.
-// Preview gating and payload allow-list apply to all three rendered V3 routes.
+// Preview gating and payload allow-list apply to all four rendered V3 routes.
 const { runInNewContext } = await import('node:vm')
 const { siteConfig: liveSiteConfig } = await import('../src/data/site.js')
 const tagAttribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
@@ -99,7 +99,7 @@ class TrackedElement {
   getAttribute(name) { return name === 'href' ? this.href : null }
 }
 
-const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
 for (const [pagePath, trackedTags] of productTrackedPages) {
   for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
     const calls = []
