@@ -50,9 +50,10 @@ export const homeServices = [
     imageHeight: 911,
     tag: 'Sự kiện & khai trương',
     trackingService: 'in_kho_lon',
+    href: '/in-kho-lon/',
     tier: 'primary',
     businessStatus: 'available',
-    astroRouteAvailable: false,
+    astroRouteAvailable: true,
   },
   {
     title: 'In Hóa Đơn - Biểu Mẫu',

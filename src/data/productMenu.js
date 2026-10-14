@@ -26,9 +26,10 @@ export const productMenu = [
   {
     label: 'In bạt - decal - standee',
     description: 'Banner, backdrop, decal kính, standee sự kiện',
-    href: '/#products',
+    href: '/in-kho-lon/',
     key: 'in_bat_decal_standee',
-    status: 'coming',
+    status: 'active',
+    astroRouteAvailable: true,
   },
 {
   label: 'In hóa đơn - biểu mẫu',
