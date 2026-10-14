@@ -1,7 +1,11 @@
 ---
-title: Giá bảng hiệu alu hiện nay bao nhiêu?
-description: Bảng hiệu alu là lựa chọn phổ biến cho cửa hàng, showroom, spa, nha khoa và doanh nghiệp cần mặt tiền đẹp, hiện đại và bền hơn bảng hiflex thông thường.
+title: Giá bảng hiệu alu phụ thuộc vào những gì?
+description: Tìm hiểu các yếu tố vật liệu, thiết kế, kích thước và điều kiện thi công ảnh hưởng đến báo giá bảng hiệu alu.
 image: /images/projects/bang-hieu-001.jpg
+imageAlt: Bảng quảng cáo trước xưởng IST
+imageWidth: 1214
+imageHeight: 911
+relatedService: bang_hieu
 category: Bảng hiệu
 draft: false
 ---
@@ -19,9 +23,9 @@ Bảng hiệu alu thường sử dụng khung sắt bên trong, bề mặt ốp 
 - Có đèn LED hay không.
 - Độ cao và độ khó khi thi công.
 
-## Giá tham khảo bảng hiệu alu
+## Cách nhận báo giá phù hợp
 
-Với các công trình phổ biến, bảng hiệu alu thường có giá từ khoảng **1.200.000đ/m² trở lên**, tùy vật liệu, thiết kế và điều kiện thi công.
+Giá bảng hiệu alu phụ thuộc vào vật liệu, thiết kế, kích thước, kết cấu khung và điều kiện thi công. Xem [dịch vụ bảng hiệu](/bang-hieu/) và gửi hình mặt tiền cùng kích thước dự kiến để IST tư vấn báo giá phù hợp.
 
 ## Khi nào nên chọn bảng hiệu alu?
 
