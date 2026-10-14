@@ -21,7 +21,8 @@
     "test:tui-xop-page": "node scripts/test-tui-xop-page.mjs",
     "test:in-nhanh-page": "node scripts/test-in-nhanh-page.mjs",
     "test:solution-hub": "node scripts/test-solution-hub.mjs",
-    "test:combo-page": "node scripts/test-combo-page.mjs"
+    "test:combo-page": "node scripts/test-combo-page.mjs",
+    "test:projects-page": "node scripts/test-projects-page.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.8"

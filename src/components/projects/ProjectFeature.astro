@@ -1,0 +1,22 @@
+---
+import { productGroups } from '../home-v3/content.js'
+const { project, index } = Astro.props
+const relatedService = productGroups.find((item) => item.href === project.serviceHref)
+const headingId = `project-title-${index + 1}`
+---
+<article class="rv3-project" aria-labelledby={headingId}>
+  <figure class="rv3-project-figure">
+    <a class="rv3-image-link" href={project.image} data-project-image data-caption={project.caption} aria-label={`Xem ảnh lớn: ${project.title}`}>
+      <div class="hv3-media-frame rv3-project-frame"><img src={project.image} alt={project.imageAlt} width={project.imageWidth} height={project.imageHeight} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" /></div>
+      <span class="rv3-image-action">Xem ảnh lớn <span aria-hidden="true">↗</span></span>
+    </a>
+    <figcaption>{project.caption}</figcaption>
+  </figure>
+  <div class="rv3-project-copy">
+    <p class="rv3-meta"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{project.category}</p>
+    <h2 id={headingId}>{project.title}</h2>
+    <p class="rv3-summary">{project.summary}</p>
+    <p class="rv3-work"><strong>IST thực hiện</strong>{project.service}</p>
+    {project.serviceHref && <a class="hv3-text-link" href={project.serviceHref} data-track-event="service_cta_click" data-track-location="project_card" data-track-service={relatedService?.service} data-track-action="view_service">Xem dịch vụ liên quan <span aria-hidden="true">↗</span></a>}
+  </div>
+</article>

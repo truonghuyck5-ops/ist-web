@@ -3,7 +3,7 @@ const triggers = [...document.querySelectorAll('a[data-project-image]')]
 
 if (triggers.length && typeof HTMLDialogElement !== 'undefined' && typeof HTMLDialogElement.prototype.showModal === 'function') {
   const dialog = document.createElement('dialog')
-  dialog.className = 'm-auto max-h-[95dvh] w-[calc(100%-2rem)] max-w-6xl overflow-auto rounded-2xl border border-zinc-700 bg-zinc-950 p-4 text-white backdrop:bg-black/90'
+  dialog.className = 'rv3-image-dialog m-auto max-h-[95dvh] w-[calc(100%-2rem)] max-w-6xl overflow-auto rounded-2xl border border-zinc-700 bg-zinc-950 p-4 text-white backdrop:bg-black/90'
   dialog.setAttribute('aria-label', 'Xem ảnh lớn')
   dialog.setAttribute('aria-describedby', 'project-image-caption')
   dialog.innerHTML = `
