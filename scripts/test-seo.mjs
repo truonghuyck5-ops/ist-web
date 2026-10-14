@@ -5,6 +5,7 @@ const siteUrl = 'https://insangtao.net'
 const publicRoutes = new Map([
   ['dist/index.html', { path: '/', type: 'website' }],
   ['dist/san-pham/index.html', { path: '/san-pham/', type: 'website' }],
+  ['dist/giai-phap/index.html', { path: '/giai-phap/', type: 'website' }],
   ['dist/bang-hieu/index.html', { path: '/bang-hieu/', type: 'website' }],
   ['dist/in-kho-lon/index.html', { path: '/in-kho-lon/', type: 'website' }],
   ['dist/tui-xop/index.html', { path: '/tui-xop/', type: 'website' }],

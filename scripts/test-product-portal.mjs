@@ -10,7 +10,7 @@ const hub = read('dist/san-pham/index.html')
 const signs = read('dist/bang-hieu/index.html')
 const home = read('dist/index.html')
 const text = html => html.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
-const paths = new Set(['/', '/san-pham/', '/in-kho-lon/', '/tui-xop/', '/in-nhanh/', '/bang-hieu/', '/tem-nhan/', '/hoa-don/', '/combo-mo-quan/', '/du-an/', '/blog/'])
+const paths = new Set(['/', '/san-pham/', '/giai-phap/', '/in-kho-lon/', '/tui-xop/', '/in-nhanh/', '/bang-hieu/', '/tem-nhan/', '/hoa-don/', '/combo-mo-quan/', '/du-an/', '/blog/'])
 
 assert.equal(text(hub.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]), 'SẢN PHẨM & DỊCH VỤ')
 assert.equal(text(signs.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]), 'BẢNG HIỆU QUẢNG CÁO')
