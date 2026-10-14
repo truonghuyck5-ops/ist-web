@@ -7,6 +7,7 @@ const publicPages = [
   'dist/index.html',
   'dist/san-pham/index.html',
   'dist/in-kho-lon/index.html',
+  'dist/tui-xop/index.html',
   'dist/bang-hieu/index.html',
   'dist/combo-mo-quan/index.html',
   'dist/tem-nhan/index.html',
@@ -41,7 +42,7 @@ assert.ok(trackingClient.includes('page_path: window.location.pathname'), 'event
 assert.ok(!source.includes('window.trackEvent'), 'Astro source has no legacy global trackEvent dependency')
 assert.ok(!sourceFiles.filter((file) => file.endsWith('.astro')).some((file) => read(file).includes('onclick=')), 'Astro markup has no inline onclick handlers')
 
-for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator', 'in_kho_lon_hero', 'in_kho_lon_types']) {
+for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator', 'in_kho_lon_hero', 'in_kho_lon_types', 'tui_xop_hero', 'tui_xop_branding']) {
   assert.ok(source.includes(marker), `required CTA tracking marker: ${marker}`)
 }
 
@@ -81,7 +82,7 @@ assert.doesNotMatch(homeProjectLinks[0], /data-track-(?:title|customer|caption|s
 console.log('HOMEPAGE PROJECTS CTA TRACKING: PASS')
 
 // Exercise the real delegated tracking client without sending analytics requests.
-// Preview gating and payload allow-list apply to all four rendered V3 routes.
+// Preview gating and payload allow-list apply to all seven rendered V3 routes.
 const { runInNewContext } = await import('node:vm')
 const { siteConfig: liveSiteConfig } = await import('../src/data/site.js')
 const tagAttribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
@@ -100,7 +101,7 @@ class TrackedElement {
   getAttribute(name) { return name === 'href' ? this.href : null }
 }
 
-const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don', 'in-kho-lon'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
 for (const [pagePath, trackedTags] of productTrackedPages) {
   for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
     const calls = []

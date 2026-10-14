@@ -42,8 +42,9 @@ export const productMenu = [
   {
     label: 'In túi xốp',
     description: 'In túi xốp logo cho shop, chợ, đại lý, cơ sở kinh doanh',
-    href: '/#products',
+    href: '/tui-xop/',
     key: 'in_tui_xop',
-    status: 'coming',
+    status: 'active',
+    astroRouteAvailable: true,
   },
 ]

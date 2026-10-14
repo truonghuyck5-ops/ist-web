@@ -78,8 +78,9 @@ export const homeServices = [
     imageHeight: 911,
     tag: 'In logo theo yêu cầu',
     trackingService: 'tui_xop',
+    href: '/tui-xop/',
     tier: 'secondary',
     businessStatus: 'available',
-    astroRouteAvailable: false,
+    astroRouteAvailable: true,
   },
 ]
