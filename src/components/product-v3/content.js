@@ -9,8 +9,6 @@ const mediaFromPortal = (index) => {
 // Existing verified families and IST photos; dedicated routes remain unchanged.
 export const productFamilies = productGroups.map((group, index) => ({
   ...group,
-  title: index === 1 ? 'In nhanh' : group.title,
-  detail: index === 1 ? 'Card · tag · voucher · catalogue' : group.detail,
   media: [mediaFromPortal(0), mediaFromPortal(1), mediaFromPortal(2), mediaFromPortal(4), mediaFromPortal(5), {
     src: '/images/product-v3/ist-printed-bag.webp', alt: 'Túi xốp trắng in logo tại IST', width: 1050, height: 1400, fit: 'contain', position: '50% 47%',
   }][index],
