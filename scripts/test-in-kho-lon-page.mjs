@@ -40,11 +40,11 @@ assert.equal(homeServices.find(item=>item.trackingService==='in_kho_lon').astroR
 const home=read('dist/index.html'), hub=read('dist/san-pham/index.html')
 for (const marker of ['home_quick_need','home_service_card']) assert.match(home,new RegExp(`href="/in-kho-lon/"[^>]*data-track-location="${marker}"[^>]*data-track-service="in_kho_lon"[^>]*data-track-action="view_service"`))
 assert.match(hub,/href="\/in-kho-lon\/"[^>]*data-track-location="product_hub_catalogue"/)
-assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length,14)
+assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length,15)
 assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>https:\/\/insangtao.net\/in-kho-lon\/<\/loc>/g)].length,1)
 for(const route of ['in-kho-lon/bat','in-kho-lon/decal']) assert.ok(!existsSync('dist/'+route))
 assert.ok(!read('public/_redirects').includes('/in-kho-lon'),'no invented historical redirect')
 for(const [tag] of html.matchAll(/<a\b[^>]*>/g)) {const href=attr(tag,'href');if(href?.startsWith('#'))assert.ok(html.includes(`id="${href.slice(1)}"`));if(attr(tag,'data-track-event'))assert.doesNotMatch(tag,/data-track-(?:customer|name|title|price)=/)}
 const pages = readdirSync('dist',{withFileTypes:true}).filter(item=>item.isDirectory() && existsSync('dist/'+item.name+'/index.html')).map(item=>item.name)
 assert.ok(pages.includes('in-kho-lon'))
-console.log('IN KHO LON V3 / VERIFIED RANGE / REAL MEDIA / DISCOVERY / SITEMAP14 / PRIVACY: PASS')
+console.log('IN KHO LON V3 / VERIFIED RANGE / REAL MEDIA / DISCOVERY / SITEMAP15 / PRIVACY: PASS')
