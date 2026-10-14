@@ -19,7 +19,9 @@
     "test:hoa-don-page": "node scripts/test-hoa-don-page.mjs",
     "test:in-kho-lon-page": "node scripts/test-in-kho-lon-page.mjs",
     "test:tui-xop-page": "node scripts/test-tui-xop-page.mjs",
-    "test:in-nhanh-page": "node scripts/test-in-nhanh-page.mjs"
+    "test:in-nhanh-page": "node scripts/test-in-nhanh-page.mjs",
+    "test:solution-hub": "node scripts/test-solution-hub.mjs",
+    "test:combo-page": "node scripts/test-combo-page.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.8"

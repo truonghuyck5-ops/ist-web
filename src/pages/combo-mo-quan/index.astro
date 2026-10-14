@@ -1,29 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'
-import Hero from '../../components/sections/combo-mo-quan/Hero.astro'
-import Items from '../../components/sections/combo-mo-quan/Items.astro'
-import Packages from '../../components/sections/combo-mo-quan/Packages.astro'
-import Process from '../../components/sections/combo-mo-quan/Process.astro'
-import Faq from '../../components/sections/combo-mo-quan/Faq.astro'
-import ContactCta from '../../components/sections/home/ContactCta.astro'
+import SolutionLayout from '../../layouts/SolutionLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import Media from '../../components/home-v3/Media.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { solutionStorefront, comboSolutionItems, comboLevels, comboVisualProof, comboProductLinks, comboSolutionSteps, comboSolutionFaqs } from '../../data/solutions.js'
 ---
-
-<BaseLayout seo={{
-  title: 'Combo Mở Quán - Bảng Hiệu, Menu, Tem Nhãn | IST',
-  description: 'IST cung cấp combo mở quán gồm bảng hiệu, menu, tem nhãn, voucher, decal kính, standee và vật phẩm khai trương cho cửa hàng, quán ăn, cafe, trà sữa, spa.',
-  canonical: '/combo-mo-quan/',
-  image: '/images/projects/bang-hieu-001.jpg',
-}}>
-  <main>
-    <Hero />
-    <Items />
-    <Packages />
-    <Process />
-    <Faq />
-    <ContactCta />
-  </main>
-
-  <script>
-    import '../../scripts/combo-mo-quan-interactions.js'
-  </script>
-</BaseLayout>
+<SolutionLayout pageClass="sv3-combo" seo={{ title: 'Combo Mở Quán - Bảng Hiệu, Menu, Tem Nhãn | IST', description: 'IST cung cấp combo mở quán gồm bảng hiệu, menu, tem nhãn, voucher, decal kính, standee và vật phẩm khai trương cho cửa hàng, quán ăn, cafe, trà sữa, spa.', canonical: '/combo-mo-quan/', image: solutionStorefront.src }}>
+  <ProductHero eyebrow="GIẢI PHÁP / MỞ QUÁN" lines={['BỘ NHẬN DIỆN', 'CHO QUÁN MỚI']} description="IST hỗ trợ chuẩn bị các hạng mục từ bảng hiệu đến ấn phẩm bán hàng cho cửa hàng và quán mới." location="combo_hero" service="combo_mo_quan" caption="THAM KHẢO MẶT TIỀN CỬA HÀNG DO IST THỰC HIỆN" media={solutionStorefront} primary={{ href: '#contact', label: 'Nhận tư vấn', action: 'quote_request' }} secondary={{ href: '#solution-items', label: 'Xem hạng mục', action: 'view_products' }} />
+  <section id="solution-items" class="hv3-section sv3-items" aria-labelledby="items-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">01 / CHUẨN BỊ MỞ QUÁN</p><h2 id="items-heading">BẠN CẦN<br />CHUẨN BỊ GÌ?</h2></div><p class="hv3-body pv3-section-note">Danh sách được chọn theo mô hình, ngân sách và cách vận hành của quán.</p></div><ol class="sv3-item-list">{comboSolutionItems.map((item, index) => <li><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{item.title}</h3><p>{item.description}</p><a class="hv3-text-link" href={item.href} data-track-event="service_cta_click" data-track-location="combo_items" data-track-service={item.service} data-track-action="view_service">Xem sản phẩm liên quan <span aria-hidden="true">↗</span></a></div></li>)}</ol></div></section>
+  <section id="levels" class="hv3-section hv3-soft" aria-labelledby="levels-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">02 / PHẠM VI TRIỂN KHAI</p><h2 id="levels-heading">CHỌN MỨC<br />PHÙ HỢP VỚI QUÁN.</h2></div><p class="hv3-body pv3-section-note">Các mức gợi ý để bắt đầu trao đổi.<br />Hạng mục và báo giá được thống nhất theo nhu cầu.</p></div><ol class="sv3-levels">{comboLevels.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol><a class="hv3-text-link sv3-level-cta" href="#contact" data-track-event="service_cta_click" data-track-location="combo_package" data-track-service="combo_mo_quan" data-track-action="quote_request">Tư vấn phạm vi triển khai <span aria-hidden="true">↗</span></a></div></section>
+  <section id="visual-proof" class="hv3-section" aria-labelledby="proof-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">03 / THÀNH PHẨM THAM KHẢO</p><h2 id="proof-heading">TỪNG HẠNG MỤC.<br />HÌNH ẢNH THỰC TẾ.</h2></div><p class="hv3-body pv3-section-note">Một số hạng mục IST đã thực hiện.<br />Tham khảo để chọn theo nhu cầu của bạn.</p></div><div class="sv3-proof">{comboVisualProof.map(({ title, ...media }) => <figure><div class="hv3-media-frame sv3-proof-frame" style={`--sv3-photo-ratio: ${media.width} / ${media.height}`}><Media {...media} /></div><figcaption><h3>{title}</h3></figcaption></figure>)}</div></div></section>
+  <section id="related-products" class="hv3-section hv3-soft" aria-labelledby="related-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / TÌM HIỂU SẢN PHẨM</p><h2 id="related-heading">KẾT NỐI<br />CÁC HẠNG MỤC.</h2></div><p class="hv3-body pv3-section-note">Xem nhóm sản phẩm liên quan.<br />Lựa chọn tùy mô hình và nhu cầu.</p></div><ul class="sv3-product-links">{comboProductLinks.map(item => <li><a href={item.href} data-track-event="service_cta_click" data-track-location="combo_products" data-track-service={item.service} data-track-action="view_service">{item.title}<span aria-hidden="true">↗</span></a></li>)}</ul></div></section>
+  <section id="process" class="hv3-section" aria-labelledby="process-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">05 / CÙNG IST TRIỂN KHAI</p><h2 id="process-heading">TỪ NHU CẦU<br />ĐẾN BÀN GIAO.</h2></div></div><ol class="pv3-process sv3-process">{comboSolutionSteps.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+  <section id="faq" class="hv3-section hv3-soft" aria-labelledby="faq-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">06 / TRƯỚC KHI BẮT ĐẦU</p><h2 id="faq-heading">TRAO ĐỔI<br />CHO RÕ NHU CẦU.</h2></div></div><div class="pv3-faq">{comboSolutionFaqs.map(([question, answer]) => <details><summary><h3>{question}</h3><span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+  <ContactCta headingLineOne="CHUẨN BỊ" headingLineTwo="MỞ QUÁN?" description={['Chia sẻ mô hình, phong cách và nhu cầu của bạn.', 'IST sẽ tư vấn hạng mục và báo giá phù hợp.']} />
+</SolutionLayout>

@@ -63,7 +63,7 @@ for (const [data, file, cls, detail] of [[portalItems, 'dist/index.html', 'hv3-p
 }
 assert.match(read('dist/san-pham/index.html'), /href="\/in-nhanh\/"[^>]*>[\s\S]*?Khám phá sản phẩm/)
 const sitemap = read('dist/sitemap.xml')
-assert.equal([...sitemap.matchAll(/<loc>/g)].length, 13)
+assert.equal([...sitemap.matchAll(/<loc>/g)].length, 14)
 assert.equal([...sitemap.matchAll(/<loc>https:\/\/insangtao.net\/in-nhanh\/<\/loc>/g)].length, 1)
 assert.deepEqual(readdirSync('dist/in-nhanh'), ['index.html'], 'no nested routes')
 for (const route of ['__portal-v3','in-nhanh/danh-thiep','in-nhanh/tag','in-nhanh/voucher','in-nhanh/menu','san-pham/in-nhanh']) assert.ok(!existsSync('dist/' + route))
@@ -76,4 +76,4 @@ for (const [tag] of html.matchAll(/<a\b[^>]*>/g)) {
  if (href?.startsWith('#')) assert.ok(html.includes(`id="${href.slice(1)}"`))
  if (attr(tag, 'data-track-event')) assert.doesNotMatch(tag, /data-track-(?:customer|name|title|price|quantity|artwork|brand)=/)
 }
-console.log('IN NHANH V3 / FIVE LOCKED PAPER GROUPS / REAL MEDIA / DISCOVERY / SITEMAP13 / PRIVACY: PASS')
+console.log('IN NHANH V3 / FIVE LOCKED PAPER GROUPS / REAL MEDIA / DISCOVERY / SITEMAP14 / PRIVACY: PASS')

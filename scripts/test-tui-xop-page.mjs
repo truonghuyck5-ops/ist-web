@@ -69,7 +69,7 @@ assert.equal(menu.href, '/tui-xop/'); assert.equal(menu.status, 'active'); asser
 assert.match(read('dist/index.html'), /id="product-bags"[^>]*href="\/tui-xop\/"[^>]*data-track-location="home_service_card"[^>]*data-track-service="tui_xop"[^>]*data-track-action="view_service"/)
 const hubRow = [...read('dist/san-pham/index.html').matchAll(/<a\b[^>]*class="pv3-index-row"[^>]*>[\s\S]*?<\/a>/g)].map(([row]) => row).find(row => row.includes('data-track-service="tui_xop"'))
 assert.ok(hubRow.includes('href="/tui-xop/"') && hubRow.includes('Khám phá sản phẩm'))
-assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length, 13)
+assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length, 14)
 assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>https:\/\/insangtao.net\/tui-xop\/<\/loc>/g)].length, 1)
 for (const route of ['tui-xop/mau', 'tui-xop/gia', '__portal-v3']) assert.ok(!existsSync('dist/' + route))
 assert.ok(!read('public/_redirects').includes('/tui-xop'), 'no invented historical redirect')
@@ -78,4 +78,4 @@ for (const [tag] of html.matchAll(/<a\b[^>]*>/g)) {
   if (href?.startsWith('#')) assert.ok(html.includes(`id="${href.slice(1)}"`))
   if (attr(tag, 'data-track-event')) assert.doesNotMatch(tag, /data-track-(?:customer|name|title|price|quantity)=/)
 }
-console.log('TUI XOP V3 / REAL FINISHED BAGS / VERIFIED COPY / DISCOVERY / SITEMAP13 / PRIVACY: PASS')
+console.log('TUI XOP V3 / REAL FINISHED BAGS / VERIFIED COPY / DISCOVERY / SITEMAP14 / PRIVACY: PASS')

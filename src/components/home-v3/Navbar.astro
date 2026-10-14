@@ -8,14 +8,14 @@ const homeAnchor = (id) => `${home ? '' : '/'}#${id}`
       <summary aria-label="Menu điều hướng"><span class="hv3-menu-lines" aria-hidden="true"></span><span class="hv3-sr-only">Menu</span></summary>
       <nav aria-label="Điều hướng di động">
         <a href="/san-pham/" data-track-event="service_cta_click" data-track-location="navbar_product" data-track-action="view_products">Sản phẩm <span aria-hidden="true">↗</span></a>
-        <a href={homeAnchor('quick-portal')}>Giải pháp <span aria-hidden="true">↗</span></a>
+        <a href="/giai-phap/" data-track-event="service_cta_click" data-track-location="navbar_solution" data-track-action="view_service">Giải pháp <span aria-hidden="true">↗</span></a>
         <a href={homeAnchor('projects')}>Công trình <span aria-hidden="true">↗</span></a>
         <a href={homeAnchor('production')}>Năng lực <span aria-hidden="true">↗</span></a>
       </nav>
     </details>
     <a class="hv3-brand" href={homeAnchor('top')} aria-label={home ? 'IST — về đầu trang' : 'IST — về trang chủ'}><span>IST<span class="hv3-brand-dot" aria-hidden="true">.</span></span><span class="hv3-brand-caption">IN SÁNG TẠO</span></a>
     <nav class="hv3-desktop-nav" aria-label="Điều hướng chính">
-      <a href="/san-pham/" data-track-event="service_cta_click" data-track-location="navbar_product" data-track-action="view_products">Sản phẩm</a><a href={homeAnchor('quick-portal')}>Giải pháp</a><a href={homeAnchor('projects')}>Công trình</a><a href={homeAnchor('production')}>Năng lực</a>
+      <a href="/san-pham/" data-track-event="service_cta_click" data-track-location="navbar_product" data-track-action="view_products">Sản phẩm</a><a href="/giai-phap/" data-track-event="service_cta_click" data-track-location="navbar_solution" data-track-action="view_service">Giải pháp</a><a href={homeAnchor('projects')}>Công trình</a><a href={homeAnchor('production')}>Năng lực</a>
     </nav>
     <a class="hv3-button hv3-button-accent hv3-nav-cta hv3-desktop-label" href="#contact" data-track-event="service_cta_click" data-track-location="navbar_desktop" data-track-action="quote_request">Nhận báo giá <span aria-hidden="true">↗</span></a>
     <a class="hv3-button hv3-button-accent hv3-nav-cta hv3-mobile-label" href="#contact" data-track-event="service_cta_click" data-track-location="navbar_mobile" data-track-action="quote_request">Tư vấn <span aria-hidden="true">↗</span></a>
