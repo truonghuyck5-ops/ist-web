@@ -23,14 +23,14 @@ export const products = [
   },
 
   {
-    image: '/images/projects/tui-xop-001.jpg',
+    image: '/images/projects/tui-xop-001.JPG',
 
     title: 'In túi xốp',
 
     description:
       'Sản xuất túi xốp in lụa cho cửa hàng và hộ kinh doanh.',
       
-    link: '#'
+    link: '/tui-xop/'
   },
 
   {

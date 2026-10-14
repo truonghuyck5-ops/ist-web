@@ -1,0 +1,21 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import Media from '../../components/home-v3/Media.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { tuiXopHero, tuiXopGallery, tuiXopWorkshop, tuiXopCopy } from '../../data/tuiXop.js'
+import '../../styles/tui-xop-v3.css'
+---
+<ProductLayout pageClass="xv3" seo={{ title: 'In túi xốp logo cho shop & cửa hàng | IST', description: 'Mẫu túi xốp in logo thực tế tại IST cho shop, cửa hàng và hộ kinh doanh. Xem thành phẩm, trao đổi mẫu và nhu cầu để được tư vấn, báo giá phù hợp.', canonical: '/tui-xop/', image: tuiXopHero.src }}>
+  <ProductHero eyebrow="SẢN PHẨM / TÚI XỐP" lines={['IN', 'TÚI XỐP']} description={tuiXopCopy.introduction} location="tui_xop_hero" service="tui_xop" caption="MẪU TÚI IN LOGO TẠI IST" media={tuiXopHero} primary={{ href: '#contact', label: 'Nhận tư vấn / Báo giá', action: 'quote_request' }} secondary={{ href: '#samples', label: 'Xem mẫu thực tế', action: 'view_products' }} />
+  <section id="samples" class="hv3-section xv3-samples" aria-labelledby="samples-heading">
+    <div class="hv3-container">
+      <div class="hv3-section-head"><div><p class="hv3-eyebrow">01 / THÀNH PHẨM THỰC TẾ</p><h2 id="samples-heading">MẪU TÚI<br />ĐÃ THỰC HIỆN.</h2></div><p class="hv3-body pv3-section-note">Những mẫu túi được in tại IST.<br />Logo và nội dung trên thành phẩm thực tế.</p></div>
+      <div class="xv3-gallery">{[tuiXopGallery.slice(0, 2), tuiXopGallery.slice(2)].map(column => <div class="xv3-gallery-column">{column.map(({ title, description, ...media }) => <figure><div class="hv3-media-frame xv3-sample-frame" style={`--xv3-photo-ratio: ${media.width} / ${media.height}`}><Media {...media} /></div><figcaption><h3>{title}</h3><p>{description}</p></figcaption></figure>)}</div>)}</div>
+    </div>
+  </section>
+  <section id="uses" class="hv3-section hv3-soft" aria-labelledby="uses-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">02 / THEO NHU CẦU</p><h2 id="uses-heading">ĐỒNG HÀNH<br />CÙNG CỬA HÀNG.</h2></div><ol class="xv3-uses">{tuiXopCopy.uses.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol></div></section>
+  <section id="branding" class="hv3-section" aria-labelledby="branding-heading"><div class="hv3-container xv3-branding"><figure><div class="hv3-media-frame xv3-workshop-frame"><Media {...tuiXopWorkshop} /></div><figcaption>THÀNH PHẨM BÊN KHU VỰC IN TẠI IST</figcaption></figure><div class="xv3-branding-copy"><p class="hv3-eyebrow">03 / IN LOGO TẠI IST</p><h2 id="branding-heading">LOGO TRÊN<br />TỪNG CHIẾC TÚI.</h2><p class="hv3-body">{tuiXopCopy.capability}</p><p class="hv3-body">{tuiXopCopy.branding}</p><a class="hv3-text-link" href="#contact" data-track-event="service_cta_click" data-track-location="tui_xop_branding" data-track-service="tui_xop" data-track-action="quote_request">Trao đổi mẫu túi <span aria-hidden="true">↗</span></a></div></div></section>
+  <section id="process" class="hv3-section hv3-soft" aria-labelledby="process-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / CÁCH IST LÀM</p><h2 id="process-heading">TỪ MẪU IN<br />ĐẾN THÀNH PHẨM.</h2></div></div><ol class="pv3-process">{tuiXopCopy.steps.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
+  <ContactCta headingLineOne="CẦN IN TÚI" headingLineTwo="CÓ LOGO?" description={['Gửi mẫu và nhu cầu của bạn cho IST.', 'IST sẽ tư vấn phương án và báo giá phù hợp.']} />
+</ProductLayout>

@@ -8,7 +8,7 @@ const html = readFileSync('dist/index.html', 'utf8')
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
 const tags = (pattern) => [...html.matchAll(pattern)].map(([tag]) => tag)
 const anchors = tags(/<a\b[^>]*>/g)
-const supportedRoutes = new Set(['/', '/san-pham/', '/in-kho-lon/', '/bang-hieu/', '/tem-nhan/', '/combo-mo-quan/', '/hoa-don/', '/du-an/', '/blog/'])
+const supportedRoutes = new Set(['/', '/san-pham/', '/in-kho-lon/', '/tui-xop/', '/bang-hieu/', '/tem-nhan/', '/combo-mo-quan/', '/hoa-don/', '/du-an/', '/blog/'])
 assert.equal(tags(/<h1\b/g).length, 1, 'one homepage H1')
 assert.match(html, /<h1[^>]*><span>THIẾT KẾ\.<\/span><span>IN ẤN\.<\/span><span>QUẢNG CÁO\.<\/span><\/h1>/, 'approved H1 statement')
 assert.match(html, /Từ ý tưởng đến sản phẩm hoàn thiện\./, 'approved support')
@@ -24,7 +24,7 @@ assert.doesNotMatch(html, /aria-label="(?:Nhắn Zalo cho In Sáng Tạo|Gọi I
 const quickLinks = tags(/<a\b[^>]*class="hv3-portal-item"[^>]*>/g)
 assert.deepEqual(quickLinks.map(tag => attribute(tag, 'href')), ['/bang-hieu/', '#contact', '/tem-nhan/', '/combo-mo-quan/', '/in-kho-lon/', '/hoa-don/'], 'Portal uses only real routes/contact')
 const productLinks = tags(/<a\b[^>]*class="hv3-product-row"[^>]*>/g)
-assert.deepEqual(productLinks.map(tag => attribute(tag, 'href')), ['/bang-hieu/', '#contact', '/tem-nhan/', '/in-kho-lon/', '/hoa-don/', '#contact'], 'Explorer routes/contact')
+assert.deepEqual(productLinks.map(tag => attribute(tag, 'href')), ['/bang-hieu/', '#contact', '/tem-nhan/', '/in-kho-lon/', '/hoa-don/', '/tui-xop/'], 'Explorer routes/contact')
 for (const [links, data, location] of [[quickLinks, portalItems, 'home_quick_need'], [productLinks, productGroups, 'home_service_card']]) {
   for (const [i, tag] of links.entries()) {
     assert.equal(attribute(tag, 'data-track-event'), 'service_cta_click', 'existing service event')
@@ -43,7 +43,7 @@ assert.ok(anchors.some(tag => attribute(tag, 'href') === '/du-an/'), 'real proje
 assert.doesNotMatch(html, /__portal-v3|\/images\/portal-v3\/|\/san-pham\/bang-hieu\/|\/giai-phap\//, 'no prototype or future route artifacts')
 assert.ok(!existsSync('dist/__portal-v3'), 'prototype route absent')
 const files = (dir) => readdirSync(dir, {withFileTypes: true}).flatMap(e => e.isDirectory() ? files(join(dir, e.name)) : [join(dir, e.name)])
-assert.equal(files('dist').filter(f => f.endsWith('.html')).length, 11, 'eleven intended public HTML pages')
+assert.equal(files('dist').filter(f => f.endsWith('.html')).length, 12, 'twelve intended public HTML pages')
 assert.equal(tags(/<img\b[^>]*fetchpriority="high"[^>]*>/g).length, 1, 'hero only high-priority image')
 const images = tags(/<img\b[^>]*>/g)
 assert.equal(images.length, 13, 'approved image instances')

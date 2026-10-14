@@ -13,5 +13,5 @@ export const productGroups = [
   { id: 'product-labels', href: '/tem-nhan/', service: 'tem_nhan', action: 'view_service', title: 'Tem nhãn', detail: 'Sticker · decal · nhãn sản phẩm' },
   { id: 'product-large-print', href: '/in-kho-lon/', service: 'in_kho_lon', action: 'view_service', title: 'In khổ lớn', detail: 'Bạt · decal · PP · standee · backdrop' },
   { id: 'product-forms', href: '/hoa-don/', service: 'hoa_don', action: 'view_service', title: 'Hóa đơn & biểu mẫu', detail: 'Phiếu thu · phiếu chi · biểu mẫu' },
-  { id: 'product-bags', href: '#contact', service: 'tui_xop', action: 'quote_request', title: 'Túi xốp', detail: 'In logo theo yêu cầu' },
+  { id: 'product-bags', href: '/tui-xop/', service: 'tui_xop', action: 'view_service', title: 'Túi xốp', detail: 'In logo theo yêu cầu' },
 ]
