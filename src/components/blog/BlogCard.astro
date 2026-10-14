@@ -1,19 +1,16 @@
 ---
 import { formatBlogDate } from '../../utils/blog'
-
-const { post } = Astro.props
+import Media from '../home-v3/Media.astro'
+const { post, eager = false } = Astro.props
 const { data, id } = post
+const headingId = `blog-title-${id}`
 ---
-
-<article class="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/50 transition hover:border-orange-500">
-  {data.image && <img src={data.image} alt={data.title} loading="lazy" decoding="async" class="h-64 w-full object-cover transition duration-500 group-hover:scale-[1.02]" />}
-  <div class="p-7 md:p-8">
-    <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
-      {data.category && <span class="font-semibold text-orange-500">{data.category}</span>}
-      {data.publishedAt && <time datetime={data.publishedAt.toISOString()} class="text-gray-500">{formatBlogDate(data.publishedAt)}</time>}
-    </div>
-    <h2 class="mb-4 text-2xl font-black text-white transition group-hover:text-orange-500 md:text-3xl"><a href={`/blog/${id}/`}>{data.title}</a></h2>
-    <p class="mb-6 leading-relaxed text-gray-400">{data.description}</p>
-    <a href={`/blog/${id}/`} class="font-bold text-orange-500 transition hover:text-orange-300">Đọc bài viết <span aria-hidden="true">→</span></a>
+<article class="bv3-feature" aria-labelledby={headingId}>
+  {data.image && <figure class="hv3-media-frame bv3-feature-media" style={`--bv3-image-ratio: ${data.imageWidth} / ${data.imageHeight}`}><Media src={data.image} alt={data.imageAlt || data.title} width={data.imageWidth} height={data.imageHeight} eager={eager} /></figure>}
+  <div class="bv3-feature-copy">
+    <div class="bv3-meta">{data.category && <span>{data.category}</span>}{data.publishedAt && <time datetime={data.publishedAt.toISOString()}>{formatBlogDate(data.publishedAt)}</time>}</div>
+    <h2 id={headingId}>{data.title}</h2>
+    <p>{data.description}</p>
+    <a class="hv3-text-link" href={`/blog/${id}/`} aria-label={`Đọc bài viết: ${data.title}`}>Đọc bài viết <span aria-hidden="true">↗</span></a>
   </div>
 </article>

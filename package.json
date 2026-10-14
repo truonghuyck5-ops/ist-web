@@ -23,7 +23,8 @@
     "test:solution-hub": "node scripts/test-solution-hub.mjs",
     "test:combo-page": "node scripts/test-combo-page.mjs",
     "test:projects-page": "node scripts/test-projects-page.mjs",
-    "test:about-page": "node scripts/test-about-page.mjs"
+    "test:about-page": "node scripts/test-about-page.mjs",
+    "test:blog-v3": "node scripts/test-blog-v3.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.8"
