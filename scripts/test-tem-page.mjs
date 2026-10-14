@@ -37,7 +37,7 @@ assert.doesNotMatch(html, /data-lightbox|\/san-pham\/tem-nhan\/|"@type":"Product
 assert.match(html, /<title>In Tem Nhãn - Sticker - Decal Sản Phẩm tại Vĩnh Long \| IST<\/title>/, 'original title')
 assert.match(html, /rel="canonical" href="https:\/\/insangtao.net\/tem-nhan\/"/, 'same canonical')
 for (const path of ['dist/index.html', 'dist/san-pham/index.html']) assert.ok(read(path).includes('href="/tem-nhan/"'), 'existing discovery link')
-assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length, 14, 'sitemap includes the approved new route')
+assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length, 15, 'sitemap includes the approved new route')
 for (const route of ['san-pham/tem-nhan']) assert.ok(!existsSync('dist/' + route), 'no new route')
 const images = [...html.matchAll(/<img\b[^>]*>/g)].map(([tag]) => tag)
 assert.equal(images.filter(tag => attribute(tag, 'fetchpriority') === 'high').length, 1, 'one priority hero')

@@ -8,7 +8,7 @@ const html = readFileSync('dist/index.html', 'utf8')
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
 const tags = (pattern) => [...html.matchAll(pattern)].map(([tag]) => tag)
 const anchors = tags(/<a\b[^>]*>/g)
-const supportedRoutes = new Set(['/', '/san-pham/', '/giai-phap/', '/in-kho-lon/', '/tui-xop/', '/in-nhanh/', '/bang-hieu/', '/tem-nhan/', '/combo-mo-quan/', '/hoa-don/', '/du-an/', '/blog/'])
+const supportedRoutes = new Set(['/', '/san-pham/', '/giai-phap/', '/ve-ist/', '/in-kho-lon/', '/tui-xop/', '/in-nhanh/', '/bang-hieu/', '/tem-nhan/', '/combo-mo-quan/', '/hoa-don/', '/du-an/', '/blog/'])
 assert.equal(tags(/<h1\b/g).length, 1, 'one homepage H1')
 assert.match(html, /<h1[^>]*><span>THIẾT KẾ\.<\/span><span>IN ẤN\.<\/span><span>QUẢNG CÁO\.<\/span><\/h1>/, 'approved H1 statement')
 assert.match(html, /Từ ý tưởng đến sản phẩm hoàn thiện\./, 'approved support')
@@ -35,7 +35,7 @@ for (const [links, data, location] of [[quickLinks, portalItems, 'home_quick_nee
 }
 for (const tag of anchors) {
   const href = attribute(tag, 'href')
-  if (href?.startsWith('/')) assert.ok(supportedRoutes.has(href), 'existing route: ' + href)
+  if (href?.startsWith('/')) assert.ok(supportedRoutes.has(href.split('#')[0]), 'existing route: ' + href)
   if (href?.startsWith('#')) assert.ok(html.includes(`id="${href.slice(1)}"`), 'existing anchor: ' + href)
   if (attribute(tag, 'data-track-event')) assert.doesNotMatch(tag, /data-track-(?:title|customer|project|caption|name)=/, 'no identifying/free-text tracking payload')
 }
@@ -43,7 +43,7 @@ assert.ok(anchors.some(tag => attribute(tag, 'href') === '/du-an/'), 'real proje
 assert.doesNotMatch(html, /__portal-v3|\/images\/portal-v3\/|\/san-pham\/bang-hieu\/|\/giai-phap\/mo-quan\//, 'no prototype or future route artifacts')
 assert.ok(!existsSync('dist/__portal-v3'), 'prototype route absent')
 const files = (dir) => readdirSync(dir, {withFileTypes: true}).flatMap(e => e.isDirectory() ? files(join(dir, e.name)) : [join(dir, e.name)])
-assert.equal(files('dist').filter(f => f.endsWith('.html')).length, 14, 'fourteen intended public HTML pages')
+assert.equal(files('dist').filter(f => f.endsWith('.html')).length, 15, 'fifteen intended public HTML pages')
 assert.equal(tags(/<img\b[^>]*fetchpriority="high"[^>]*>/g).length, 1, 'hero only high-priority image')
 const images = tags(/<img\b[^>]*>/g)
 assert.equal(images.length, 13, 'approved image instances')

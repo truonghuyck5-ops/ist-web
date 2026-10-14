@@ -10,7 +10,7 @@ const hub = read('dist/san-pham/index.html')
 const signs = read('dist/bang-hieu/index.html')
 const home = read('dist/index.html')
 const text = html => html.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
-const paths = new Set(['/', '/san-pham/', '/giai-phap/', '/in-kho-lon/', '/tui-xop/', '/in-nhanh/', '/bang-hieu/', '/tem-nhan/', '/hoa-don/', '/combo-mo-quan/', '/du-an/', '/blog/'])
+const paths = new Set(['/', '/san-pham/', '/giai-phap/', '/ve-ist/', '/in-kho-lon/', '/tui-xop/', '/in-nhanh/', '/bang-hieu/', '/tem-nhan/', '/hoa-don/', '/combo-mo-quan/', '/du-an/', '/blog/'])
 
 assert.equal(text(hub.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]), 'SẢN PHẨM & DỊCH VỤ')
 assert.equal(text(signs.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]), 'BẢNG HIỆU QUẢNG CÁO')
@@ -52,7 +52,7 @@ for (const [path, html] of [['/san-pham/', hub], ['/bang-hieu/', signs]]) {
     if (href?.startsWith('/')) {
       const [route, anchor] = href.split('#')
       assert.ok(paths.has(route), 'real route: ' + href)
-      if (anchor) assert.ok(home.includes(`id="${anchor}"`), 'cross-page home anchor')
+      if (anchor) assert.ok(read('dist' + route + 'index.html').includes(`id="${anchor}"`), 'existing cross-page anchor')
     }
     if (attribute(tag, 'data-track-event')) assert.doesNotMatch(tag, /data-track-(?:customer|title|project|name)=/, 'generic tracking only')
   }

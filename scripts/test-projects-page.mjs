@@ -42,7 +42,7 @@ for (const p of featuredProjects) assert.ok(!existsSync(`dist/du-an/${p.slug}`))
 assert.match(html, /<title>Công trình đã thực hiện \| In Sáng Tạo<\/title>/)
 assert.match(html, /rel="canonical" href="https:\/\/insangtao.net\/du-an\/"/)
 assert.ok(html.includes('Hình ảnh và phần việc IST thực hiện trong các hạng mục bảng hiệu cho cửa hàng và doanh nghiệp. Xem công trình và liên hệ tư vấn hạng mục tương tự.'))
-for (const route of ['', 'san-pham', 'giai-phap', 'combo-mo-quan', 'du-an', 'bang-hieu', 'in-nhanh', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop']) {
+for (const route of ['', 'san-pham', 'giai-phap', 'combo-mo-quan', 'du-an', 'bang-hieu', 'in-nhanh', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop', 've-ist']) {
  const page = read('dist/' + (route ? route + '/' : '') + 'index.html')
  const nav = page.match(/<header\b[\s\S]*?<\/header>/)[0]
  const links = [...nav.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/g)].map(([a]) => a).filter(a => text(a).startsWith('Công trình'))
@@ -52,7 +52,7 @@ for (const route of ['', 'san-pham', 'giai-phap', 'combo-mo-quan', 'du-an', 'ban
 }
 const home = read('dist/index.html')
 assert.match(home, /href="\/du-an\/"[^>]*data-track-action="view_projects"[^>]*>Xem tất cả công trình/)
-assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length, 14)
+assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>/g)].length, 15)
 assert.equal([...read('dist/sitemap.xml').matchAll(/<loc>https:\/\/insangtao.net\/du-an\/<\/loc>/g)].length, 1)
 
 // Exercise the actual reused browser script, including unsupported native dialog.
@@ -99,4 +99,4 @@ assert.ok(canceled && !f.dialog.open)
 assert.equal(f.body.style.overflow, 'auto'); assert.equal(f.image.src, ''); assert.equal(f.trigger.focused, 1); assert.equal(f.trigger.options.preventScroll, true)
 f.click(); f.buttonListeners.get('click')()
 assert.equal(f.body.style.overflow, 'auto'); assert.equal(f.trigger.focused, 2)
-console.log('PROJECTS V3 / APPROVED FOUR / ORDER / NAV11 / SEO / SITEMAP14 / LIGHTBOX AND FALLBACK: PASS')
+console.log('PROJECTS V3 / APPROVED FOUR / ORDER / NAV12 / SEO / SITEMAP15 / LIGHTBOX AND FALLBACK: PASS')

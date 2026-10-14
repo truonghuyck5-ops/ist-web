@@ -7,6 +7,7 @@ const publicPages = [
   'dist/index.html',
   'dist/san-pham/index.html',
   'dist/giai-phap/index.html',
+  'dist/ve-ist/index.html',
   'dist/in-kho-lon/index.html',
   'dist/tui-xop/index.html',
   'dist/in-nhanh/index.html',
@@ -44,7 +45,7 @@ assert.ok(trackingClient.includes('page_path: window.location.pathname'), 'event
 assert.ok(!source.includes('window.trackEvent'), 'Astro source has no legacy global trackEvent dependency')
 assert.ok(!sourceFiles.filter((file) => file.endsWith('.astro')).some((file) => read(file).includes('onclick=')), 'Astro markup has no inline onclick handlers')
 
-for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator', 'in_kho_lon_hero', 'in_kho_lon_types', 'tui_xop_hero', 'tui_xop_branding', 'in_nhanh_hero', 'in_nhanh_products', 'in_nhanh_production', 'in_nhanh_related', 'navbar_solution', 'solution_hub_need', 'solution_hub_consultation', 'combo_items', 'combo_products', 'projects_hero', 'projects_related']) {
+for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator', 'in_kho_lon_hero', 'in_kho_lon_types', 'tui_xop_hero', 'tui_xop_branding', 'in_nhanh_hero', 'in_nhanh_products', 'in_nhanh_production', 'in_nhanh_related', 'navbar_solution', 'solution_hub_need', 'solution_hub_consultation', 'combo_items', 'combo_products', 'projects_hero', 'projects_related', 'about_hero', 'about_capability']) {
   assert.ok(source.includes(marker), `required CTA tracking marker: ${marker}`)
 }
 
@@ -84,7 +85,7 @@ assert.doesNotMatch(homeProjectLinks[0], /data-track-(?:title|customer|caption|s
 console.log('HOMEPAGE PROJECTS CTA TRACKING: PASS')
 
 // Exercise the real delegated tracking client without sending analytics requests.
-// Preview gating and payload allow-list apply to all eleven rendered V3 routes.
+// Preview gating and payload allow-list apply to all twelve rendered V3 routes.
 const { runInNewContext } = await import('node:vm')
 const { siteConfig: liveSiteConfig } = await import('../src/data/site.js')
 const tagAttribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
@@ -103,7 +104,7 @@ class TrackedElement {
   getAttribute(name) { return name === 'href' ? this.href : null }
 }
 
-const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop', 'in-nhanh', 'giai-phap', 'combo-mo-quan', 'du-an'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop', 'in-nhanh', 'giai-phap', 'combo-mo-quan', 'du-an', 've-ist'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
 for (const [pagePath, trackedTags] of productTrackedPages) {
   for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
     const calls = []
