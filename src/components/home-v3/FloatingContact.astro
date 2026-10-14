@@ -43,9 +43,9 @@ const { contact } = siteConfig
     })
     dialog.addEventListener('close', finishClose)
   }
-  // Suppress the floating control where the navbar or contact section provides actions.
+  // Keep the floating control clear of existing main-content actions and FAQ toggles.
   const floating = document.querySelector<HTMLElement>('.hv3-floating-contact')
-  const contactAreas = [...document.querySelectorAll('[data-v3-contact-area], .hv3-hero'), document.querySelector('#contact'), document.querySelector('.hv3-footer')].filter((element): element is Element => element !== null)
+  const contactAreas = [...document.querySelectorAll('[data-v3-contact-area], .hv3-hero, .pv3-faq, main a[href]'), document.querySelector('#contact'), document.querySelector('.hv3-footer')].filter((element): element is Element => element !== null)
   if (floating && 'IntersectionObserver' in window) {
     const inView = new Set<Element>()
     const observer = new IntersectionObserver((entries) => {
