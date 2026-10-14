@@ -1,0 +1,66 @@
+---
+import { siteConfig } from '../../data/site.js'
+const { contact } = siteConfig
+---
+<div class="hv3-floating-contact"><button id="hv3-contact-toggle" class="hv3-button hv3-button-ink" type="button" aria-haspopup="dialog" aria-controls="hv3-contact-dialog" aria-expanded="false" data-track-event="service_cta_click" data-track-location="floating_contact" data-track-action="quote_request">Tư vấn <span aria-hidden="true">↗</span></button></div>
+<dialog id="hv3-contact-dialog" class="hv3-contact-dialog" aria-labelledby="hv3-dialog-title" aria-describedby="hv3-dialog-description">
+  <div class="hv3-dialog-head"><p class="hv3-eyebrow">LIÊN HỆ IST</p><button type="button" class="hv3-dialog-close" aria-label="Đóng tư vấn" autofocus><span aria-hidden="true">×</span></button></div>
+  <h2 id="hv3-dialog-title">Bắt đầu từ nhu cầu của bạn.</h2><p id="hv3-dialog-description">Chọn cách thuận tiện để trao đổi cùng IST.</p>
+  <div class="hv3-dialog-actions"><a href={`https://zalo.me/${contact.phone}`} data-track-event="zalo_click" data-track-location="floating_contact" target="_blank" rel="noopener noreferrer">Chat Zalo <span aria-hidden="true">↗</span></a><a href={`tel:${contact.phone}`} data-track-event="phone_click" data-track-location="floating_contact">Gọi điện <span aria-hidden="true">↗</span></a><a href={`mailto:${contact.email}?subject=${encodeURIComponent('Yêu cầu báo giá IST')}`} data-track-event="service_cta_click" data-track-location="floating_contact" data-track-action="quote_request">Gửi yêu cầu báo giá <span aria-hidden="true">↗</span></a></div>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#hv3-contact-dialog')
+  const toggle = document.querySelector<HTMLButtonElement>('#hv3-contact-toggle')
+  const menu = document.querySelector<HTMLDetailsElement>('.hv3-menu')
+  let returnFocus: HTMLElement | null = null
+  if (dialog && toggle) {
+    toggle.addEventListener('click', () => {
+      returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : toggle
+      if (menu) menu.open = false
+      dialog.showModal()
+      toggle.setAttribute('aria-expanded', 'true')
+      document.documentElement.classList.add('hv3-contact-open')
+    })
+    const finishClose = () => {
+      document.documentElement.classList.remove('hv3-contact-open')
+      toggle.setAttribute('aria-expanded', 'false')
+      returnFocus?.focus({ preventScroll: true })
+    }
+    const closeContact = () => { dialog.close(); finishClose() }
+    dialog.querySelector('.hv3-dialog-close')?.addEventListener('click', closeContact)
+    dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeContact() })
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return
+      const controls = Array.from(dialog.querySelectorAll<HTMLElement>('button, a[href]'))
+      const first = controls[0]
+      const last = controls[controls.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+    })
+    dialog.addEventListener('click', (event) => {
+      const rect = dialog.getBoundingClientRect()
+      if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) closeContact()
+    })
+    dialog.addEventListener('close', finishClose)
+  }
+  // Keep the floating control clear of existing main-content actions and FAQ toggles.
+  const floating = document.querySelector<HTMLElement>('.hv3-floating-contact')
+  const contactAreas = [...document.querySelectorAll('[data-v3-contact-area], .hv3-hero, .pv3-faq, main a[href]'), document.querySelector('#contact'), document.querySelector('.hv3-footer')].filter((element): element is Element => element !== null)
+  if (floating && 'IntersectionObserver' in window) {
+    const inView = new Set<Element>()
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) inView.add(entry.target); else inView.delete(entry.target) })
+      floating.hidden = inView.size > 0
+    })
+    contactAreas.forEach((element) => observer.observe(element))
+  }
+  if (menu) {
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { menu.open = false }))
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary')?.focus() }
+    })
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !menu.contains(event.target)) menu.open = false
+    })
+  }
+</script>

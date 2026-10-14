@@ -1,0 +1,17 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import ProductIndex from '../../components/product-v3/ProductIndex.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { productFamilies } from '../../components/product-v3/content.js'
+---
+<ProductLayout seo={{
+  title: 'Sản Phẩm & Dịch Vụ | In Sáng Tạo IST',
+  description: 'Khám phá sản phẩm và dịch vụ IST: bảng hiệu, in nhanh, tem nhãn, in khổ lớn, hóa đơn, biểu mẫu và túi xốp. Chọn sản phẩm hoặc trao đổi cùng IST.',
+  canonical: '/san-pham/',
+  image: '/images/home/service-bang-hieu.webp',
+}}>
+  <ProductHero eyebrow="SẢN PHẨM / DỊCH VỤ" lines={['SẢN PHẨM', '& DỊCH VỤ']} description="Mọi giải pháp thiết kế, in ấn và quảng cáo tại một nơi." location="product_hub_hero" primary={{ href: '#catalogue', label: 'Khám phá danh mục', action: 'view_products' }} secondary={{ href: '#contact', label: 'Nhận tư vấn', action: 'quote_request' }} />
+  <section id="catalogue" class="pv3-catalogue hv3-container" aria-label="Danh mục sáu nhóm sản phẩm"><ProductIndex items={productFamilies} location="product_hub_catalogue" priorityFirst={true} /></section>
+  <ContactCta />
+</ProductLayout>

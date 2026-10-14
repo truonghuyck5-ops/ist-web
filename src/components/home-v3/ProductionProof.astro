@@ -1,0 +1,10 @@
+---
+import Media from './Media.astro'
+---
+<section id="production" class="hv3-section hv3-soft" aria-labelledby="production-heading">
+  <div class="hv3-container">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / BÊN TRONG XƯỞNG</p><h2 id="production-heading">SẢN XUẤT TẠI IST</h2></div><p class="hv3-body">Từ file thiết kế<br class="hv3-desktop-break" /> đến sản phẩm hoàn thiện.</p></div>
+    <figure class="hv3-production-media hv3-media-frame"><Media src="/images/home/may-in-bat-kho-lon.webp" alt="Các máy in bạt khổ lớn tại xưởng IST" width={1910} height={1076} position="50% 55%" /></figure>
+    <ul class="hv3-capabilities" aria-label="Năng lực sản xuất">{['In kỹ thuật số', 'In khổ lớn', 'CNC / Laser', 'Sản xuất bảng hiệu'].map((label, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{label}</li>)}</ul>
+  </div>
+</section>

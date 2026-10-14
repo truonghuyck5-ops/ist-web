@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict'
+import { readFileSync, existsSync } from 'node:fs'
+import { comboSolutionItems, comboLevels, comboVisualProof, comboProductLinks, comboSolutionSteps, comboSolutionFaqs, solutionStorefront } from '../src/data/solutions.js'
+const read=p=>readFileSync(p,'utf8')
+const html=read('dist/combo-mo-quan/index.html')
+const attr=(tag,key)=>tag.match(new RegExp(`\\b${key}="([^"]*)"`))?.[1]
+const text=s=>s.replace(/<[^>]*>/g,' ').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim()
+const region=id=>html.match(new RegExp(`<section id="${id}"[\\s\\S]*?</section>`))?.[0]
+assert.equal([...html.matchAll(/<h1\b/g)].length,1)
+assert.equal(text(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]),'BỘ NHẬN DIỆN CHO QUÁN MỚI')
+assert.match(html,/class="hv3 pv3 sv3 sv3-combo"/)
+for(const landmark of ['main','nav','footer'])assert.ok(html.includes('<'+landmark))
+assert.ok(html.includes('GIẢI PHÁP / MỞ QUÁN'))
+assert.match(html,/href="#contact"[^>]*>Nhận tư vấn/)
+assert.match(html,/href="#solution-items"[^>]*>Xem hạng mục/)
+const names=['Bảng hiệu mặt tiền','Menu giấy / bảng giá giấy','Tem nhãn','Voucher / thẻ tích điểm','Decal kính / trang trí','Standee / banner khai trương']
+assert.deepEqual(comboSolutionItems.map(x=>x.title),names)
+assert.deepEqual([...region('solution-items').matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map(([,s])=>text(s)),names)
+const links=[...region('solution-items').matchAll(/<a\b[^>]*>/g)].map(([tag])=>tag)
+assert.deepEqual(links.map(tag=>attr(tag,'href')),['/bang-hieu/','/in-nhanh/','/tem-nhan/','/in-nhanh/','/in-kho-lon/','/in-kho-lon/'])
+assert.ok(links.every(tag=>attr(tag,'data-track-action')==='view_service'))
+assert.deepEqual(comboLevels.map(([title])=>title),['KHỞI ĐỘNG','ĐỒNG BỘ','TOÀN DIỆN'])
+assert.equal([...region('levels').matchAll(/<h3\b/g)].length,3)
+assert.equal(comboVisualProof.length,3)
+assert.equal([...region('visual-proof').matchAll(/<figure\b/g)].length,3)
+assert.deepEqual(comboProductLinks.map(x=>x.href),['/bang-hieu/','/in-nhanh/','/tem-nhan/','/in-kho-lon/','/tui-xop/'])
+assert.ok(region('related-products').includes('tùy mô hình và nhu cầu'))
+assert.equal(comboSolutionSteps.length,5)
+assert.deepEqual(comboSolutionSteps.map(([title])=>title),['Tư vấn nhu cầu','Chốt hạng mục','Thiết kế đồng bộ','Sản xuất','Bàn giao / Thi công'])
+assert.equal([...region('process').matchAll(/<h3\b/g)].length,5)
+assert.equal(comboSolutionFaqs.length,5)
+assert.equal([...region('faq').matchAll(/<details>/g)].length,5)
+assert.ok(comboSolutionFaqs.at(-1)[1].includes('Với hạng mục cần lắp đặt'))
+const copy=text(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'').replace(/<style\b[^>]*>[\s\S]*?<\/style>/g,''))
+assert.doesNotMatch(copy,/1[.,]990|4[.,]990|₫|Phù hợp nhất|phổ biến nhất|tốt nhất|lấy ngay|lấy liền|trong ngày|khai trương nhanh|triển khai nhanh|cam kết.*(?:ngày|giờ)|mất bao lâu|case study/i,'no stale pricing, badge, SLA or composite case study')
+assert.doesNotMatch(html,/hoa-don-001|hoa-don-002|combo-mo-quan-interactions|data-lightbox|"@type":"(?:Product|Offer)"|aggregateRating|<video\b|carousel|<input\b|<select\b/)
+const media=[solutionStorefront,...comboVisualProof]
+for(const item of media){assert.ok(existsSync('public'+item.src));assert.ok(item.alt&&item.width&&item.height);assert.ok(html.includes(item.src))}
+const images=[...html.matchAll(/<img\b[^>]*>/g)].map(([tag])=>tag)
+assert.equal(images.length,4);assert.equal(images.filter(tag=>attr(tag,'fetchpriority')==='high').length,1);assert.equal(images.filter(tag=>attr(tag,'loading')==='lazy').length,3)
+for(const tag of images)for(const key of ['alt','width','height'])assert.ok(attr(tag,key))
+assert.match(html,/rel="canonical" href="https:\/\/insangtao.net\/combo-mo-quan\/"/)
+assert.ok(html.includes('Combo Mở Quán - Bảng Hiệu, Menu, Tem Nhãn | IST'))
+assert.ok(html.includes('IST cung cấp combo mở quán gồm bảng hiệu, menu, tem nhãn, voucher, decal kính, standee và vật phẩm khai trương cho cửa hàng, quán ăn, cafe, trà sữa, spa.'))
+assert.equal([...html.matchAll(/id="hv3-contact-toggle"/g)].length,1)
+assert.equal([...html.matchAll(/<dialog\b/g)].length,1)
+for(const c of ['https://zalo.me/0974313230','tel:0974313230','mailto:quangcao.insangtao@gmail.com'])assert.ok(html.includes(c))
+for(const [tag] of html.matchAll(/<a\b[^>]*>/g)){const h=attr(tag,'href');if(h?.startsWith('#'))assert.ok(html.includes(`id="${h.slice(1)}"`));if(attr(tag,'data-track-event'))assert.doesNotMatch(tag,/data-track-(?:title|customer|price|name|quantity|artwork)=/)}
+const flow=['solution-items','levels','visual-proof','related-products','process','faq','contact'].map(id=>html.indexOf(`id="${id}"`));assert.ok(flow.every((p,i)=>p>=0&&(!i||p>flow[i-1])))
+console.log('COMBO SOLUTION V3 / SIX VERIFIED ITEMS / NO UNVERIFIED PRICING / PROCESS / NATIVE FAQ / SEO: PASS')

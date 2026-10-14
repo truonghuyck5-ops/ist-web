@@ -5,6 +5,12 @@ import { join } from 'node:path'
 const measurementId = 'G-77XN8YE2ZY'
 const publicPages = [
   'dist/index.html',
+  'dist/san-pham/index.html',
+  'dist/giai-phap/index.html',
+  'dist/ve-ist/index.html',
+  'dist/in-kho-lon/index.html',
+  'dist/tui-xop/index.html',
+  'dist/in-nhanh/index.html',
   'dist/bang-hieu/index.html',
   'dist/combo-mo-quan/index.html',
   'dist/tem-nhan/index.html',
@@ -39,7 +45,7 @@ assert.ok(trackingClient.includes('page_path: window.location.pathname'), 'event
 assert.ok(!source.includes('window.trackEvent'), 'Astro source has no legacy global trackEvent dependency')
 assert.ok(!sourceFiles.filter((file) => file.endsWith('.astro')).some((file) => read(file).includes('onclick=')), 'Astro markup has no inline onclick handlers')
 
-for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator']) {
+for (const marker of ['navbar_desktop', 'floating_contact', 'contact_cta', 'home_service_card', 'project_card', 'bang_hieu_hero', 'combo_hero', 'tem_nhan_hero', 'hoa_don_hero', 'hoa_don_calculator', 'in_kho_lon_hero', 'in_kho_lon_types', 'tui_xop_hero', 'tui_xop_branding', 'in_nhanh_hero', 'in_nhanh_products', 'in_nhanh_production', 'in_nhanh_related', 'navbar_solution', 'solution_hub_need', 'solution_hub_consultation', 'combo_items', 'combo_products', 'projects_hero', 'projects_related', 'about_hero', 'about_capability', 'blog_related']) {
   assert.ok(source.includes(marker), `required CTA tracking marker: ${marker}`)
 }
 
@@ -77,3 +83,62 @@ assert.equal(homeProjectLinks.length, 1, 'one homepage projects CTA')
 for (const marker of ['href="/du-an/"', 'data-track-event="service_cta_click"', 'data-track-action="view_projects"']) assert.ok(homeProjectLinks[0].includes(marker), marker)
 assert.doesNotMatch(homeProjectLinks[0], /data-track-(?:title|customer|caption|service)=/, 'no inferred service or customer payload')
 console.log('HOMEPAGE PROJECTS CTA TRACKING: PASS')
+
+// Exercise the real delegated tracking client without sending analytics requests.
+// Preview gating and payload allow-list apply to all fifteen rendered V3 routes.
+const { runInNewContext } = await import('node:vm')
+const { siteConfig: liveSiteConfig } = await import('../src/data/site.js')
+const tagAttribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1]
+const homeTrackedTags = [...read('dist/index.html').matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)
+assert.ok(homeTrackedTags.some(tag => tagAttribute(tag, 'data-track-location') === 'home_hero'), 'Hero tracked')
+assert.equal(homeTrackedTags.filter(tag => tagAttribute(tag, 'data-track-location') === 'home_quick_need').length, 6, 'six Portal CTAs tracked')
+assert.ok(homeTrackedTags.some(tag => tagAttribute(tag, 'data-track-location') === 'contact_cta' && tagAttribute(tag, 'data-track-event') === 'zalo_click'), 'final Zalo tracked')
+assert.ok(homeTrackedTags.some(tag => tagAttribute(tag, 'data-track-location') === 'contact_cta' && tagAttribute(tag, 'data-track-event') === 'phone_click'), 'final phone tracked')
+
+class TrackedElement {
+  constructor(tag) {
+    this.href = tagAttribute(tag, 'href')
+    this.dataset = Object.fromEntries([...tag.matchAll(/data-([a-z-]+)="([^"]*)"/g)].map(([,key,value]) => [key.replace(/-([a-z])/g, (_,c) => c.toUpperCase()), value]))
+  }
+  closest() { return this }
+  getAttribute(name) { return name === 'href' ? this.href : null }
+}
+
+const productTrackedPages = [['/', homeTrackedTags], ...['san-pham', 'bang-hieu', 'tem-nhan', 'hoa-don', 'in-kho-lon', 'tui-xop', 'in-nhanh', 'giai-phap', 'combo-mo-quan', 'du-an', 've-ist', 'blog', 'blog/gia-bang-hieu-alu', 'blog/in-tem-nhan-so-luong-it'].map(route => [`/${route}/`, [...read(`dist/${route}/index.html`).matchAll(/<(?:a|button)\b[^>]*data-track-event=[^>]*>/g)].map(([tag]) => tag)])]
+for (const [pagePath, trackedTags] of productTrackedPages) {
+  for (const host of ['insangtao.net', 'deploy-preview-7--insangtao.netlify.app']) {
+    const calls = []
+    const scripts = []
+    const listeners = new Map()
+    const document = {
+      querySelector: () => scripts[0] ?? null,
+      createElement: () => ({dataset: {}}),
+      head: {append: script => scripts.push(script)},
+      addEventListener: (name, listener) => listeners.set(name, listener),
+    }
+    const window = {
+      location: {hostname: host, origin: `https://${host}`, pathname: pagePath},
+      gtag: (...args) => calls.push(args),
+    }
+    runInNewContext(trackingClient.replace(/^import[^\n]+\n/, ''), {window, document, URL, Element: TrackedElement, siteConfig: liveSiteConfig})
+    for (const tag of trackedTags) listeners.get('click')({target: new TrackedElement(tag)})
+    listeners.get('click')({target: new TrackedElement('<a href="tel:0974313230" data-track-event="phone_click" data-track-location="floating_contact" data-track-customer="PRIVATE_CUSTOMER" data-track-title="PRIVATE_TITLE">')})
+    const events = calls.filter(([command]) => command === 'event')
+    if (host !== 'insangtao.net') {
+      assert.equal(scripts.length, 0, 'preview never loads GA4')
+      assert.equal(calls.length, 0, 'preview sends no GA4 calls')
+      continue
+    }
+    assert.equal(scripts.length, 1, 'one production GA4 loader')
+    assert.equal(scripts[0].async, true, 'production GA4 async')
+    assert.equal(events.length, trackedTags.length + 1, 'rendered CTAs dispatch through shared listener')
+    for (const [,name,params] of events) {
+      assert.ok(['service_cta_click', 'zalo_click', 'phone_click'].includes(name), 'existing event names only')
+      assert.ok(Object.keys(params).every(key => ['location', 'service', 'action', 'destination', 'page_path'].includes(key)), 'tracking parameter allow-list')
+      assert.equal(params.page_path, pagePath, 'current page_path')
+      assert.doesNotMatch(JSON.stringify(params), /PRIVATE_CUSTOMER|PRIVATE_TITLE|0974313230|@|z253652/, 'no customer/title/contact/image data leakage')
+    }
+    assert.equal(events.at(-1)[2].destination, 'phone', 'phone destination is categorical')
+  }
+}
+console.log('V3 CTA RUNTIME / PREVIEW GATING / PRIVACY: PASS')

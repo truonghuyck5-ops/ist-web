@@ -1,36 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/sections/home/Hero.astro'
-import QuickNeeds from '../components/sections/home/QuickNeeds.astro'
-import TrustBar from '../components/sections/home/TrustBar.astro'
-import About from '../components/sections/home/About.astro'
-import Capabilities from '../components/sections/home/Capabilities.astro'
-import ProductionCapacity from '../components/sections/home/ProductionCapacity.astro'
-import Services from '../components/sections/home/Services.astro'
-import FeaturedProjects from '../components/sections/home/FeaturedProjects.astro'
-import ContactCta from '../components/sections/home/ContactCta.astro'
+import '../styles/home-v3.css'
+import Navbar from '../components/home-v3/Navbar.astro'
+import Hero from '../components/home-v3/Hero.astro'
+import QuickPortal from '../components/home-v3/QuickPortal.astro'
+import ProductExplorer from '../components/home-v3/ProductExplorer.astro'
+import SelectedProjects from '../components/home-v3/SelectedProjects.astro'
+import ProductionProof from '../components/home-v3/ProductionProof.astro'
+import Process from '../components/home-v3/Process.astro'
+import ContactCta from '../components/home-v3/ContactCta.astro'
+import Footer from '../components/home-v3/Footer.astro'
+import FloatingContact from '../components/home-v3/FloatingContact.astro'
 import { organizationStructuredData } from '../utils/seo'
 ---
 
-<BaseLayout seo={{
+<BaseLayout bodyClass="hv3" bodyId="top" viewportFit="cover" seo={{
   title: 'IST - Công ty TNHH MTV Quảng Cáo In Sáng Tạo - Thiết kế, In ấn & Quảng cáo tại Vĩnh Long',
   description: 'Công ty TNHH MTV Quảng Cáo In Sáng Tạo - IST chuyên thiết kế, in ấn, tem nhãn, bảng hiệu quảng cáo, in khổ lớn, thi công công trình cho shop, doanh nghiệp và cơ quan tại Trà Vinh, Vĩnh Long.',
   canonical: '/',
   structuredData: organizationStructuredData,
 }}>
-  <main>
-    <Hero />
-    <QuickNeeds />
-    <TrustBar />
-    <Services />
-    <Capabilities />
-    <ProductionCapacity />
-    <FeaturedProjects />
-    <About />
-    <ContactCta />
-  </main>
-
-  <script>
-    import '../scripts/homepage-interactions.js'
-  </script>
+  <Navbar slot="navbar" />
+  <a slot="before-main" class="hv3-skip-link" href="#main">Đến nội dung chính</a>
+  <main id="main"><Hero /><QuickPortal /><ProductExplorer /><SelectedProjects /><ProductionProof /><Process /><ContactCta /></main>
+  <Footer slot="footer" />
+  <FloatingContact slot="floating-contact" />
 </BaseLayout>

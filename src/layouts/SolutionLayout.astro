@@ -1,0 +1,6 @@
+---
+import ProductLayout from './ProductLayout.astro'
+import '../styles/solution-v3.css'
+const { seo, pageClass = '' } = Astro.props
+---
+<ProductLayout seo={seo} pageClass={`sv3 ${pageClass}`.trim()}><slot /></ProductLayout>

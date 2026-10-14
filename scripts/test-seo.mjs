@@ -4,7 +4,13 @@ import { readFileSync } from 'node:fs'
 const siteUrl = 'https://insangtao.net'
 const publicRoutes = new Map([
   ['dist/index.html', { path: '/', type: 'website' }],
+  ['dist/san-pham/index.html', { path: '/san-pham/', type: 'website' }],
+  ['dist/giai-phap/index.html', { path: '/giai-phap/', type: 'website' }],
+  ['dist/ve-ist/index.html', { path: '/ve-ist/', type: 'website' }],
   ['dist/bang-hieu/index.html', { path: '/bang-hieu/', type: 'website' }],
+  ['dist/in-kho-lon/index.html', { path: '/in-kho-lon/', type: 'website' }],
+  ['dist/tui-xop/index.html', { path: '/tui-xop/', type: 'website' }],
+  ['dist/in-nhanh/index.html', { path: '/in-nhanh/', type: 'website' }],
   ['dist/combo-mo-quan/index.html', { path: '/combo-mo-quan/', type: 'website' }],
   ['dist/tem-nhan/index.html', { path: '/tem-nhan/', type: 'website' }],
   ['dist/hoa-don/index.html', { path: '/hoa-don/', type: 'website' }],

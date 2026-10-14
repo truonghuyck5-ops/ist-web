@@ -1,45 +1,39 @@
 ---
-import BaseLayout from './BaseLayout.astro'
+import ProductLayout from './ProductLayout.astro'
+import Media from '../components/home-v3/Media.astro'
+import ContactCta from '../components/home-v3/ContactCta.astro'
+import { productGroups } from '../components/home-v3/content.js'
 import { formatBlogDate } from '../utils/blog'
-import ContactCta from '../components/sections/home/ContactCta.astro'
 import { blogPostingStructuredData } from '../utils/seo'
-
+import '../styles/blog-v3.css'
 const { post } = Astro.props
 const { data } = post
 const canonical = data.canonical ?? `/blog/${post.id}/`
 const title = `${data.title} | IST`
+const service = productGroups.find(item => item.service === data.relatedService)
+const signage = service?.service === 'bang_hieu'
 ---
-
-<BaseLayout seo={{
-  title,
-  description: data.description,
-  canonical,
-  image: data.image,
-  type: 'article',
-  structuredData: blogPostingStructuredData({ title, description: data.description, image: data.image, canonical }),
-}}>
-  <main class="bg-black py-16 text-white md:py-24">
-    <article class="mx-auto max-w-3xl px-6">
-      <a href="/blog/" class="mb-10 inline-flex font-bold text-orange-500 transition hover:text-orange-300">← Quay lại Blog</a>
-      <header class="mb-12">
-        {data.category && <p class="mb-4 font-semibold tracking-[0.18em] text-orange-500 uppercase">{data.category}</p>}
-        <h1 class="mb-6 text-4xl leading-tight font-black md:text-6xl">{data.title}</h1>
-        <p class="text-lg leading-relaxed text-gray-300 md:text-xl">{data.description}</p>
-        {(data.publishedAt || data.updatedAt || data.author) && <div class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500">
-          {data.publishedAt && <time datetime={data.publishedAt.toISOString()}>Đăng ngày {formatBlogDate(data.publishedAt)}</time>}
-          {data.updatedAt && <time datetime={data.updatedAt.toISOString()}>Cập nhật {formatBlogDate(data.updatedAt)}</time>}
-          {data.author && <span>{data.author}</span>}
-        </div>}
-      </header>
-
-      {data.image && <img src={data.image} alt={data.title} class="mb-12 w-full rounded-3xl border border-zinc-800" />}
-
-      <div class="blog-content text-lg leading-relaxed text-gray-300 [&_a]:font-semibold [&_a]:text-orange-500 [&_a]:underline [&_h2]:mt-12 [&_h2]:mb-5 [&_h2]:text-3xl [&_h2]:font-black [&_h2]:text-white [&_h3]:mt-10 [&_h3]:mb-4 [&_h3]:text-2xl [&_h3]:font-bold [&_h3]:text-white [&_li]:mb-2 [&_ol]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:mb-6 [&_ul]:mb-6 [&_ul]:list-disc [&_ul]:pl-6">
-        <slot />
-      </div>
-
-      {data.tags.length > 0 && <footer class="mt-14 border-t border-zinc-800 pt-8"><p class="mb-3 text-sm font-semibold text-gray-400">Chủ đề</p><div class="flex flex-wrap gap-2">{data.tags.map((tag) => <span class="rounded-full border border-zinc-700 px-3 py-1 text-sm text-gray-300">{tag}</span>)}</div></footer>}
-    </article>
-  </main>
-  <ContactCta />
-</BaseLayout>
+<ProductLayout pageClass="bv3 bv3-article" seo={{ title, description: data.description, canonical, image: data.image, type: 'article', structuredData: blogPostingStructuredData({ title, description: data.description, image: data.image, canonical }) }}>
+  <article class="bv3-reading">
+    <header class="bv3-article-header" data-v3-contact-area>
+      {data.category && <p class="hv3-eyebrow"><span class="hv3-marker" aria-hidden="true"></span>{data.category}</p>}
+      <h1>{data.title}</h1><p class="bv3-description">{data.description}</p>
+      {(data.publishedAt || data.updatedAt || data.author) && <div class="bv3-meta">
+        {data.publishedAt && <time datetime={data.publishedAt.toISOString()}>Đăng ngày {formatBlogDate(data.publishedAt)}</time>}
+        {data.updatedAt && <time datetime={data.updatedAt.toISOString()}>Cập nhật {formatBlogDate(data.updatedAt)}</time>}
+        {data.author && <span>{data.author}</span>}
+      </div>}
+    </header>
+    {data.image && <figure class="hv3-media-frame bv3-article-media" style={`--bv3-image-ratio: ${data.imageWidth} / ${data.imageHeight}`}><Media src={data.image} alt={data.imageAlt || data.title} width={data.imageWidth} height={data.imageHeight} eager={true} /></figure>}
+    <div class="bv3-prose"><slot /></div>
+  </article>
+  {service && <section class="bv3-related hv3-container" aria-labelledby="related-heading">
+    <div><p class="hv3-eyebrow"><span class="hv3-marker" aria-hidden="true"></span>DỊCH VỤ LIÊN QUAN</p><h2 id="related-heading">{signage ? 'BẢNG HIỆU QUẢNG CÁO' : 'IN TEM NHÃN'}</h2></div>
+    <div><p class="hv3-body">{signage ? 'Trao đổi hạng mục và nhu cầu để IST tư vấn phương án phù hợp.' : 'Chọn kích thước, chất liệu và số lượng phù hợp cho mẫu tem của bạn.'}</p><div class="bv3-related-actions">
+      <a class="hv3-text-link" href={service.href} data-track-event="service_cta_click" data-track-location="blog_related" data-track-service={service.service} data-track-action="view_service">Xem dịch vụ <span aria-hidden="true">↗</span></a>
+      {signage ? <a class="hv3-text-link" href="/du-an/" data-track-event="service_cta_click" data-track-location="blog_related" data-track-service={service.service} data-track-action="view_projects">Xem công trình thực tế <span aria-hidden="true">↗</span></a> : <a class="hv3-text-link" href="/tem-nhan/#calculator" data-track-event="service_cta_click" data-track-location="blog_related" data-track-service={service.service} data-track-action="view_calculator">Tính giá tem nhãn <span aria-hidden="true">↗</span></a>}
+    </div></div>
+  </section>}
+  <div class="hv3-container bv3-back"><a class="hv3-text-link" href="/blog/"><span aria-hidden="true">←</span> Quay lại Kiến thức</a></div>
+  <ContactCta headingLineOne="CẦN IST" headingLineTwo="TƯ VẤN?" />
+</ProductLayout>

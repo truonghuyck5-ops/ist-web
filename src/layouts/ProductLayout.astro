@@ -1,0 +1,16 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Navbar from '../components/home-v3/Navbar.astro'
+import Footer from '../components/home-v3/Footer.astro'
+import FloatingContact from '../components/home-v3/FloatingContact.astro'
+import '../styles/home-v3.css'
+import '../styles/product-v3.css'
+const { seo, pageClass = '' } = Astro.props
+---
+<BaseLayout bodyClass={`hv3 pv3 ${pageClass}`.trim()} bodyId="top" viewportFit="cover" seo={seo}>
+  <a slot="before-main" class="hv3-skip-link" href="#main">Đến nội dung chính</a>
+  <Navbar slot="navbar" home={false} />
+  <main id="main"><slot /></main>
+  <Footer slot="footer" home={false} />
+  <FloatingContact slot="floating-contact" />
+</BaseLayout>

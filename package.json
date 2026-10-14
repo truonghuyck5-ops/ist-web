@@ -12,7 +12,20 @@
     "test:seo": "node scripts/test-seo.mjs",
     "test:redirects": "node scripts/test-redirects.mjs",
     "test:tracking": "node scripts/test-tracking.mjs",
-    "test:projects": "node scripts/test-projects.mjs"
+    "test:projects": "node scripts/test-projects.mjs",
+    "test:homepage": "node scripts/test-homepage.mjs",
+    "test:product-portal": "node scripts/test-product-portal.mjs",
+    "test:tem-page": "node scripts/test-tem-page.mjs",
+    "test:hoa-don-page": "node scripts/test-hoa-don-page.mjs",
+    "test:in-kho-lon-page": "node scripts/test-in-kho-lon-page.mjs",
+    "test:tui-xop-page": "node scripts/test-tui-xop-page.mjs",
+    "test:in-nhanh-page": "node scripts/test-in-nhanh-page.mjs",
+    "test:solution-hub": "node scripts/test-solution-hub.mjs",
+    "test:combo-page": "node scripts/test-combo-page.mjs",
+    "test:projects-page": "node scripts/test-projects-page.mjs",
+    "test:about-page": "node scripts/test-about-page.mjs",
+    "test:blog-v3": "node scripts/test-blog-v3.mjs",
+    "test:v3-release": "node scripts/test-v3-release.mjs"
   },
   "devDependencies": {
     "astro": "^7.2.8"

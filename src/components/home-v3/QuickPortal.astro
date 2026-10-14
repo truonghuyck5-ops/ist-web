@@ -1,0 +1,12 @@
+---
+import Media from './Media.astro'
+import { portalItems } from './content.js'
+---
+<section id="quick-portal" class="hv3-section hv3-soft" aria-labelledby="portal-heading">
+  <div class="hv3-container">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">01 / CHỌN NHU CẦU</p><h2 id="portal-heading">BẠN ĐANG CẦN GÌ?</h2></div><p class="hv3-body">Chọn nhu cầu, IST sẽ dẫn bạn<br class="hv3-desktop-break" /> đến đúng giải pháp.</p></div>
+    <div class="hv3-portal-grid">
+      {portalItems.map((item) => <a class="hv3-portal-item" href={item.href} data-track-event="service_cta_click" data-track-location="home_quick_need" data-track-service={item.service} data-track-action={item.action}><div class="hv3-media-frame"><Media src={item.image} alt={item.alt} width={item.width} height={item.height} position={item.position} /></div><div class="hv3-portal-caption"><h3>{item.title}</h3><span class="hv3-item-arrow" aria-hidden="true">↗</span></div><p>{item.detail}</p></a>)}
+    </div>
+  </div>
+</section>

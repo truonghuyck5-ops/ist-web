@@ -1,0 +1,35 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import Media from '../../components/home-v3/Media.astro'
+import { productGroups } from '../../components/home-v3/content.js'
+import { aboutTimeline, aboutCapabilities, aboutHero, aboutWorkshop, aboutPeople, aboutProcess } from '../../data/about.js'
+import '../../styles/about-v3.css'
+const services = new Map(productGroups.map(item => [item.href, item]))
+---
+<ProductLayout pageClass="av3" seo={{ title: 'Về IST — Năng lực thiết kế, in ấn & quảng cáo', description: 'Câu chuyện IST từ năm 2016, các năng lực thiết kế, in ấn, gia công, sản xuất quảng cáo và thi công. Hình ảnh đội ngũ, xưởng và quy trình làm việc tại IST.', canonical: '/ve-ist/', image: aboutHero.src }}>
+  <ProductHero eyebrow="IST / VỀ CHÚNG TÔI" lines={['VỀ IST']} description="Thiết kế, in ấn, sản xuất và thi công trong một quy trình." media={aboutHero} caption="IN KHỔ LỚN TẠI XƯỞNG IST" location="about_hero" primary={{ label: 'Xem năng lực', href: '#capabilities', action: 'view_service' }} secondary={{ label: 'Nhận tư vấn', href: '#contact', action: 'quote_request' }} />
+  <section id="story" class="hv3-section hv3-container av3-story" aria-labelledby="story-heading">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">01 / HÀNH TRÌNH</p><h2 id="story-heading">CÂU CHUYỆN IST</h2></div><p class="hv3-body">Từ dịch vụ in ấn nhỏ lẻ đến các năng lực thiết kế, sản xuất và thi công.</p></div>
+    <ol class="av3-timeline" aria-label="Hành trình IST">{aboutTimeline.map(item => <li><p class="av3-year">{item.label}</p><p class="av3-timeline-copy">{item.text}</p></li>)}</ol>
+  </section>
+  <section id="capabilities" class="hv3-section hv3-container av3-capabilities" aria-labelledby="capabilities-heading">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">02 / TỪ Ý TƯỞNG ĐẾN THÀNH PHẨM</p><h2 id="capabilities-heading">NĂNG LỰC IST</h2></div><p class="hv3-body">Thiết kế, in ấn, gia công và lắp đặt.<br />Phối hợp theo từng hạng mục.</p></div>
+    <ol class="av3-capability-list">{aboutCapabilities.map((item, index) => <li><span class="av3-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{item.title}</h3><p>{item.description}</p>{item.links.length > 0 && <div class="av3-service-links">{item.links.map(href => { const service = services.get(href); return <a class="hv3-text-link" href={href} data-track-event="service_cta_click" data-track-location="about_capability" data-track-service={service.service} data-track-action="view_service">{service.title} <span aria-hidden="true">↗</span></a> })}</div>}</div></li>)}</ol>
+  </section>
+  <section id="production" class="hv3-section hv3-soft" aria-labelledby="production-heading">
+    <div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">03 / BẰNG CHỨNG SẢN XUẤT</p><h2 id="production-heading">BÊN TRONG XƯỞNG</h2></div><p class="hv3-body">Máy móc và khu sản xuất phục vụ in ấn, gia công, bảng hiệu quảng cáo.</p></div>
+      <div class="av3-workshop">{aboutWorkshop.map(item => <figure><div class="hv3-media-frame av3-workshop-frame"><Media {...item} /></div><figcaption><h3>{item.title}</h3><p>{item.caption}</p></figcaption></figure>)}</div>
+    </div>
+  </section>
+  <section id="people" class="hv3-section hv3-container" aria-labelledby="people-heading">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">04 / PHỐI HỢP CÙNG NHAU</p><h2 id="people-heading">CON NGƯỜI<br />& THỰC TẾ</h2></div><p class="hv3-body">Đội ngũ IST phối hợp từ xưởng đến công trình, từ sản xuất đến thi công thực tế.</p></div>
+    <div class="av3-people">{aboutPeople.map(item => <figure><div class="hv3-media-frame av3-people-frame" style={`--av3-image-ratio: ${item.width} / ${item.height}`}><Media {...item} /></div><figcaption>{item.caption}</figcaption></figure>)}</div>
+  </section>
+  <section id="process" class="hv3-section hv3-container av3-process" aria-labelledby="process-heading">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">05 / CÁCH IST LÀM VIỆC</p><h2 id="process-heading">MỘT QUY TRÌNH.<br />MỘT ĐẦU MỐI.</h2></div><p class="hv3-body">Trao đổi nhu cầu, thống nhất phương án và phối hợp qua từng bước.</p></div>
+    <ol class="av3-process-list">{aboutProcess.map((step, index) => <li><span class="av3-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{step}</h3></li>)}</ol>
+  </section>
+  <ContactCta headingLineOne="CẦN IST" headingLineTwo="TƯ VẤN?" description={['Gửi hình ảnh hoặc mô tả.', 'IST sẽ cùng bạn chọn phương án phù hợp.']} />
+</ProductLayout>

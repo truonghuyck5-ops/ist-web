@@ -1,0 +1,13 @@
+---
+import Media from './Media.astro'
+import { productGroups } from './content.js'
+---
+<section id="products" class="hv3-section" aria-labelledby="products-heading">
+  <div class="hv3-container">
+    <div class="hv3-section-head"><div><p class="hv3-eyebrow">02 / KHÁM PHÁ IST</p><h2 id="products-heading">SẢN PHẨM & DỊCH VỤ</h2></div><a class="hv3-text-link" href="/san-pham/" data-track-event="service_cta_click" data-track-location="home_service_card" data-track-action="view_products">Xem tất cả sản phẩm <span aria-hidden="true">↗</span></a></div>
+    <div class="hv3-explorer">
+      <div class="hv3-product-list">{productGroups.map((group, index) => <a id={group.id} class="hv3-product-row" href={group.href} data-track-event="service_cta_click" data-track-location="home_service_card" data-track-service={group.service} data-track-action={group.action}><span class="hv3-product-number">{String(index + 1).padStart(2, '0')}</span><div><h3>{group.title}</h3><p>{group.detail}</p></div><span class="hv3-row-arrow" aria-hidden="true">↗</span><span class="hv3-sr-only"> — {group.action === 'view_service' ? 'xem dịch vụ' : 'nhận tư vấn'}</span></a>)}</div>
+      <figure class="hv3-explorer-media"><div class="hv3-media-frame"><Media src="/images/home-v3/ist-printed-tags.webp" alt="Chi tiết hai tag giấy đã được IST in và bế lỗ" width={1200} height={1114} position="50% 70%" /></div><figcaption><span>TỪ FILE ĐẾN THÀNH PHẨM</span><p>Mỗi chi tiết, một dấu ấn.</p></figcaption></figure>
+    </div>
+  </div>
+</section>

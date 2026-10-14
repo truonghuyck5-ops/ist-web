@@ -1,0 +1,14 @@
+---
+import Media from '../home-v3/Media.astro'
+const { items, headingLevel = 'h2', location, priorityFirst = false } = Astro.props
+const Heading = headingLevel
+---
+<ol class="pv3-index">
+  {items.map((item, index) => <li>
+    <a class:list={['pv3-index-row', { 'pv3-index-text': !item.media }]} href={item.href} data-track-event="service_cta_click" data-track-location={location} data-track-service={item.service} data-track-action={item.action}>
+      <span class="pv3-index-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+      <div class="pv3-index-copy"><Heading>{item.title}</Heading><p>{item.detail}</p><span class="pv3-index-action">{item.action === 'view_service' ? 'Khám phá sản phẩm' : 'Nhận tư vấn'} <span aria-hidden="true">↗</span></span></div>
+      {item.media && <div class:list={['pv3-index-media', 'hv3-media-frame', { 'pv3-index-contained': item.media.fit === 'contain' }]}><Media {...item.media} eager={priorityFirst && index === 0} /></div>}
+    </a>
+  </li>)}
+</ol>

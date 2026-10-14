@@ -1,28 +1,42 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'
-import Hero from '../../components/sections/hoa-don/Hero.astro'
+import ProductLayout from '../../layouts/ProductLayout.astro'
+import ProductHero from '../../components/product-v3/ProductHero.astro'
+import Media from '../../components/home-v3/Media.astro'
 import HoaDonCalculator from '../../components/sections/hoa-don/HoaDonCalculator.astro'
-import Benefits from '../../components/sections/hoa-don/Benefits.astro'
-import Faq from '../../components/sections/hoa-don/Faq.astro'
-import ContactCta from '../../components/sections/home/ContactCta.astro'
+import ContactCta from '../../components/home-v3/ContactCta.astro'
+import { hoaDonFaqs } from '../../data/hoaDonFaqs.js'
+import '../../styles/hoa-don-v3.css'
+const uses = [
+  ['Bán hàng & giao nhận', 'Hóa đơn bán hàng, phiếu giao hàng cho shop, cửa hàng và quán ăn.'],
+  ['Thu chi & đối soát', 'Phiếu thu, phiếu chi, biên nhận và biểu mẫu ghi chép nội bộ.'],
+  ['Theo mẫu cửa hàng', 'Bố cục theo tên cửa hàng, logo và các cột thông tin cần ghi.'],
+]
+const samples = [
+  { src: '/images/hoa-don/hoa-don-a4-do-01.webp', width: 960, height: 1280, title: 'Khổ A4', detail: 'Nhiều dòng, nhiều cột thông tin.', alt: 'Mẫu cuốn hóa đơn A4 in mực đỏ với các ô ghi chép trống tại IST' },
+  { src: '/images/hoa-don/hoa-don-a5-xanh-04.webp', width: 960, height: 1280, title: 'Khổ A5', detail: 'Quy cách phổ biến cho cửa hàng.', alt: 'Mẫu hóa đơn A5 in mực xanh và các liên giấy tại IST' },
+  { src: '/images/hoa-don/hoa-don-a6-xanh-02.webp', width: 960, height: 1280, title: 'Khổ A6', detail: 'Nhỏ gọn, thuận tiện ghi nhanh.', alt: 'Mẫu cuốn hóa đơn A6 in mực xanh và bìa tại IST' },
+]
+const notes = [
+  ['Theo mốc số lượng', 'Hóa đơn và biểu mẫu được tính theo các mốc số lượng tối ưu để chẵn giấy, dễ sản xuất và có giá tốt hơn. Nếu cần số lượng ngoài bảng, IST sẽ tư vấn riêng.'],
+  ['In 1 màu', 'Bảng giá tham khảo áp dụng cho nội dung in 1 màu xanh, đỏ hoặc đen. Quy cách khác được báo giá riêng.'],
+  ['Cấn răng cưa, đóng cuốn', 'Thành phẩm được cấn răng cưa đường xé và đóng cuốn: 100 tờ với loại 1 liên; 100 tờ / 50 bộ với loại 2 liên.'],
+]
 ---
-
-<BaseLayout seo={{
+<ProductLayout pageClass="iv3" seo={{
   title: 'In hóa đơn, phiếu thu, biểu mẫu tại Cầu Ngang, Vĩnh Long | IST',
   description: 'IST nhận in hóa đơn bán hàng, phiếu thu, phiếu chi, biên nhận và biểu mẫu cho shop, cửa hàng, quán ăn, doanh nghiệp nhỏ tại Cầu Ngang, Vĩnh Long.',
   canonical: '/hoa-don/',
   image: '/images/hoa-don/og-hoa-don.webp',
 }}>
-  <main>
-    <Hero />
-    <HoaDonCalculator />
-    <Benefits />
-    <Faq />
-    <ContactCta />
-  </main>
-
+  <ProductHero eyebrow="SẢN PHẨM / HÓA ĐƠN & BIỂU MẪU" lines={['IN HÓA ĐƠN', '& BIỂU MẪU']} description="Hóa đơn bán hàng, phiếu thu, phiếu chi và biểu mẫu ghi chép cho cửa hàng, quán ăn và doanh nghiệp nhỏ." location="hoa_don_hero" service="hoa_don" caption="MẪU CUỐN HÓA ĐƠN TẠI IST" media={{ src: '/images/hoa-don/hoa-don-a5-xanh-03.webp', width: 2560, height: 1920, alt: 'Cuốn hóa đơn và bìa mẫu đã in tại IST, phần ghi chép còn trống', position: '50% 60%' }} primary={{ href: '#calculator', label: 'Tính giá ngay', action: 'view_calculator' }} secondary={{ href: '#contact', label: 'Nhận tư vấn', action: 'quote_request' }} />
+  <HoaDonCalculator />
+  <section class="hv3-section" aria-labelledby="uses-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">02 / THEO NHU CẦU</p><h2 id="uses-heading">HÓA ĐƠN & BIỂU MẪU<br />DÙNG CHO GÌ?</h2></div><ol class="iv3-uses">{uses.map(([title, description], index) => <li><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol></div></section>
+  <section id="hoa-don-samples" class="hv3-section iv3-samples-section" aria-labelledby="samples-heading"><div class="hv3-container"><div class="hv3-section-head"><div><p class="hv3-eyebrow">03 / MẪU THỰC TẾ</p><h2 id="samples-heading">NHỮNG CUỐN MẪU<br />TẠI IST.</h2></div><p class="hv3-body pv3-section-note">A4, A5, A6 — từ mẫu nhiều thông tin<br />đến cuốn nhỏ gọn để ghi nhanh.</p></div><div class="iv3-samples">{samples.map(({ title, detail, ...media }) => <figure><div class="hv3-media-frame"><Media {...media} /></div><figcaption><h3>{title}</h3><p>{detail}</p></figcaption></figure>)}</div></div></section>
+  <section id="production-notes" class="hv3-section hv3-soft" aria-labelledby="notes-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">04 / LƯU Ý SẢN XUẤT</p><h2 id="notes-heading">ĐÚNG QUY CÁCH.<br />DỄ SỬ DỤNG.</h2></div><dl class="iv3-notes">{notes.map(([title, description]) => <div><dt>{title}</dt><dd>{description}</dd></div>)}</dl></div></section>
+  <section id="faq" class="hv3-section" aria-labelledby="faq-heading"><div class="hv3-container pv3-split"><div><p class="hv3-eyebrow">05 / CÂU HỎI THƯỜNG GẶP</p><h2 id="faq-heading">TRƯỚC KHI<br />ĐẶT IN.</h2></div><div class="pv3-faq">{hoaDonFaqs.map(([question, answer]) => <details><summary><h3>{question}</h3><span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+  <ContactCta headingLineOne="BIỂU MẪU" headingLineTwo="CỦA BẠN?" description={['Gửi mẫu và quy cách bạn cần.', 'IST sẽ tư vấn phương án phù hợp.']} />
   <script>
-    import '../../scripts/hoa-don-interactions.js'
     import '../../scripts/hoa-don-calculator.client.js'
+    import '../../scripts/hoa-don-v3-ui.client.js'
   </script>
-</BaseLayout>
+</ProductLayout>

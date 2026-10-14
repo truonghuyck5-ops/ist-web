@@ -1,0 +1,109 @@
+/* Product pages reuse the locked V3 tokens, shell and media treatment. */
+.pv3-hero { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: end; padding-block: 72px 60px; }
+.pv3-hero > * { min-width: 0; }
+.pv3-hero h1 { font-size: clamp(56px, 6.15vw, 88px); font-weight: 900; line-height: 1.04; letter-spacing: -.04em; }
+.pv3-hero h1 span { display: block; }
+.pv3-introduction { max-width: 430px; font-size: 20px; line-height: 1.6; }
+.pv3-hero-intro .hv3-actions { gap: 10px 26px; margin-top: 20px; }
+.pv3-hero-with-media { grid-template-columns: 1fr 1.1fr; align-items: center; padding-bottom: 80px; }
+.pv3-hero-with-media h1 { font-size: clamp(48px, 5vw, 72px); }
+.pv3-hero-with-media .pv3-introduction { margin-top: 28px; font-size: 18px; }
+.pv3-hero-with-media .hv3-actions { margin-top: 28px; gap: 12px 24px; }
+.pv3-hero-media .hv3-media-frame { aspect-ratio: 1.5; }
+.pv3-hero-media figcaption { padding-top: 14px; font-size: 10px; font-weight: 650; letter-spacing: .09em; color: var(--hv3-muted); }
+.pv3-catalogue { padding-bottom: var(--hv3-section-space); }
+.pv3-index { border-top: 1px solid var(--hv3-line); }
+.pv3-index-row { display: grid; grid-template-columns: 32px minmax(0, .9fr) minmax(0, 1.2fr); align-items: center; gap: 32px; padding-block: 32px; border-bottom: 1px solid var(--hv3-line); }
+.pv3-index-row > * { min-width: 0; }
+.pv3-index-number { align-self: start; padding-top: 6px; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--hv3-muted); }
+.pv3-index-copy h2 { font-size: clamp(36px, 3.3vw, 48px); line-height: 1.16; }
+.pv3-index-copy h3 { font-size: clamp(28px, 2.7vw, 38px); line-height: 1.2; }
+.pv3-index-copy > p { max-width: 370px; margin-top: 16px; font-size: 15px; line-height: 1.7; color: var(--hv3-muted); }
+.pv3-index-action { display: inline-flex; min-height: 48px; align-items: center; gap: 28px; margin-top: 22px; font-size: 14px; font-weight: 650; }
+.pv3-index-action > span { font-size: 24px; }
+.pv3-index-media { aspect-ratio: 1.72; }
+.pv3-index-row:hover :is(h2, h3), .pv3-index-row:hover .pv3-index-action { color: var(--hv3-accent-text); }
+.pv3-index-contained img { object-fit: contain; background: var(--hv3-soft); }
+.pv3-section-note { max-width: 380px; }
+.pv3-split { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; }
+.pv3-audience ul { border-top: 1px solid var(--hv3-line); }
+.pv3-audience li { padding-block: 20px; border-bottom: 1px solid var(--hv3-line); font-size: 20px; font-weight: 600; line-height: 1.5; }
+.pv3-process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.pv3-process li { border-top: 1px solid var(--hv3-line); padding-top: 22px; }
+.pv3-process li > span { font-size: 12px; color: var(--hv3-muted); }
+.pv3-process h3 { font-size: 25px; margin-top: 18px; }
+.pv3-process p { margin-top: 12px; font-size: 14px; color: var(--hv3-muted); line-height: 1.7; }
+.pv3-pricing { border-top: 1px solid var(--hv3-line); }
+.pv3-pricing li { display: grid; grid-template-columns: 1fr 1.1fr auto; align-items: center; gap: 40px; padding-block: 28px; border-bottom: 1px solid var(--hv3-line); }
+.pv3-pricing h3 { font-size: 24px; line-height: 1.3; }
+.pv3-pricing p { font-size: 14px; color: var(--hv3-muted); }
+.pv3-pricing li > span { min-width: 185px; font-size: 23px; font-weight: 700; color: var(--hv3-accent-text); }
+.pv3-price-note { margin-top: 24px !important; max-width: 720px; font-size: 13px; color: var(--hv3-muted); }
+.pv3-faq { border-top: 1px solid var(--hv3-line); }
+.pv3-faq details { border-bottom: 1px solid var(--hv3-line); }
+.pv3-faq summary { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 24px; padding-block: 20px; list-style: none; }
+.pv3-faq summary::-webkit-details-marker { display: none; }
+.pv3-faq h3 { font-size: 19px; line-height: 1.5; letter-spacing: -.015em; }
+.pv3-faq summary > span { flex: 0 0 24px; font-size: 26px; line-height: 1; text-align: center; color: var(--hv3-muted); }
+.pv3-faq details[open] summary > span { transform: rotate(45deg); }
+.pv3-faq details > p { padding-bottom: 24px; font-size: 15px; line-height: 1.7; color: var(--hv3-muted); }
+@media (max-width: 1100px) {
+  .pv3-index-row { grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1.15fr); gap: 24px; }
+  .pv3-index-copy h2 { font-size: 38px; }
+  .pv3-pricing li { gap: 24px; }
+  .pv3-pricing li > span { min-width: 165px; font-size: 21px; }
+}
+@media (max-width: 900px) {
+  .pv3-hero { grid-template-columns: 1fr; align-items: start; padding-top: 48px; gap: 28px; }
+  .pv3-hero h1 { font-size: 72px; }
+  .pv3-hero-intro { display: flex; gap: 30px; align-items: center; justify-content: space-between; }
+  .pv3-hero-intro .hv3-actions { margin-top: 0; flex-shrink: 0; flex-direction: column; align-items: start; }
+  .pv3-hero-with-media { grid-template-columns: 1fr; gap: 36px; }
+  .pv3-hero-with-media h1 { font-size: 64px; }
+  .pv3-hero-with-media .pv3-introduction { max-width: 520px; }
+  .pv3-hero-media .hv3-media-frame { aspect-ratio: 1.7; }
+  .pv3-index-copy h2 { font-size: 33px; }
+  .pv3-index-copy h3 { font-size: 28px; }
+  .pv3-index-media { aspect-ratio: 1.25; }
+  .pv3-split { gap: 36px; grid-template-columns: 1fr; }
+  .pv3-process { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .pv3-pricing li { grid-template-columns: 1fr 1fr; gap: 12px 28px; }
+  .pv3-pricing p { grid-row: 2; grid-column: 1 / -1; max-width: 560px; }
+  .pv3-pricing li > span { text-align: right; }
+}
+@media (max-width: 767px) {
+  .pv3-hero { padding-block: 44px 42px; }
+  .pv3-hero h1 { font-size: clamp(42px, 10.45vw, 70px); }
+  .pv3-hero-intro { display: block; }
+  .pv3-introduction { font-size: 18px; }
+  .pv3-hero-intro .hv3-actions { flex-direction: row; gap: 8px 22px; margin-top: 18px; }
+  .pv3-hero-with-media .pv3-introduction { font-size: 17px; margin-top: 24px; }
+  .pv3-hero-with-media .hv3-actions { margin-top: 22px; }
+  .pv3-hero-media .hv3-media-frame { aspect-ratio: 1.5; }
+  .pv3-index-row { grid-template-columns: 24px minmax(0, 1fr); gap: 12px 16px; padding-block: 28px; }
+  .pv3-index-copy h2 { font-size: 32px; }
+  .pv3-index-copy h3 { font-size: 29px; }
+  .pv3-index-copy > p { margin-top: 10px; font-size: 14px; }
+  .pv3-index-action { margin-top: 12px; font-size: 13px; gap: 24px; }
+  .pv3-index-media { grid-column: 1 / -1; aspect-ratio: 1.5; }
+  .pv3-section-note { font-size: 15px; }
+  .pv3-audience li { font-size: 18px; padding-block: 18px; }
+  .pv3-process { gap: 28px 22px; }
+  .pv3-process h3 { font-size: 22px; }
+  .pv3-process p { font-size: 13px; }
+  .pv3-pricing li { grid-template-columns: 1fr; gap: 10px; padding-block: 24px; }
+  .pv3-pricing p { grid-row: auto; grid-column: auto; }
+  .pv3-pricing h3 { font-size: 23px; }
+  .pv3-pricing li > span { text-align: left; font-size: 22px; }
+  .pv3-faq h3 { font-size: 18px; }
+  .pv3-faq summary { gap: 16px; }
+}
+@media (max-width: 359px) {
+  .pv3-hero h1 { font-size: 40px; }
+  .pv3-hero .hv3-button { padding-inline: 17px; gap: 18px; }
+  .pv3-hero-with-media .hv3-actions { align-items: stretch; flex-direction: column; gap: 6px; }
+  .pv3-hero-with-media .hv3-text-link { justify-content: center; }
+  .pv3-index-copy h2, .pv3-index-copy h3 { font-size: 28px; }
+  .pv3-index-row { column-gap: 12px; }
+  .pv3-process { grid-template-columns: 1fr; gap: 24px; }
+}
