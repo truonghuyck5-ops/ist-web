@@ -1,0 +1,10 @@
+---
+import Media from './Media.astro'
+---
+<section id="production" class="pv3-section pv3-soft" aria-labelledby="production-heading">
+  <div class="pv3-container">
+    <div class="pv3-section-head"><div><p class="pv3-eyebrow">04 / BÊN TRONG XƯỞNG</p><h2 id="production-heading">SẢN XUẤT TẠI IST</h2></div><p class="pv3-body">Từ file thiết kế<br class="pv3-desktop-break" /> đến sản phẩm hoàn thiện.</p></div>
+    <figure class="pv3-production-media pv3-media-frame"><Media src="/images/home/may-in-bat-kho-lon.webp" alt="Các máy in bạt khổ lớn tại xưởng IST" width={1910} height={1076} position="50% 55%" /></figure>
+    <ul class="pv3-capabilities" aria-label="Năng lực sản xuất">{['In kỹ thuật số', 'In khổ lớn', 'CNC / Laser', 'Sản xuất bảng hiệu'].map((label, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{label}</li>)}</ul>
+  </div>
+</section>

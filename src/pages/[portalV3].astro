@@ -1,0 +1,8 @@
+---
+// Astro ignores underscore-prefixed page directories. Emit only the review URL.
+import PortalPrototype from './__portal-v3/index.astro'
+export function getStaticPaths() {
+  return [{ params: { portalV3: '__portal-v3' } }]
+}
+---
+<PortalPrototype />

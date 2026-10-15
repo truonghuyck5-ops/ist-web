@@ -1,0 +1,12 @@
+---
+import Media from './Media.astro'
+import { portalItems } from './content.js'
+---
+<section id="quick-portal" class="pv3-section pv3-soft" aria-labelledby="portal-heading">
+  <div class="pv3-container">
+    <div class="pv3-section-head"><div><p class="pv3-eyebrow">01 / CHỌN NHU CẦU</p><h2 id="portal-heading">BẠN ĐANG CẦN GÌ?</h2></div><p class="pv3-body">Chọn nhu cầu, IST sẽ dẫn bạn<br class="pv3-desktop-break" /> đến đúng giải pháp.</p></div>
+    <div class="pv3-portal-grid">
+      {portalItems.map((item) => <a class="pv3-portal-item" href={item.href}><div class="pv3-media-frame"><Media src={item.image} alt={item.alt} width={item.width} height={item.height} position={item.position} /></div><div class="pv3-portal-caption"><h3>{item.title}</h3><span class="pv3-item-arrow" aria-hidden="true">↗</span></div><p>{item.detail}</p></a>)}
+    </div>
+  </div>
+</section>
